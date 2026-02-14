@@ -24,6 +24,7 @@
       min-height: 100vh;
       gap: 20px;
       padding: 20px;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
     }
 
     /* LEFT SIDE FORM */
@@ -59,34 +60,14 @@
       box-shadow: 0 0 0 1px #d4af37;
     }
 
-    /* Checkbox */
-    .checkbox {
-      display: inline-flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .hint {
-      font-size: 14px;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-
-    .two-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    /* RIGHT SIDE SUMMARY */
+    /* Right Side Summary */
     .checkout-summary {
       background: #0d0d0d;
       padding: 60px 50px;
       border-left: 1px solid #222;
     }
 
-    /* Products */
+    /* Product Styles */
     .product {
       display: grid;
       grid-template-columns: 60px 1fr auto;
@@ -110,20 +91,16 @@
       border-radius: 8px;
     }
 
-    .product-name {
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* Discount */
+    /* Discount and Place Order Styles */
     .discount {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
 
     .discount input {
+      width: 70%;
       padding: 12px;
       background: #111;
       border: 1px solid #333;
@@ -146,27 +123,8 @@
       color: black;
     }
 
-    /* Price Rows */
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      color: #ccc;
-    }
-
-    .total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 24px;
-      margin-top: 25px;
-      color: #d4af37;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* GOLD BUTTON */
     .place-order {
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     .place-order button {
@@ -189,38 +147,11 @@
       box-shadow: 0 10px 30px rgba(212,175,55,0.4);
     }
 
-    /* Fade Animation */
-    .checkout {
-      animation: fadeIn 0.8s ease forwards;
-      opacity: 0;
-    }
+    /* Mobile responsiveness: Only add media queries for mobile view adjustments */
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* Gold Divider */
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #d4af37, transparent);
-      margin: 25px 0;
-    }
-
-    /* Secure Badge */
-    .secure-badge {
-      font-size: 14px;
-      color: #d4af37;
-      margin-bottom: 25px;
-      letter-spacing: 1px;
-    }
-
-    /* Responsive */
     @media (max-width: 900px) {
       .checkout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack the form and summary */
       }
 
       .checkout-summary {
@@ -278,6 +209,38 @@
 
       .secure-badge {
         font-size: 12px;
+      }
+
+      /* Reduce padding for mobile */
+      .checkout-form {
+        padding: 15px 20px;
+      }
+
+      /* Ensure products and the total are readable on small screens */
+      .checkout-summary {
+        padding: 20px;
+      }
+
+      .product {
+        padding: 12px;
+        grid-template-columns: 40px 1fr auto;
+      }
+    }
+
+    /* For smaller devices */
+    @media (max-width: 450px) {
+      .checkout {
+        padding: 10px;
+      }
+
+      .checkout-form,
+      .checkout-summary {
+        padding: 10px;
+      }
+
+      .product {
+        padding: 12px;
+        grid-template-columns: 40px 1fr auto;
       }
     }
   </style>
@@ -345,6 +308,7 @@
       <strong>Total</strong>
       <strong>Rs <span id="total">0</span></strong>
     </div>
+
     <div class="place-order">
       <a href="order-confirmation.html"><button type="submit">Place Order</button></a>
     </div>
