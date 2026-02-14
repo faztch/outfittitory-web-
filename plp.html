@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jewelry Collection</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+}
+
+.page-title{
+text-align:center;
+margin:70px 0 50px;
+font-size:42px;
+letter-spacing:3px;
+font-family:'Playfair Display', serif;
+color:#d4af37;
+position:relative;
+}
+
+.page-title::after{
+content:"";
+display:block;
+width:120px;
+height:2px;
+background:#d4af37;
+margin:20px auto 0;
+}
+
+.product-grid{
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:40px;
+}
+/* Tablet */
+@media (max-width: 1024px){
+  .product-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px){
+  .product-grid{
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+
+  .card img{
+    height:200px;
+  }
+
+  .card-content{
+    padding:14px;
+  }
+
+  .card-content h4{
+    font-size:14px;
+  }
+
+  .price{
+    font-size:14px;
+  }
+}
+
+
+.card{
+background:#111;
+border-radius:18px;
+overflow:hidden;
+border:1px solid rgba(212,175,55,0.15);
+transition:all 0.4s ease;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#d4af37;
+box-shadow:0 25px 50px rgba(212,175,55,0.12);
+}
+
+.card img{
+width:100%;
+height:320px;
+object-fit:cover;
+transition:transform 0.6s ease;
+}
+
+.card:hover img{
+transform:scale(1.06);
+}
+
+.card-content{
+padding:22px;
+text-align:center;
+}
+
+.card-content h4{
+margin-bottom:10px;
+font-size:18px;
+font-weight:500;
+letter-spacing:1px;
+}
+
+.price{
+font-weight:600;
+font-size:18px;
+color:#d4af37;
+}
+
+.card a{
+text-decoration:none;
+color:inherit;
+display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 class="page-title">Our Jewelry Collection</h1>
+
+<div class="product-grid">
+
+<div class="card">
+  <a href="jewlproduct.html">
+    <img src="blackfront.png" alt="Black Set">
+    <div class="card-content">
+      <h4>Black Luxury Marble Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+<div class="card">
+  <a href="jewlproduct2.html">
+    <img src="redwhitefront.png" alt="Blue Set">
+    <div class="card-content">
+      <h4>Red White Luxury Marble Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+<div class="card">
+  <a href="jewlproduct3.html">
+    <img src="bluefront.png" alt="Blue Set">
+    <div class="card-content">
+      <h4> Blue Luxury Crystal Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+
+<div class="card">
+  <a href="jewlproduct4.html">
+    <img src="img4a.png" alt="Blue Set">
+    <div class="card-content">
+      <h4>Violet Luxury Crystal Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+<div class="card">
+  <a href="jewlproduct5.html">
+    <img src="img2c.png" alt="Blue Set">
+    <div class="card-content">
+      <h4>White Luxury Pearl Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+<div class="card">
+  <a href="jewlproduct6.html">
+    <img src="pinkfront.png" alt="Blue Set">
+    <div class="card-content">
+      <h4>Pink Luxury Crystal Set</h4>
+      <p class="price">Rs 1300</p>
+    </div>
+  </a>
+</div>
+
+
+
+</div>
+</body>
+</html>

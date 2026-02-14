@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OUTFITORY Jewelry</title>
+
+<style>
+/* ========================= */
+/* GLOBAL */
+/* ========================= */
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========================= */
+/* NAVBAR */
+/* ========================= */
+
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    border-bottom: 1px solid #222;
+}
+
+.nav-center {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    letter-spacing: 10px;
+}
+
+/* Right side group */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+/* Navigation links styling */
+.nav-right ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cart icon styling */
+.cart-icon {
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s ease;
+}
+
+.cart-icon:hover {
+    color: #d4af37;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* ========================= */
+/* CART POPUP */
+/* ========================= */
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s ease;
+    z-index: 1500;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    height: 100%;
+    background: #111;
+    padding: 40px 30px;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+    z-index: 2000;
+    overflow-y: auto;
+
+    /* Hide properly */
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(.77,0,.18,1);
+}
+
+.cart-drawer.active {
+    transform: translateX(0);
+}
+
+.cart-drawer h3 {
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.cart-item {
+    margin-bottom: 18px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 12px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-controls button {
+    background: transparent;
+    border: 1px solid #333;
+    color: white;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.quantity-controls button:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.remove-btn:hover {
+    color: #d4af37;
+}
+
+.cart-footer {
+    margin-top: 30px;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: #d4af37;
+    color: black;
+}
+
+.checkout-btn:hover {
+    background: white;
+}
+
+.cart-total {
+    margin-top: 25px;
+    font-weight: bold;
+    color: #d4af37;
+    font-size: 18px;
+}
+
+/* Close button */
+.cart-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #d4af37;
+}
+
+/* ========================= */
+/* HERO */
+/* ========================= */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 60px;
+    border-bottom: 1px solid #333;
+}
+
+.hero-text {
+    max-width: 500px;
+}
+
+.hero-text h2 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    color: grey;
+    margin-bottom: 30px;
+}
+
+.hero img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
+
+.btn {
+    background: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 10px 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #d4af37;
+    color: black;
+}
+
+/* ========================= */
+/* PRODUCTS */
+/* ========================= */
+
+.products {
+    padding: 80px 60px;
+    text-align: center;
+}
+
+.products h3 {
+    color: #d4af37;
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.col1, .col2, .col3, .col4, .col5, .col6 {
+    position: relative;
+    background: #0d0d0d;
+    border: 1px solid #1a1a1a;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Luxury hover */
+.col1:hover,
+.col2:hover,
+.col3:hover,
+.col4:hover,
+.col5:hover,
+.col6:hover {
+    transform: translateY(-10px);
+    border-color: #d4af37;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* IMAGE CONTAINER */
+.col1 img,
+.col2 img,
+.col3 img,
+.col4 img,
+.col5 img,
+.col6 img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Hide second image initially */
+.col1 img:last-child,
+.col2 img:last-child,
+.col3 img:last-child,
+.col4 img:last-child,
+.col5 img:last-child,
+.col6 img:last-child {
+    display: none;
+}
+
+/* Swap on hover */
+.col1:hover img:first-child,
+.col2:hover img:first-child,
+.col3:hover img:first-child,
+.col4:hover img:first-child,
+.col5:hover img:first-child,
+.col6:hover img:first-child {
+    display: none;
+}
+
+.col1:hover img:last-child,
+.col2:hover img:last-child,
+.col3:hover img:last-child,
+.col4:hover img:last-child,
+.col5:hover img:last-child,
+.col6:hover img:last-child {
+    display: block;
+}
+
+/* CARD CONTENT */
+.card-content {
+    padding: 25px;
+}
+
+.price {
+    color: #d4af37;
+    margin: 10px 0;
+}
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #222;
+    color: #777;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero img {
+        margin-top: 30px;
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ========================= */
+    /* NAVBAR - MOBILE LAYOUT FIX */
+    /* ========================= */
+
+    nav {
+        flex-direction: column;
+        align-items: center; /* Center navbar items */
+        padding: 15px 20px;
+        gap: 20px; /* Add space between navbar items */
+    }
+
+    .nav-center {
+        position: relative;
+        left: 0;
+        transform: none;
+        margin-bottom: 15px;
+        font-size: 26px; /* Make logo slightly smaller on mobile */
+    }
+
+    .nav-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Align items in the center */
+        gap: 15px;
+        width: 100%;
+    }
+
+    .nav-right ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center; /* Center links */
+    }
+
+    .nav-right ul li {
+        width: 100%;
+    }
+
+    .cart-icon {
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-right ul {
+        display: none; /* Hide links by default */
+    }
+
+    .nav-right.active ul {
+        display: flex; /* Show links when active */
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="nav-center">
+        <a href="index.html" class="logo">OUTFITITORY</a>
+    </div>
+
+    <div class="nav-right">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="plp.html">Collection</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="cart-icon" id="cartIcon">
+            🛒 <span id="cartCount">0</span>
+        </div>
+    </div>
+
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+    <span class="cart-close" id="cartClose" aria-label="Close cart">✕</span>
+    <h3>Shopping Cart</h3>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+        <p class="cart-total">Subtotal: Rs <span id="cartTotal">0</span></p>
+        <button class="btn view-cart" aria-label="View Cart">View Cart</button>
+        <a href="checkout.html" class="btn checkout-btn" aria-label="Proceed to checkout">Checkout</a>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="hero-text">
+        <h2>Timeless Jewelry Crafted For Elegance</h2>
+        <p>Premium handcrafted jewelry designed for luxury and sophistication.</p>
+        <a href="plp.html"><button class="btn">Explore Collection</button></a>
+    </div>
+
+    <img src="heroimg.png" alt="Luxury Jewelry" />
+</section>
+
+<section class="products">
+    <h3>Featured Collection</h3>
+
+    <div class="product-grid">
+        <div class="col1">
+            <a href="jewlproduct3.html">
+                <img src="bluefront.png" alt="Royal Two Tone Crystal Blue Set"/>
+                <img src="blueside.png" alt="Royal Two Tone Crystal Blue Set"/>
+                <div class="card-content">
+                    <h4>Royal Two Tone Crystal Blue Set</h4>
+                    <p class="price">1300 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Royal Two Tone Crystal Blue Set" data-price="1300" data-image="bluefront.png" aria-label="Add Royal Two Tone Crystal Blue Set to cart">Add To Cart</button>
+            </div>
+        </div>
+
+        <div class="col2">
+            <a href="jewlproduct.html">
+                <img src="blackfront.png" alt="Black Luxury Marble Set"/>
+                <img src="blackside.png" alt="Black Luxury Marble Set"/>
+                <div class="card-content">
+                    <h4>Black Luxury Marble Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Black Luxury Marble Set" data-price="1000" data-image="blackfront.png" aria-label="Add Black Luxury Marble Set to cart">Add To Cart</button>
+            </div>
+        </div>
+
+        <div class="col3">
+            <a href="jewlproduct2.html">
+                <img src="redwhitefront.png" alt="Two Tone Crystal Red Set"/>
+                <img src="redwhiteside.png" alt="Two Tone Crystal Red Set"/>
+                <div class="card-content">
+                    <h4>Two Tone Crystal Red Set</h4>
+                    <p class="price">1200 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Two Tone Crystal Red Set" data-price="1200" data-image="redwhitefront.png" aria-label="Add Two Tone Crystal Red Set to cart">Add To Cart</button>
+            </div>
+        </div>
+
+        <div class="col4">
+            <a href="jewlproduct4.html">
+                <img src="img4a.png" alt="Violet Luxury Crystal Set"/>
+                <img src="img4b.png" alt="Violet Luxury Crystal Set"/>
+                <div class="card-content">
+                    <h4>Violet Luxury Crystal Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Violet Luxury Crystal Set" data-price="1000" data-image="img4a.png" aria-label="Add Violet Luxury Crystal Set to cart">Add To Cart</button>
+            </div>
+        </div>
+
+        <div class="col5">
+            <a href="jewlproduct5.html">
+                <img src="img2c.png" alt="White Luxury Pearl Set"/>
+                <img src="img2d.png" alt="White Luxury Pearl Set"/>
+                <div class="card-content">
+                    <h4>White Luxury Pearl Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="White Luxury Pearl Set" data-price="1000" data-image="img2c.png" aria-label="Add White Luxury Pearl Set to cart">Add To Cart</button>
+            </div>
+        </div>
+
+        <div class="col6">
+            <a href="jewlproduct6.html">
+                <img src="pinkfront.png" alt="Pink Luxury Crystal Set"/>
+                <img src="pinkside.png" alt="Pink Luxury Crystal Set"/>
+                <div class="card-content">
+                    <h4>Pink Luxury Crystal Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Pink Luxury Crystal Set" data-price="1000" data-image="pinkfront.png" aria-label="Add Pink Luxury Crystal Set to cart">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 OUTFITITORY. All Rights Reserved.
+</footer>
+
+<script>
+// Toggle Hamburger Menu
+const hamburger = document.getElementById("hamburger");
+const navRight = document.querySelector(".nav-right");
+
+hamburger.addEventListener("click", () => {
+    navRight.classList.toggle("active");
+});
+
+// Cart functionality remains the same
+document.addEventListener("DOMContentLoaded", function () {
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const cartIcon = document.getElementById("cartIcon");
+const cartDrawer = document.getElementById("cartDrawer");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartClose = document.getElementById("cartClose");
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+
+function openCart() {
+    cartDrawer.classList.add("active");
+    cartOverlay.classList.add("active");
+}
+
+function closeCart() {
+    cartDrawer.classList.remove("active");
+    cartOverlay.classList.remove("active");
+}
+
+cartIcon.addEventListener("click", openCart);
+cartClose.addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", closeCart);
+
+document.querySelectorAll(".add-to-cart").forEach(button => {
+    button.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const name = this.dataset.name;
+        const price = parseInt(this.dataset.price);
+        const image = this.dataset.image;
+
+        const existing = cart.find(item => item.name === name);
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ name, price, image, quantity: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCart();
+        openCart();
+    });
+});
+
+function updateCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}" class="cart-item-img" />
+                
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>Rs ${item.price}</p>
+
+                    <div class="quantity-controls">
+                        <button onclick="decreaseQty(${index})">−</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="increaseQty(${index})">+</button>
+                    </div>
+                </div>
+
+                <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+            </div>
+        `;
+    });
+
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartTotal.textContent = total;
+}
+
+window.increaseQty = function(index) {
+    cart[index].quantity++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
+
+window.decreaseQty = function(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+    } else {
+        cart.splice(index, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
+
+window.removeItem = function(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
+
+updateCart();
+
+});
+</script>
+
+</body>
+</html>
