@@ -419,41 +419,56 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    /* ========================= */
-    /* NAVBAR - MOBILE LAYOUT FIX */
-    /* ========================= */
+/* ========================= */
+/* NAVBAR - MOBILE LAYOUT FIX */
+/* ========================= */
 
-    nav {
+@media (max-width: 768px) {
+    /* Move Hamburger to the left */
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        cursor: pointer;
         flex-direction: column;
-        align-items: center; /* Center navbar items */
-        padding: 15px 20px;
-        gap: 20px; /* Add space between navbar items */
+        gap: 5px;
     }
 
-    .nav-center {
-        position: relative;
-        left: 0;
-        transform: none;
-        margin-bottom: 15px;
-        font-size: 26px; /* Make logo slightly smaller on mobile */
+    /* Hamburger bars styling */
+    .hamburger div {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        border-radius: 5px;
     }
 
-    .nav-right {
+    .nav-right.active {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Align items in the center */
-        gap: 15px;
+        gap: 20px;
         width: 100%;
+        text-align: center; /* Center links */
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8); /* Dark background */
+        height: 100%;
+        padding-top: 50px;
     }
 
     .nav-right ul {
+        display: none;
+    }
+
+    .nav-right.active ul {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         margin: 0;
         padding: 0;
         width: 100%;
-        text-align: center; /* Center links */
+        text-align: center;
     }
 
     .nav-right ul li {
@@ -467,20 +482,12 @@ footer {
         width: 100%;
     }
 
-    /* Hamburger Menu */
-    .hamburger {
-        display: flex;
-    }
-
-    .nav-right ul {
-        display: none; /* Hide links by default */
-    }
-
-    .nav-right.active ul {
-        display: flex; /* Show links when active */
-        flex-direction: column;
+    .cart-overlay.active {
+        display: block;
+        background: rgba(0, 0, 0, 0.6); /* Overlay effect */
     }
 }
+
 
 </style>
 </head>
