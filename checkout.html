@@ -5,239 +5,282 @@
   <title>Checkout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-body {
-  margin: 0;
-  background: radial-gradient(circle at top right, #1a1a1a, #000 60%);
-  color: white;
-}
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top right, #1a1a1a, #000 60%);
+      color: white;
+    }
 
-/* Layout */
-.checkout {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  min-height: 100vh;
-}
+    /* Layout */
+    .checkout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      min-height: 100vh;
+      gap: 20px;
+      padding: 20px;
+    }
 
-/* LEFT SIDE FORM */
-.checkout-form {
-  padding: 60px 80px;
-}
+    /* LEFT SIDE FORM */
+    .checkout-form {
+      padding: 60px 80px;
+    }
 
-.checkout-form h2 {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 2px;
-  color: #d4af37;
-}
+    .checkout-form h2 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 2px;
+      color: #d4af37;
+    }
 
-/* Inputs */
-.checkout-form input,
-.checkout-form select {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 18px;
-  border: 1px solid #333;
-  background: #111;
-  color: white;
-  border-radius: 6px;
-  transition: 0.3s ease;
-}
+    /* Inputs */
+    .checkout-form input,
+    .checkout-form select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border: 1px solid #333;
+      background: #111;
+      color: white;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
 
-.checkout-form input:focus,
-.checkout-form select:focus {
-  outline: none;
-  border-color: #d4af37;
-  box-shadow: 0 0 0 1px #d4af37;
-}
+    .checkout-form input:focus,
+    .checkout-form select:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 1px #d4af37;
+    }
 
-/* Checkbox */
-.checkbox {
-  display: inline-flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
+    /* Checkbox */
+    .checkbox {
+      display: inline-flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
 
-.hint {
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 20px;
-}
+    .hint {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
 
-.two-cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
+    .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
 
-/* RIGHT SIDE SUMMARY */
-.checkout-summary {
-  background: #0d0d0d;
-  padding: 60px 50px;
-  border-left: 1px solid #222;
-}
+    /* RIGHT SIDE SUMMARY */
+    .checkout-summary {
+      background: #0d0d0d;
+      padding: 60px 50px;
+      border-left: 1px solid #222;
+    }
 
-/* Products */
-.product {
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  gap: 15px;
-  align-items: center;
-  margin-bottom: 25px;
-  padding: 18px;
-  background: #111;
-  border: 1px solid #1f1f1f;
-  border-radius: 12px;
-  transition: 0.3s ease;
-}
+    /* Products */
+    .product {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 25px;
+      padding: 18px;
+      background: #111;
+      border: 1px solid #1f1f1f;
+      border-radius: 12px;
+      transition: 0.3s ease;
+    }
 
-.product:hover {
-  border-color: #d4af37;
-  box-shadow: 0 10px 25px rgba(212,175,55,0.15);
-}
+    .product:hover {
+      border-color: #d4af37;
+      box-shadow: 0 10px 25px rgba(212,175,55,0.15);
+    }
 
+    .product img {
+      width: 60px;
+      border-radius: 8px;
+    }
 
-.product img {
-  width: 60px;
-  border-radius: 8px;
-}
+    .product-name {
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
 
-.product-name {
-  font-weight: 600;
-  letter-spacing: 1px;
-}
+    /* Discount */
+    .discount {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin: 30px 0;
+    }
 
-/* Discount */
-.discount {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  margin: 30px 0;
-}
+    .discount input {
+      padding: 12px;
+      background: #111;
+      border: 1px solid #333;
+      color: white;
+      border-radius: 6px;
+    }
 
-.discount input {
-  padding: 12px;
-  background: #111;
-  border: 1px solid #333;
-  color: white;
-  border-radius: 6px;
-}
+    .discount button {
+      padding: 12px 18px;
+      background: transparent;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
 
-.discount button {
-  padding: 12px 18px;
-  background: transparent;
-  border: 1px solid #d4af37;
-  color: #d4af37;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.3s ease;
-}
+    .discount button:hover {
+      background: #d4af37;
+      color: black;
+    }
 
-.discount button:hover {
-  background: #d4af37;
-  color: black;
-}
+    /* Price Rows */
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      color: #ccc;
+    }
 
-/* Price Rows */
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  color: #ccc;
-}
+    .total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 24px;
+      margin-top: 25px;
+      color: #d4af37;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
 
-.total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 24px;
-  margin-top: 25px;
-  color: #d4af37;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
+    /* GOLD BUTTON */
+    .place-order {
+      margin-top: 40px;
+    }
 
+    .place-order button {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
+      background-size: 200% auto;
+      color: black;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      letter-spacing: 1px;
+      transition: 0.4s ease;
+    }
 
-/* GOLD BUTTON */
-.place-order {
-  margin-top: 40px;
-}
+    .place-order button:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+    }
 
-.place-order button {
-  width: 100%;
-  padding: 16px;
-  font-size: 18px;
-  background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
-  background-size: 200% auto;
-  color: black;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  letter-spacing: 1px;
-  transition: 0.4s ease;
-}
+    /* Fade Animation */
+    .checkout {
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
 
-.place-order button:hover {
-  background-position: right center;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
-}
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
 
+    /* Gold Divider */
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #d4af37, transparent);
+      margin: 25px 0;
+    }
 
-.place-order button:hover {
-  background: #b8962e;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(212,175,55,0.3);
-}
+    /* Secure Badge */
+    .secure-badge {
+      font-size: 14px;
+      color: #d4af37;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
 
-/* Responsive */
-/* Fade Animation */
-.checkout {
-  animation: fadeIn 0.8s ease forwards;
-  opacity: 0;
-}
+    /* Responsive */
+    @media (max-width: 900px) {
+      .checkout {
+        grid-template-columns: 1fr;
+      }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
+      .checkout-summary {
+        border-left: none;
+        border-top: 1px solid #222;
+      }
 
-/* Gold Divider */
-hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #d4af37, transparent);
-  margin: 25px 0;
-}
+      .checkout-form {
+        padding: 20px 30px;
+      }
 
-/* Secure Badge */
-.secure-badge {
-  font-size: 14px;
-  color: #d4af37;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
-}
+      .checkout-form h2 {
+        font-size: 24px;
+      }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .checkout {
-    grid-template-columns: 1fr;
-  }
+      .product {
+        grid-template-columns: 50px 1fr auto;
+      }
 
-  .checkout-summary {
-    border-left: none;
-    border-top: 1px solid #222;
-  }
-}
+      .discount input {
+        padding: 10px;
+      }
 
-</style>
+      .discount button {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
+      .price-row {
+        font-size: 14px;
+      }
+
+      .total {
+        font-size: 20px;
+      }
+
+      .place-order button {
+        font-size: 16px;
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .checkout-form input,
+      .checkout-form select,
+      .discount input {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .place-order button {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+      .secure-badge {
+        font-size: 12px;
+      }
+    }
+  </style>
 
 </head>
 
@@ -275,12 +318,11 @@ hr {
   </div>
 
   <div class="checkout-summary">
+    <div id="checkoutProducts"></div>
 
- <div id="checkoutProducts"></div>
-
-<div class="secure-badge">
-  🔒 Secure Checkout • Encrypted & Protected
-</div>
+    <div class="secure-badge">
+      🔒 Secure Checkout • Encrypted & Protected
+    </div>
 
     <div class="discount">
       <input type="text" placeholder="Discount code or gift card">
@@ -288,21 +330,21 @@ hr {
     </div>
 
     <div class="price-row">
-  <span>Subtotal</span>
-  <span>Rs <span id="subtotal">0</span></span>
-</div>
+      <span>Subtotal</span>
+      <span>Rs <span id="subtotal">0</span></span>
+    </div>
 
-<div class="price-row">
-  <span>Shipping</span>
-  <span>Rs <span id="shipping">250</span></span>
-</div>
+    <div class="price-row">
+      <span>Shipping</span>
+      <span>Rs <span id="shipping">250</span></span>
+    </div>
 
-<hr>
+    <hr>
 
-<div class="total">
-  <strong>Total</strong>
-  <strong>Rs <span id="total">0</span></strong>
-</div>
+    <div class="total">
+      <strong>Total</strong>
+      <strong>Rs <span id="total">0</span></strong>
+    </div>
     <div class="place-order">
       <a href="order-confirmation.html"><button type="submit">Place Order</button></a>
     </div>
@@ -312,9 +354,9 @@ hr {
 </div>
 
 </form>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const container = document.getElementById("checkoutProducts");
   const subtotalEl = document.getElementById("subtotal");
@@ -330,7 +372,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   cart.forEach(item => {
-
     const quantity = item.quantity || 1; // fallback to 1
     const image = item.image || "placeholder.png"; // fallback image
 
@@ -348,37 +389,6 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
     `;
   });
- document.querySelector("form").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  // Generate fake order number
-  const orderNumber = "OF" + Math.floor(100000 + Math.random() * 900000);
-
-  const orderData = {
-    orderNumber: orderNumber,
-    date: new Date().toLocaleDateString(),
-    items: cart,
-    total: document.getElementById("total").textContent
-  };
-
-  // Save order
-  localStorage.setItem("lastOrder", JSON.stringify(orderData));
-
-  // Clear cart
-  localStorage.removeItem("cart");
-
-  // Redirect
-  window.location.href = "order-confirmation.html";
-});
-
-
 
   const shipping = 250;
   const finalTotal = subtotal + shipping;
@@ -387,7 +397,6 @@ document.addEventListener("DOMContentLoaded", function () {
   totalEl.textContent = finalTotal;
 });
 </script>
-
 
 </body>
 </html>

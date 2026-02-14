@@ -1,123 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Order Confirmation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  margin: 0;
-  background: #000;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-  padding: 60px 20px;
-}
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+    }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-}
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
 
-h1 {
-  color: #d4af37;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 2px;
-}
+    h1 {
+      color: #d4af37;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 2px;
+      font-size: 40px;
+    }
 
-.order-box {
-  background: #111;
-  padding: 30px;
-  border-radius: 12px;
-  margin-top: 40px;
-  text-align: left;
-}
+    .order-box {
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 40px;
+      text-align: left;
+    }
 
-.product {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #222;
-  padding-bottom: 10px;
-}
+    .product {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #222;
+      padding-bottom: 10px;
+    }
 
-.total {
-  font-size: 20px;
-  margin-top: 20px;
-  color: #d4af37;
-}
+    .total {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #d4af37;
+    }
 
-.home-btn {
-  margin-top: 40px;
-  padding: 14px 30px;
-  background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
+    .home-btn {
+      margin-top: 40px;
+      padding: 14px 30px;
+      background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s;
+    }
 
-}
-/* Success Animation */
-.success-animation {
-  margin-top: 20px;
-}
+    .home-btn:hover {
+      background: #b8962e;
+    }
 
-.checkmark-circle {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: rgba(212,175,55,0.1);
-  border: 2px solid #d4af37;
-  animation: pop 0.5s ease-out forwards;
-}
+    /* Success Animation */
+    .success-animation {
+      margin-top: 20px;
+    }
 
-.checkmark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30px;
-  height: 60px;
-  border-right: 4px solid #d4af37;
-  border-bottom: 4px solid #d4af37;
-  transform: translate(-50%, -60%) rotate(45deg) scale(0);
-  animation: draw 0.5s 0.3s ease forwards;
-}
+    .checkmark-circle {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      border: 2px solid #d4af37;
+      animation: pop 0.5s ease-out forwards;
+    }
 
-@keyframes pop {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
+    .checkmark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 60px;
+      border-right: 4px solid #d4af37;
+      border-bottom: 4px solid #d4af37;
+      transform: translate(-50%, -60%) rotate(45deg) scale(0);
+      animation: draw 0.5s 0.3s ease forwards;
+    }
 
-@keyframes draw {
-  to { transform: translate(-50%, -60%) rotate(45deg) scale(1); }
-}
-#confetti {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
 
+    @keyframes draw {
+      to { transform: translate(-50%, -60%) rotate(45deg) scale(1); }
+    }
 
-</style>
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .home-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+      }
+
+      .order-box {
+        padding: 20px;
+      }
+
+      .total {
+        font-size: 18px;
+      }
+
+      .product {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .home-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .order-box {
+        padding: 15px;
+      }
+
+      .total {
+        font-size: 16px;
+      }
+
+      .product {
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
- <div class="success-animation">
-  <div class="checkmark-circle">
-    <div class="checkmark"></div>
+  <div class="success-animation">
+    <div class="checkmark-circle">
+      <div class="checkmark"></div>
+    </div>
   </div>
-</div>
 
-<h1>Order Confirmed</h1>
-
+  <h1>Order Confirmed</h1>
 
   <p id="orderInfo"></p>
 
@@ -125,6 +177,7 @@ h1 {
 
   <button class="home-btn" onclick="goHome()">Back to Home</button>
 </div>
+
 <canvas id="confetti"></canvas>
 
 <script>
@@ -174,15 +227,12 @@ setTimeout(() => {
 }, 5000);
 </script>
 
-
-
 <script>
 const order = JSON.parse(localStorage.getItem("lastOrder"));
 
 if (!order) {
   document.body.innerHTML = "<h2>No order found.</h2>";
 } else {
-
   document.getElementById("orderInfo").innerHTML =
     "Order Number: <strong>" + order.orderNumber + "</strong><br>" +
     "Date: " + order.date;

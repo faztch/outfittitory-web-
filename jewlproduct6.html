@@ -8,145 +8,147 @@
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
 
 body{
-background:black;
+  background:black;
 }
 
 .container{
-max-width:1200px;
-margin:auto;
-padding:40px 20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:60px;
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
 }
 
 .gallery{
-display:flex;
-flex-direction:column;
-gap:20px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 
 .main-img img{
-width:100%;
-border-radius:10px;
-cursor:pointer;
+  width:100%;
+  border-radius:10px;
+  cursor:pointer;
 }
 
 .thumbnails{
-display:flex;
-gap:15px;
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  flex-wrap:no-wrap;
 }
 
 .thumbnails img{
-width:80px;
-border-radius:8px;
-cursor:pointer;
-border:2px solid transparent;
+  width:80px;
+  border-radius:8px;
+  cursor:pointer;
+  border:2px solid transparent;
 }
 
 .thumbnails img:hover{
-border-color:#181818;
+  border-color:#181818;
 }
 
 .product-info h1{
-font-size:52px;
-margin-bottom:10px;
-color: white;
+  font-size:52px;
+  margin-bottom:10px;
+  color: white;
 }
 
 .price{
-font-size:24px;
-font-weight:bold;
-margin:15px 0;
-color: white;
+  font-size:24px;
+  font-weight:bold;
+  margin:15px 0;
+  color: white;
 }
 
 .stock{
-color:red;
-font-weight:bold;
-margin-bottom:20px;
+  color:red;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
 .quantity{
-display:flex;
-align-items:center;
-gap:15px;
-margin-bottom:25px;
-color: white;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+  color: white;
 }
 
 .quantity button{
-padding:6px 12px;
-font-size:18px;
-cursor:pointer;
-color: black;
+  padding:6px 12px;
+  font-size:18px;
+  cursor:pointer;
+  color: black;
 }
 
 .cart-btn{
-width:100%;
-padding:15px;
-background:white;
-color:black;
-border:2px;
-font-size:16px;
-cursor:pointer;
-border-radius:6px;
-transition:.3s;
+  width:100%;
+  padding:15px;
+  background:white;
+  color:black;
+  border:2px;
+  font-size:16px;
+  cursor:pointer;
+  border-radius:6px;
+  transition:.3s;
 }
 
 .cart-btn:hover{
-background:black;
-color:white;
+  background:black;
+  color:white;
 }
 
 .info-box{
-margin-top:20px;
-padding:15px;
-background:black;
-color: white;
-border-radius:10px;
-line-height:1.6;
+  margin-top:20px;
+  padding:15px;
+  background:black;
+  color: white;
+  border-radius:10px;
+  line-height:1.6;
 }
 
 .tabs{
-margin-top:10px;
+  margin-top:10px;
 }
 
 .tab-buttons{
-display:flex;
-border-bottom:2px solid white;
+  display:flex;
+  border-bottom:2px solid white;
 }
 
 .tab-buttons button{
-padding:12px 20px;
-border:2px solid black;
-background:black;
-color:white;
-cursor:pointer;
-font-weight:bold;
+  padding:12px 20px;
+  border:2px solid black;
+  background:black;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .tab-buttons button.active{
-border-bottom:5px solid black;
+  border-bottom:5px solid black;
 }
 
 .tab-content{
-padding:20px 0;
-display:none;
-color: white;
+  padding:20px 0;
+  display:none;
+  color: white;
 }
 
 .tab-content.active{
-display:block;
-letter-spacing: 2px;
-word-spacing: 2px;
+  display:block;
+  letter-spacing: 2px;
+  word-spacing: 2px;
 }
 
 .modal {
@@ -167,70 +169,68 @@ word-spacing: 2px;
     max-height: 90%;
 }
 
-
 @media (max-width: 768px){
 
 .container{
-grid-template-columns:1fr;
-gap:30px;
-padding:20px 15px;
+  grid-template-columns:1fr;
+  gap:30px;
+  padding:20px 15px;
 }
 
 .product-info h1{
-font-size:28px;
+  font-size:28px;
 }
 
 .price{
-font-size:20px;
+  font-size:20px;
 }
 
 .stock{
-font-size:14px;
+  font-size:14px;
 }
 
 .quantity{
-gap:10px;
+  gap:10px;
 }
 
 .quantity button{
-padding:8px 14px;
-font-size:16px;
+  padding:8px 14px;
+  font-size:16px;
 }
 
 .cart-btn{
-padding:14px;
-font-size:15px;
+  padding:14px;
+  font-size:15px;
 }
 
 .info-box{
-font-size:14px;
+  font-size:14px;
 }
 
 .tab-content{
-font-size:14px;
-letter-spacing:1px;
-word-spacing:1px;
+  font-size:14px;
+  letter-spacing:1px;
+  word-spacing:1px;
 }
 
 /* Make thumbnails scroll horizontally */
 .thumbnails{
-overflow-x:auto;
-gap:10px;
+  overflow-x:auto;
+  gap:10px;
 }
 
 .thumbnails img{
-width:65px;
-flex-shrink:0;
+  width:65px;
+  flex-shrink:0;
 }
+
 .cart-btn{
-border-radius:30px;
-font-weight:bold;
-letter-spacing:1px;
+  border-radius:30px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
-
 }
-
 
 </style>
 </head>
@@ -252,14 +252,13 @@ letter-spacing:1px;
 <img src="pinkearings.png" onclick="changeImage(this)">
 </div>
 
-
 </div>
+
 <div class="product-info">
 
 <h1>Pink Luxury Crystal Set</h1>
 <p class="price">Rs 1,000.00</p>
 <p class="stock">Hurry! Only Few Pieces Left</p>
-
 
 <div class="quantity">
 <button onclick="changeQty(-1)">-</button>
@@ -268,7 +267,6 @@ letter-spacing:1px;
 </div>
 
 <button class="cart-btn" onclick="buyNow()">BUY NOW</button>
-
 
 <div class="info-box">
 Dispatch Time: 2-4 Days <br>
@@ -366,8 +364,6 @@ function buyNow() {
 
   window.location.href = "checkout.html";
 }
-
-
 
 </script>
 
