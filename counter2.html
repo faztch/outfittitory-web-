@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<style>
+.main {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.shape {
+  position: relative;
+  height: 70vh;
+  width: 22vw;
+  min-width: 250px;
+  max-width: 520px;
+  background-color: orange;
+  border: 10px solid red;
+  border-radius: 140px 140px 190px 190px / 160px 160px 340px 340px;
+}
+
+h1 {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65%;
+  height: 50px;
+  background-color: #8aa898;
+  border: 1px solid black;
+  text-align: center;
+  font-family: monospace;
+  margin: 0;
+}
+
+.reset {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 100px;
+  border-radius: 100px;
+  border: none;
+}
+.yess,
+.noo {
+  width: 120px;
+  padding: 15px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.increase {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: none;
+}
+
+.save {
+  position: absolute;
+  left: 12%;
+  top: 25%;
+  width: 70px;
+}
+
+.load {
+  position: absolute;
+  right: 12%;
+  top: 25%;
+  width: 70px;
+}
+
+.pop-up {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 200px;
+  width: 300px;
+  background-color: lightblue;
+  text-align: center;
+  font-family: monospace;
+ 
+}
+</style>
+<body>
+  <div class="main">
+  <div class="shape">
+  <h1 id="count">0</h1>
+  <div class="buttons">
+  <button class="reset" id="btn" onclick="document.getElementById('yes').style='display:block;'">reset</button>
+  <button class="increase"  onclick="increase()"></button>
+  <button class="save" onclick="save()">save</button>
+  <button class="load" onclick="load()">load</button>
+</div></div>
+<div class="pop-up" id="yes" style="display: none;" >
+  <h2>Do you want to reset?</h2>
+  <button class="yess" onclick="reset()">Yes</button>
+  <button class="noo" onclick="document.getElementById('yes').style='display:none;'"> No</button>
+</div>
+  <script>
+
+  	let count = 0
+    function updateCount(){
+    document.getElementById('count').innerHTML= count;
+  }
+  	function reset(){
+  		count = 0;
+  		document.getElementById('count').innerHTML= count;
+      document.getElementById('yes').style = "display:none;";
+      updateCount();
+  	}
+      document.getElementById('count').innerHTML= count; 
+  	function increase(){ 
+  		count ++;
+  		document.getElementById('count').innerHTML= count;
+    }
+
+    function save(){
+      localStorage.setItem("count",count);
+
+
+    }
+
+    function load(){
+      let saved = localStorage.getItem("count");
+      if (saved !== null) {
+        count= Number(saved);
+      }
+    updateCount();
+  	};
+  </script>
+</body>
+</html>

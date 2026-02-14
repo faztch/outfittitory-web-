@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<style>
+	.calculator{
+		height: 500px;
+		width: 500px;
+		border: 5px solid black;
+	}
+	.screen{
+		height: 100px;
+		width: 500px;
+		border: 3px solid black;
+		text-align: center;
+		font-family: monospace;
+		font-size:70px;
+
+	}
+	.buttons{
+		display: grid;
+		grid-template-columns: repeat(4,1fr);
+		gap: 10px;
+	}
+	button{
+		height: 80px;
+		width:  80px;
+
+	}
+	.num{
+		background: orange;
+		border: none;
+		border-radius: 10px;
+
+	}
+	.op{
+		background: darkorange;
+		border: none;
+		border-radius: 10px;
+	}
+	.clear{
+		background: red;
+		border: none;
+		border-radius:10px ;
+	}
+	.equal{
+		background: black;
+		border: none;
+		border-radius: 10px;
+		color: whitesmoke;
+	}
+</style>
+<body>
+<div class="calculator">
+	<div class="screen" id="display">0</div>
+	<div class="buttons">
+	<button class="num" onclick="append('7')">7</button>
+	<button class="num" onclick="append('8')">8</button>
+	<button class="num" onclick="append('9')">9</button>
+    <button class="op" onclick="append('/')">/</button>
+	<button class="num" onclick="append('6')"> 6</button>
+	<button class="num" onclick="append('5')">5</button>
+	<button class="num" onclick="append('4')">4</button>
+    <button class="op" onclick="append('*')">*</button>
+	<button class="num" onclick="append('3')">3</button>
+	<button class="num" onclick="append('2')">2</button>
+	<button class="num" onclick="append('1')">1</button>
+    <button class="op" onclick="append('+')">+</button>
+	<button class="num" onclick="append('0')">0</button>
+	<button class="clear" onclick="Clear()">Clear</button>
+	<button class="equal" onclick="calculate()">=</button>
+	<button class="op" onclick="append('-')">-</button>
+</div>
+</div>
+<script>
+	let display = document.getElementById('display');
+
+	function append(value){
+		if(display.innerText === "0"){
+			display.innerText = value;
+		}
+		else{
+			display.innerText += value;
+		}
+	}
+	function Clear(){
+		display.innerText = "0";
+	}
+	function calculate(){
+		display.innerText = eval(display.innerText);
+	}
+</script>
+</body>
+</html>
