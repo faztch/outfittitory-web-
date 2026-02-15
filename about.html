@@ -21,10 +21,44 @@
         text-align: center;
     }
 
-    header h1 {
-        margin: 0;
-        font-size: 2.8em;
-    }
+  header h1 {
+  text-align: center;
+  margin: 70px 0 50px;
+  font-size: 42px;
+  letter-spacing: 3px;
+  font-family: 'Playfair Display', serif;
+  color:white;
+  position: relative;
+  
+  /* Initial state: invisible and slightly translated */
+  opacity: 0;
+  transform: translateY(-30px);
+  
+  /* Animation applied */
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Keyframes for fadeInUp animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px); /* Start position off-screen */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End position at normal place */
+  }
+}
+
+/* Page title separator */
+header h1::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 2px;
+  background: #d4af37;
+  margin: 20px auto 0;
+}
 
     header p {
         font-size: 1.2em;
@@ -73,7 +107,7 @@
 <body>
 
 <header>
-    <h1>About OUTFITORY</h1>
+    <h1>About OUTFITITORY</h1>
     <p>Where Style Meets Affordability</p>
 </header>
 
@@ -82,7 +116,7 @@
     <div class="section highlight-box">
         <h2>Our Story</h2>
         <p>
-            At <strong>OUTFITORY</strong>, we believe that beautiful jewelry should never be out of reach. 
+            At <strong>OUTFITITORY</strong>, we believe that beautiful jewelry should never be out of reach. 
             Our journey began with a simple idea — to create stylish, elegant, and high-quality jewelry 
             that everyone can enjoy without overspending.
         </p>
@@ -114,7 +148,7 @@
     <div class="section highlight-box">
         <h2>Our Promise</h2>
         <p>
-            Every piece at OUTFITORY is created with attention to detail and love for style. 
+            Every piece at OUTFITITORY is created with attention to detail and love for style. 
             Whether you’re shopping for everyday elegance or a meaningful gift, we promise 
             to deliver jewelry that adds sparkle to your moments.
         </p>
@@ -123,7 +157,7 @@
 </div>
 
 <footer>
-    © 2026 OUTFITORY Jewelry | Designed to Shine With You
+    © 2026 OUTFITITORY Jewelry | Designed to Shine With You
 </footer>
 
 </body>

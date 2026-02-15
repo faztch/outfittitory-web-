@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top right, #1a1a1a, #000 60%);
+  color: white;
+}
+
+/* Layout */
+.checkout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  min-height: 100vh;
+}
+
+/* LEFT SIDE FORM */
+.checkout-form {
+  padding: 60px 80px;
+}
+
+.checkout-form h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 2px;
+  color: #d4af37;
+}
+
+/* Inputs */
+.checkout-form input,
+.checkout-form select {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.checkout-form input:focus,
+.checkout-form select:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 1px #d4af37;
+}
+
+/* Checkbox */
+.checkbox {
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.hint {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* RIGHT SIDE SUMMARY */
+.checkout-summary {
+  background: #0d0d0d;
+  padding: 60px 50px;
+  border-left: 1px solid #222;
+}
+
+/* Products */
+.product {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 18px;
+  background: #111;
+  border: 1px solid #1f1f1f;
+  border-radius: 12px;
+  transition: 0.3s ease;
+}
+
+.product:hover {
+  border-color: #d4af37;
+  box-shadow: 0 10px 25px rgba(212,175,55,0.15);
+}
+
+
+.product img {
+  width: 60px;
+  border-radius: 8px;
+}
+
+.product-name {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Discount */
+.discount {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin: 30px 0;
+}
+
+.discount input {
+  padding: 12px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
+}
+
+.discount button {
+  padding: 12px 18px;
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.discount button:hover {
+  background: #d4af37;
+  color: black;
+}
+
+/* Price Rows */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #ccc;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  margin-top: 25px;
+  color: #d4af37;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+
+/* GOLD BUTTON */
+.place-order {
+  margin-top: 40px;
+}
+
+.place-order button {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
+  background-size: 200% auto;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  transition: 0.4s ease;
+}
+
+.place-order button:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+}
+
+
+.place-order button:hover {
+  background: #b8962e;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-summary {
+    border-left: none;
+    border-top: 1px solid #222;
+  }
+  .checkout {
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4af37, transparent);
+  margin: 25px 0;
+}
+.secure-badge {
+  font-size: 14px;
+  color: #d4af37;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+
+}
+</style>
+
+</head>
+
+<body>
+
+<form action="order-confirmation.html">
+
+<div class="checkout">
+
+  <div class="checkout-form">
+    <h2>Contact</h2>
+    <input type="email" placeholder="Email" required>
+
+    <label class="checkbox">
+      <input type="checkbox"> Email me with news and offers
+    </label>
+
+    <h2>Delivery</h2>
+    <p class="hint">This will also be used as your billing address.</p>
+
+    <div class="two-cols">
+      <input type="text" placeholder="First name" required>
+      <input type="text" placeholder="Last name" required>
+    </div>
+
+    <input type="text" placeholder="Address" required>
+
+    <div class="two-cols">
+      <input type="text" placeholder="City" required>
+      <input type="text" placeholder="Postal code (optional)">
+      <select>
+        <option>Pakistan</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="checkout-summary">
+
+ <div id="checkoutProducts"></div>
+
+<div class="secure-badge">
+  🔒 Secure Checkout • Encrypted & Protected
+</div>
+
+    <div class="discount">
+      <input type="text" placeholder="Discount code or gift card">
+      <button type="button">Apply</button>
+    </div>
+
+    <div class="price-row">
+  <span>Subtotal</span>
+  <span>Rs <span id="subtotal">0</span></span>
+</div>
+
+<div class="price-row">
+  <span>Shipping</span>
+  <span>Rs <span id="shipping">250</span></span>
+</div>
+
+<hr>
+
+<div class="total">
+  <strong>Total</strong>
+  <strong>Rs <span id="total">0</span></strong>
+</div>
+    <div class="place-order">
+      <a href="order-confirmation.html"><button type="submit">Place Order</button></a>
+    </div>
+
+  </div>
+
+</div>
+
+</form>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const container = document.getElementById("checkoutProducts");
+  const subtotalEl = document.getElementById("subtotal");
+  const totalEl = document.getElementById("total");
+
+  let subtotal = 0;
+
+  if (cart.length === 0) {
+    container.innerHTML = "<p style='color:white;'>Your cart is empty.</p>";
+    subtotalEl.textContent = 0;
+    totalEl.textContent = 0;
+    return;
+  }
+
+  cart.forEach(item => {
+
+    const quantity = item.quantity || 1; // fallback to 1
+    const image = item.image || "placeholder.png"; // fallback image
+
+    const productTotal = item.price * quantity;
+    subtotal += productTotal;
+
+    container.innerHTML += `
+      <div class="product">
+        <img src="${image}">
+        <div>
+          <p class="product-name">${item.name}</p>
+          <small>Qty: ${quantity}</small>
+        </div>
+        <span>Rs ${productTotal}</span>
+      </div>
+    `;
+  });
+  document.querySelector("form").addEventListener("submit", function () {
+  localStorage.removeItem("cart");
+});
+
+
+  const shipping = 250;
+  const finalTotal = subtotal + shipping;
+
+  subtotalEl.textContent = subtotal;
+  totalEl.textContent = finalTotal;
+});
+</script>
+
+
+</body>
+</html>

@@ -19,24 +19,49 @@ body{
   color:white;
 }
 
-.page-title{
-  text-align:center;
-  margin:70px 0 50px;
-  font-size:42px;
-  letter-spacing:3px;
-  font-family:'Playfair Display', serif;
-  color:#d4af37;
-  position:relative;
+/* ========================= */
+/* PAGE TITLE ANIMATION */
+/* ========================= */
+
+.page-title {
+  text-align: center;
+  margin: 70px 0 50px;
+  font-size: 42px;
+  letter-spacing: 3px;
+  font-family: 'Playfair Display', serif;
+  color: #d4af37;
+  position: relative;
+  
+  /* Initial state: invisible and slightly translated */
+  opacity: 0;
+  transform: translateY(-30px);
+  
+  /* Animation applied */
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.page-title::after{
-  content:"";
-  display:block;
-  width:120px;
-  height:2px;
-  background:#d4af37;
-  margin:20px auto 0;
+/* Keyframes for fadeInUp animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px); /* Start position off-screen */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End position at normal place */
+  }
 }
+
+/* Page title separator */
+.page-title::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 2px;
+  background: #d4af37;
+  margin: 20px auto 0;
+}
+
 
 .product-grid{
   max-width:1200px;
@@ -126,6 +151,18 @@ body{
   color:inherit;
   display:block;
 }
+footer {
+  background-color: black;
+  color: #d4af37;
+  padding: 50px;
+  text-align: center;
+  font-size: 20px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
+}
+
 
 </style>
 </head>
@@ -197,6 +234,9 @@ body{
 </div>
 
 </div>
+<footer>
+  <p>© 2026 Outfititory. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>

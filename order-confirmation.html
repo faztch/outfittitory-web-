@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Order Confirmation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body {
       margin: 0;
@@ -65,6 +64,23 @@
       background: #b8962e;
     }
 
+    .whatsapp-btn {
+      margin-top: 20px;
+      padding: 14px 30px;
+      background: #25D366;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .whatsapp-btn:hover {
+      background: #128C7E;
+    }
+
     /* Success Animation */
     .success-animation {
       margin-top: 20px;
@@ -111,53 +127,8 @@
       height: 100%;
     }
 
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 32px;
-      }
-
-      .home-btn {
-        padding: 12px 25px;
-        font-size: 16px;
-      }
-
-      .order-box {
-        padding: 20px;
-      }
-
-      .total {
-        font-size: 18px;
-      }
-
-      .product {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      .home-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-      }
-
-      .order-box {
-        padding: 15px;
-      }
-
-      .total {
-        font-size: 16px;
-      }
-
-      .product {
-        font-size: 12px;
-      }
-    }
   </style>
+
 </head>
 
 <body>
@@ -176,11 +147,15 @@
   <div class="order-box" id="orderSummary"></div>
 
   <button class="home-btn" onclick="goHome()">Back to Home</button>
+
+  <!-- WhatsApp Button -->
+  <button class="whatsapp-btn" id="whatsappBtn">Confirm Order on WhatsApp</button>
 </div>
 
 <canvas id="confetti"></canvas>
 
 <script>
+// Confetti animation setup (same as your existing code)
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 
@@ -224,25 +199,31 @@ updateConfetti();
 setTimeout(() => {
   animationRunning = false;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-}, 5000);
-</script>
+}, 3000);
 
-<script>
-const order = JSON.parse(localStorage.getItem("lastOrder"));
+// Generate a random order number (OT + random number)
+function generateOrderNumber() {
+   const randomNum = Math.floor(Math.random() * 1000000);
+   return `OT${randomNum}`;
+}
+
+// Save the order with the generated order number
+const order = JSON.parse(localStorage.getItem("lastOrder")); // Retrieve the order from localStorage
 
 if (!order) {
   document.body.innerHTML = "<h2>No order found.</h2>";
 } else {
+  // Display the order info correctly
   document.getElementById("orderInfo").innerHTML =
-    "Order Number: <strong>" + order.orderNumber + "</strong><br>" +
-    "Date: " + order.date;
+    `Order Number: <strong>${order.orderNumber}</strong><br>` +
+    `Date: ${order.date}`;
 
   let summaryHTML = "";
 
+  // Loop through the items and render them
   order.items.forEach(item => {
     const quantity = item.quantity || 1;
     const total = item.price * quantity;
-
     summaryHTML += `
       <div class="product">
         <span>${item.name} (x${quantity})</span>
@@ -260,9 +241,26 @@ if (!order) {
   document.getElementById("orderSummary").innerHTML = summaryHTML;
 }
 
+
+
+// Back to Home button
 function goHome() {
   window.location.href = "index.html";
 }
+
+// WhatsApp Button Functionality
+document.getElementById('whatsappBtn').addEventListener('click', function() {
+  const phoneNumber = '03349503619'; // Your WhatsApp number (no '+' sign)
+  let message = `Hello! I would like to confirm my order.\n\nOrder Number: ${order.orderNumber}\nTotal: Rs ${order.total}\n\nOrder Details:\n`;
+
+  order.items.forEach(item => {
+    message += `${item.name} (x${item.quantity || 1}) - Rs ${item.price * (item.quantity || 1)}\n`;
+  });
+
+  const encodedMessage = encodeURIComponent(message);  // Encode the message
+  const whatsappURL = `https://wa.me/${923425324001}?text=${encodedMessage}`;
+  window.open(whatsappURL, '_blank');  // Open WhatsApp chat in a new tab
+});
 </script>
 
 </body>

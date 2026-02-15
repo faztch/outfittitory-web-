@@ -100,8 +100,8 @@
     }
 
     .discount input {
-      width: 70%;
-      padding: 12px;
+      width: 80%;
+      padding: px;
       background: #111;
       border: 1px solid #333;
       color: white;
@@ -319,8 +319,10 @@
 
 </form>
 
+<!-- Your existing checkout page, including the product adding logic -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve cart data from localStorage
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const container = document.getElementById("checkoutProducts");
   const subtotalEl = document.getElementById("subtotal");
@@ -328,6 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let subtotal = 0;
 
+  // Check if cart is empty
   if (cart.length === 0) {
     container.innerHTML = "<p style='color:white;'>Your cart is empty.</p>";
     subtotalEl.textContent = 0;
@@ -335,8 +338,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  // Render each item in the cart
   cart.forEach(item => {
-    const quantity = item.quantity || 1; // fallback to 1
+    const quantity = item.quantity || 1; // Ensure quantity is correct
     const image = item.image || "placeholder.png"; // fallback image
 
     const productTotal = item.price * quantity;
@@ -354,13 +358,16 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   });
 
-  const shipping = 250;
-  const finalTotal = subtotal + shipping;
+  const shipping = 250; // Shipping cost
+  const finalTotal = subtotal + shipping; // Total including shipping
 
+  // Update totals in checkout page
   subtotalEl.textContent = subtotal;
   totalEl.textContent = finalTotal;
 });
 </script>
+
+
 
 </body>
 </html>

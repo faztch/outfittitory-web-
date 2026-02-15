@@ -352,7 +352,6 @@ window.onload = function(){
     }
 }
 function buyNow() {
-
   const product = {
     name: "Pink Luxury Crystal Set",
     price: 1000,
@@ -360,10 +359,46 @@ function buyNow() {
     quantity: qty
   };
 
-  localStorage.setItem("cart", JSON.stringify([product]));
+  // Retrieve the current cart from localStorage or start a new one
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+  // Find if the product already exists in the cart
+  const existingProduct = cart.find(item => item.name === product.name);
+  if (existingProduct) {
+    existingProduct.quantity += product.quantity; // Increment the quantity
+  } else {
+    cart.push(product); // Add new product if it's not already in the cart
+  }
 
+  // Save the updated cart back to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Generate a unique order number
+  const orderNumber = generateOrderNumber();
+  
+  // Calculate total amount
+  const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  
+  // Store the order in localStorage with a unique order number
+  const order = {
+    orderNumber: orderNumber,
+    date: new Date().toLocaleString(),
+    items: cart,
+    total: total
+  };
+
+  localStorage.setItem("lastOrder", JSON.stringify(order));
+
+  // Redirect to checkout page
   window.location.href = "checkout.html";
 }
+
+function generateOrderNumber() {
+  const randomNum = Math.floor(Math.random() * 1000000);  // Generate a random number
+  return `OT${randomNum}`;  // Format the order number as OT + random number
+}
+
+
 
 </script>
 

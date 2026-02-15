@@ -246,9 +246,27 @@ nav {
     border-bottom: 1px solid #333;
 }
 
+/* ========================= */
+/* HERO TEXT SLIDE ANIMATION */
+/* ========================= */
+
 .hero-text {
     max-width: 500px;
+    /* Initial off-screen position */
+    transform: translateX(-100%);
+    animation: slideInFromLeft 0.8s ease-out forwards;
 }
+
+/* Define the sliding animation for hero text */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 
 .hero-text h2 {
     font-size: 50px;
@@ -260,12 +278,31 @@ nav {
     margin-bottom: 30px;
 }
 
+/* ========================= */
+/* HERO SLIDE ANIMATION */
+/* ========================= */
+
 .hero img {
     width: 100%;
     max-width: 450px;
     border-radius: 20px;
     transition: all 0.3s ease;
+    
+    /* Initial off-screen position */
+    transform: translateX(100%);
+    animation: slideInFromRight 0.8s ease-out forwards;
 }
+
+/* Define the sliding animation */
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 
 /* ========================= */
 /* BUTTON */
@@ -388,9 +425,9 @@ nav {
 
 footer {
     text-align: center;
-    padding: 30px;
+    padding: 70px;
     border-top: 1px solid #222;
-    color: #777;
+    color: white;
 }
 
 /* ========================= */
