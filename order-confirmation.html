@@ -208,19 +208,17 @@ function generateOrderNumber() {
 }
 
 // Save the order with the generated order number
-const order = JSON.parse(localStorage.getItem("lastOrder")); // Retrieve the order from localStorage
+const order = JSON.parse(localStorage.getItem("lastOrder")); // Retrieve order from localStorage
 
 if (!order) {
-  document.body.innerHTML = "<h2>No order found.</h2>";
+  document.body.innerHTML = "<h2>No order found.</h2>";  // Handle empty cart
 } else {
-  // Display the order info correctly
   document.getElementById("orderInfo").innerHTML =
     `Order Number: <strong>${order.orderNumber}</strong><br>` +
     `Date: ${order.date}`;
 
   let summaryHTML = "";
 
-  // Loop through the items and render them
   order.items.forEach(item => {
     const quantity = item.quantity || 1;
     const total = item.price * quantity;
