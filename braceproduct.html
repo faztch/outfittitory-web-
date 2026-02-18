@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Marble Set</title>
+
+<style>
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ====================== */
+/* MAIN LAYOUT */
+/* ====================== */
+
+.container{
+  max-width:1100px;
+  margin:60px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+/* ====================== */
+/* IMAGE GALLERY */
+/* ====================== */
+
+.gallery{
+  width:100%;
+}
+
+.main-img{
+  width:100%;
+  aspect-ratio: 3/4;
+  background:#111;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.main-img img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  cursor:pointer;
+}
+
+.thumbnails{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.thumbnails img{
+  width:70px;
+  height:90px;
+  object-fit:cover;
+  border-radius:8px;
+  cursor:pointer;
+  border:2px solid transparent;
+  flex-shrink:0;
+  transition:0.3s;
+}
+
+.thumbnails img:hover{
+  border-color:#fff;
+}
+
+/* ====================== */
+/* PRODUCT INFO */
+/* ====================== */
+
+.product-info{
+  width:100%;
+}
+
+.product-info h1{
+  font-size:36px;
+  margin-bottom:10px;
+  line-height:1.2;
+}
+
+.price{
+  font-size:22px;
+  font-weight:bold;
+  margin:12px 0;
+}
+
+.stock{
+  color:#ff4d4d;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+/* ====================== */
+/* QUANTITY */
+/* ====================== */
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.quantity button{
+  width:38px;
+  height:38px;
+  background:#fff;
+  color:#000;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.quantity span{
+  font-size:18px;
+}
+
+/* ====================== */
+/* BUY BUTTON */
+/* ====================== */
+
+.cart-btn{
+  width:100%;
+  padding:14px;
+  background:#fff;
+  color:#000;
+  border:none;
+  font-size:15px;
+  font-weight:bold;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+  letter-spacing:1px;
+}
+
+.cart-btn:hover{
+  background:#000;
+  color:#fff;
+  border:1px solid #fff;
+}
+
+/* ====================== */
+/* INFO BOX */
+/* ====================== */
+
+.info-box{
+  margin-top:20px;
+  padding:15px;
+  background:#111;
+  border-radius:10px;
+  font-size:14px;
+}
+
+/* ====================== */
+/* TABS */
+/* ====================== */
+
+.tabs{
+  margin-top:30px;
+}
+
+.tab-buttons{
+  display:flex;
+  border-bottom:1px solid #333;
+}
+
+.tab-buttons button{
+  background:none;
+  border:none;
+  color:#fff;
+  padding:12px 20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.tab-buttons button.active{
+  border-bottom:2px solid #fff;
+}
+
+.tab-content{
+  display:none;
+  padding:20px 0;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.tab-content.active{
+  display:block;
+}
+
+/* ====================== */
+/* MODAL */
+/* ====================== */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal img{
+  max-width:90%;
+  max-height:90%;
+}
+
+/* ====================== */
+/* MOBILE */
+/* ====================== */
+
+@media (max-width: 850px){
+
+.container{
+  grid-template-columns:1fr;
+  gap:35px;
+  margin:30px auto;
+}
+
+.main-img{
+  aspect-ratio: 1/1.2;
+}
+
+.product-info h1{
+  font-size:24px;
+}
+
+.price{
+  font-size:18px;
+}
+
+.quantity button{
+  width:34px;
+  height:34px;
+}
+
+.cart-btn{
+  border-radius:30px;
+}
+
+.thumbnails img{
+  width:60px;
+  height:75px;
+}
+
+}
+</style>
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="gallery">
+
+<div class="main-img">
+<img src="blackbrfront.png" id="mainImage">
+</div>
+
+<div class="thumbnails">
+<img src="blackbrfront.png" onclick="changeImage(this)">
+<img src="blackbrside.png" onclick="changeImage(this)">
+<img src="goldbrfront.png" onclick="changeImage(this)">
+<img src="goldbrside.png" onclick="changeImage(this)">
+<img src="pinkbrfront.png" onclick="changeImage(this)">
+<img src="seabrfront.png" onclick="changeImage(this)">
+<img src="seabrside.png" onclick="changeImage(this)">
+<img src="whitebrfront.png" onclick="changeImage(this)">
+<img src="whitebrside.png" onclick="changeImage(this)">
+<img src="namebrfront.png" onclick="changeImage(this)">
+<img src="namebrside.png" onclick="changeImage(this)">
+<img src="white2brfront.png" onclick="changeImage(this)">
+<img src="white2brside.png" onclick="changeImage(this)">
+</div>
+
+</div>
+
+<div class="product-info">
+
+<h1>Multi Coloured Bracelets </h1>
+<p class="price">Rs 100.00</p>
+<p class="stock">Hurry! Only Few Pieces Left</p>
+
+<div class="quantity">
+<button onclick="changeQty(-1)">-</button>
+<span id="qty">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button class="cart-btn" onclick="buyNow()">BUY NOW</button>
+
+<div class="info-box">
+Dispatch Time: 2-4 Days <br>
+Free Shipping Over Rs 2500
+</div>
+
+<div class="tabs">
+
+<div class="tab-buttons">
+<button class="active" onclick="openTab(event,'desc')">Description</button>
+<button onclick="openTab(event,'why')">Why Buy</button>
+</div>
+
+<div id="desc" class="tab-content active">
+<p>
+we have almost all the different colours available in bracelets if you waan you can also select which one you want 
+
+</div>
+
+<div id="why" class="tab-content">
+<ul>
+<li>Timeless Design</li>
+<li>Perfect for weddings and parties</li>
+<li>Includes matching earrings</li>
+<li>Lightweight and comfortable</li>
+<li>Perfect gift option</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="modal" id="zoomModal">
+<img id="zoomImg">
+</div>
+
+<script>
+let qty = 1;
+
+function changeQty(num){
+    qty += num;
+    if(qty < 1) qty = 1;
+    document.getElementById("qty").innerText = qty;
+}
+
+function buyNow() {
+    // Get product info
+    const productName = document.querySelector(".product-info h1").innerText;
+    const priceText = document.querySelector(".product-info .price").innerText;
+    const productPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+    const quantity = qty || 1;
+    const productImage = document.getElementById("mainImage").src;
+
+    const product = { name: productName, price: productPrice, image: productImage, quantity };
+
+    // Save in cart
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Update quantity if product already exists
+    const existing = cart.find(p => p.name === productName);
+    if(existing){
+        existing.quantity += quantity;
+    } else {
+        cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Save this order separately for confirmation
+    const orderTotal = productPrice * quantity;
+    const orderNumber = `OT${Math.floor(Math.random() * 1000000)}`;
+    const currentOrder = {
+        orderNumber: orderNumber,
+        date: new Date().toLocaleString(),
+        items: [product],
+        total: orderTotal
+    };
+    localStorage.setItem("lastOrder", JSON.stringify(currentOrder));
+
+    // Redirect to checkout
+    window.location.href = "checkout.html";
+}
+
+// Modal zoom (optional)
+let mainImage = document.getElementById("mainImage");
+let modal = document.getElementById("zoomModal");
+let zoomImg = document.getElementById("zoomImg");
+window.onload = function(){
+    modal.style.display = "none";
+    mainImage.onclick = function(){
+        modal.style.display = "flex";
+        zoomImg.src = this.src;
+    }
+    modal.onclick = function(){
+        modal.style.display = "none";
+    }
+}
+
+// Thumbnail image switch
+function changeImage(element){
+    document.getElementById("mainImage").src = element.src;
+}
+</script>
+
+
+</body>
+</html>

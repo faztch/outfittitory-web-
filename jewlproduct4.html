@@ -288,95 +288,73 @@ body {
 </div>
 
 <script>
-
-function changeImage(element) {
-  document.getElementById("mainImage").src = element.src;
-}
-
 let qty = 1;
-function changeQty(num) {
-  qty += num;
-  if (qty < 1) qty = 1;
-  document.getElementById("qty").innerText = qty;
-}
 
-function openTab(evt, tabName) {
-  let tabs = document.querySelectorAll(".tab-content");
-  tabs.forEach(tab => tab.classList.remove("active"));
-
-  let btns = document.querySelectorAll(".tab-buttons button");
-  btns.forEach(btn => btn.classList.remove("active"));
-
-  document.getElementById(tabName).classList.add("active");
-  evt.currentTarget.classList.add("active");
-}
-
-let mainImage = document.getElementById("mainImage");
-let modal = document.getElementById("zoomModal");
-let zoomImg = document.getElementById("zoomImg");
-
-window.onload = function() {
-  modal.style.display = "none";
-
-  mainImage.onclick = function() {
-    modal.style.display = "flex";
-    zoomImg.src = this.src;
-  }
-  modal.onclick = function() {
-    modal.style.display = "none";
-  }
+function changeQty(num){
+    qty += num;
+    if(qty < 1) qty = 1;
+    document.getElementById("qty").innerText = qty;
 }
 
 function buyNow() {
-  const product = {
-    name: "Violet Luxury Crystal Set",
-    price: 1000,
-    image: document.getElementById("mainImage").src,
-    quantity: qty
-  };
+    // Get product info
+    const productName = document.querySelector(".product-info h1").innerText;
+    const priceText = document.querySelector(".product-info .price").innerText;
+    const productPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+    const quantity = qty || 1;
+    const productImage = document.getElementById("mainImage").src;
 
-  // Retrieve the current cart from localStorage or start a new one
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-  // Find if the product already exists in the cart
-  const existingProduct = cart.find(item => item.name === product.name);
-  if (existingProduct) {
-    existingProduct.quantity += product.quantity; // Increment the quantity
-  } else {
-    cart.push(product); // Add new product if it's not already in the cart
-  }
+    const product = { name: productName, price: productPrice, image: productImage, quantity };
 
-  // Save the updated cart back to localStorage
-  localStorage.setItem("cart", JSON.stringify(cart));
+    // Save in cart
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Generate a unique order number
-  const orderNumber = generateOrderNumber();
-  
-  // Calculate total amount
-  const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  
-  // Store the order in localStorage with a unique order number
-  const order = {
-    orderNumber: orderNumber,
-    date: new Date().toLocaleString(),
-    items: cart,
-    total: total
-  };
+    // Update quantity if product already exists
+    const existing = cart.find(p => p.name === productName);
+    if(existing){
+        existing.quantity += quantity;
+    } else {
+        cart.push(product);
+    }
 
-  localStorage.setItem("lastOrder", JSON.stringify(order));
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-  // Redirect to checkout page
-  window.location.href = "checkout.html";
+    // Save this order separately for confirmation
+    const orderTotal = productPrice * quantity;
+    const orderNumber = `OT${Math.floor(Math.random() * 1000000)}`;
+    const currentOrder = {
+        orderNumber: orderNumber,
+        date: new Date().toLocaleString(),
+        items: [product],
+        total: orderTotal
+    };
+    localStorage.setItem("lastOrder", JSON.stringify(currentOrder));
+
+    // Redirect to checkout
+    window.location.href = "checkout.html";
 }
 
-function generateOrderNumber() {
-  const randomNum = Math.floor(Math.random() * 1000000);  // Generate a random number
-  return `OT${randomNum}`;  // Format the order number as OT + random number
+// Modal zoom (optional)
+let mainImage = document.getElementById("mainImage");
+let modal = document.getElementById("zoomModal");
+let zoomImg = document.getElementById("zoomImg");
+window.onload = function(){
+    modal.style.display = "none";
+    mainImage.onclick = function(){
+        modal.style.display = "flex";
+        zoomImg.src = this.src;
+    }
+    modal.onclick = function(){
+        modal.style.display = "none";
+    }
 }
 
-
-
+// Thumbnail image switch
+function changeImage(element){
+    document.getElementById("mainImage").src = element.src;
+}
 </script>
+
 
 </body>
 </html>

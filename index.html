@@ -345,7 +345,7 @@ nav {
     gap: 40px;
 }
 
-.col1, .col2, .col3, .col4, .col5, .col6 {
+.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9 {
     position: relative;
     background: #0d0d0d;
     border: 1px solid #1a1a1a;
@@ -361,7 +361,10 @@ nav {
 .col3:hover,
 .col4:hover,
 .col5:hover,
-.col6:hover {
+.col6:hover,
+.col7:hover,
+.col8:hover,
+.col9:hover {
     transform: translateY(-10px);
     border-color: #d4af37;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
@@ -373,7 +376,10 @@ nav {
 .col3 img,
 .col4 img,
 .col5 img,
-.col6 img {
+.col6 img,
+.col7 img,
+.col8 img,
+.col9 img {
     width: 100%;
     height: 320px;
     object-fit: cover;
@@ -386,8 +392,11 @@ nav {
 .col3 img:last-child,
 .col4 img:last-child,
 .col5 img:last-child,
-.col6 img:last-child {
-    display: none;
+.col6 img:last-child,
+.col7 img:last-child,
+.col8 img:last-child,
+.col9 img:last-child {
+display: none;
 }
 
 /* Swap on hover */
@@ -396,8 +405,11 @@ nav {
 .col3:hover img:first-child,
 .col4:hover img:first-child,
 .col5:hover img:first-child,
-.col6:hover img:first-child {
-    display: none;
+.col6:hover img:first-child,
+.col7:hover img:first-child,
+.col8:hover img:first-child,
+.col9:hover img:first-child {
+display: none;
 }
 
 .col1:hover img:last-child,
@@ -405,7 +417,10 @@ nav {
 .col3:hover img:last-child,
 .col4:hover img:last-child,
 .col5:hover img:last-child,
-.col6:hover img:last-child {
+.col6:hover img:last-child,
+.col7:hover img:last-child,
+.col8:hover img:last-child,
+.col9:hover img:last-child {
     display: block;
 }
 
@@ -617,8 +632,16 @@ footer {
 
 /* Footer styling inside the cart */
 .cart-footer {
-    margin-top: 20px;
+    position: absolute;      /* absolute inside cart drawer */
+    bottom: 20px;            /* a little above bottom */
+    left: 0;
+    width: 100%;
+    background: #111;        /* match drawer background */
+    padding: 15px 30px;
+    border-top: 1px solid #222;
+    z-index: 10;
 }
+
 
 .checkout-btn {
     width: 100%;
@@ -748,8 +771,10 @@ footer {
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="plp.html">Collection</a></li>
+            <li><a href="bracelets.html">Bracelet</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
+
         </ul>
 
         <div class="cart-icon" id="cartIcon">
@@ -766,11 +791,12 @@ footer {
 
     <div id="cartItems"></div>
 
-    <div class="cart-footer">
-        <p class="cart-total">Subtotal: Rs <span id="cartTotal">0</span></p>
-        <button class="btn view-cart" aria-label="View Cart">View Cart</button>
-        <a href="checkout.html" class="btn checkout-btn" aria-label="Proceed to checkout">Checkout</a>
-    </div>
+    <div class="cart-footer" style="position: sticky; bottom: 0; background: #111; padding: 15px 0; border-top: 1px solid #222; z-index: 10;">
+    <p class="cart-total">Subtotal: Rs <span id="cartTotal">0</span></p>
+    <button class="btn view-cart" aria-label="View Cart">View Cart</button>
+    <a href="checkout.html" class="btn checkout-btn" aria-label="Proceed to checkout">Checkout</a>
+</div>
+
 </div>
 
 <section class="hero">
@@ -856,6 +882,39 @@ footer {
                     <p class="price">1000 Rs</p>
                 </a>
                 <button class="btn add-to-cart" data-name="Pink Luxury Crystal Set" data-price="1000" data-image="pinkfront.png" aria-label="Add Pink Luxury Crystal Set to cart">Add To Cart</button>
+            </div>
+        </div>
+        <div class="col7">
+            <a href="jewlproduct7.html">
+                <img src="img6a.png" alt="Royal Two Tone Crystal Blue Set"/>
+                <img src="img6b.png" alt="Royal Two Tone Crystal Blue Set"/>
+                <div class="card-content">
+                    <h4>Midnight Green Luxury Marble Set</h4>
+                    <p class="price">1300 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Royal Two Tone Crystal Blue Set" data-price="1300" data-image="img6a.png" aria-label="Add Midnight Green Luxury Marble Set to cart">Add To Cart</button>
+            </div>
+        </div>
+        <div class="col8">
+            <a href="jewlproduct8.html">
+                <img src="img5a.png" alt="Dark Pink Luxury Crystal Set"/>
+                <img src="img5b.png" alt="Dark Pink Luxury Crystal Set"/>
+                <div class="card-content">
+                    <h4>Dark Pink Luxury Crystal Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Dark Pink Luxury Crystal Set" data-price="1000" data-image="img5a.png" aria-label="Add Dark Pink Luxury Crystal Set to cart">Add To Cart</button>
+            </div>
+        </div>
+        <div class="col9">
+            <a href="jewlproduct9.html">
+                <img src="img7a.png" alt="Violet Luxury Crystal Set"/>
+                <img src="img7b.png" alt="Violet Luxury Crystal Set"/>
+                <div class="card-content">
+                    <h4>Turquoise Blue Luxury Marble Set</h4>
+                    <p class="price">1000 Rs</p>
+                </a>
+                <button class="btn add-to-cart" data-name="Turquoise Blue Luxury Marble Set" data-price="1000" data-image="img7a.png" aria-label="Add Turquoise Blue Luxury Marble Set to cart">Add To Cart</button>
             </div>
         </div>
     </div>

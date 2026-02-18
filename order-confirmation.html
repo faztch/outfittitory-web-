@@ -155,111 +155,65 @@
 <canvas id="confetti"></canvas>
 
 <script>
-// Confetti animation setup (same as your existing code)
-const canvas = document.getElementById("confetti");
-const ctx = canvas.getContext("2d");
+const deliveryCharge = 250; // Rs 150 delivery
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const pieces = [];
-const colors = ["#d4af37", "#f5d97a", "#ffffff"];
-
-let animationRunning = true;
-
-for (let i = 0; i < 150; i++) {
-  pieces.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height - canvas.height,
-    size: Math.random() * 8 + 4,
-    speed: Math.random() * 3 + 2,
-    color: colors[Math.floor(Math.random() * colors.length)]
-  });
-}
-
-function updateConfetti() {
-  if (!animationRunning) return;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  pieces.forEach(p => {
-    p.y += p.speed;
-    if (p.y > canvas.height) p.y = -10;
-
-    ctx.fillStyle = p.color;
-    ctx.fillRect(p.x, p.y, p.size, p.size);
-  });
-
-  requestAnimationFrame(updateConfetti);
-}
-
-updateConfetti();
-
-// Stop after 5 seconds
-setTimeout(() => {
-  animationRunning = false;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}, 3000);
-
-// Generate a random order number (OT + random number)
-function generateOrderNumber() {
-   const randomNum = Math.floor(Math.random() * 1000000);
-   return `OT${randomNum}`;
-}
-
-// Save the order with the generated order number
-const order = JSON.parse(localStorage.getItem("lastOrder")); // Retrieve order from localStorage
-
+let order = JSON.parse(localStorage.getItem("lastOrder"));
 if (!order) {
-  document.body.innerHTML = "<h2>No order found.</h2>";  // Handle empty cart
+    document.body.innerHTML = "<h2>No order found.</h2>";
 } else {
-  document.getElementById("orderInfo").innerHTML =
-    `Order Number: <strong>${order.orderNumber}</strong><br>` +
-    `Date: ${order.date}`;
+   const totalWithDelivery = Number(order.total); // already includes shipping
 
-  let summaryHTML = "";
 
-  order.items.forEach(item => {
-    const quantity = item.quantity || 1;
-    const total = item.price * quantity;
+    document.getElementById("orderInfo").innerHTML =
+        `Order Number: <strong>${order.orderNumber}</strong><br>` +
+        `Date: ${order.date}`;
+
+    let summaryHTML = "";
+    order.items.forEach(item => {
+        const quantity = item.quantity || 1;
+        const total = Number(item.price) * quantity; // <-- make sure item.price is number
+        summaryHTML += `
+            <div class="product">
+                <span>${item.name} (x${quantity})</span>
+                <span>Rs ${total}</span>
+            </div>
+        `;
+    });
+
     summaryHTML += `
-      <div class="product">
-        <span>${item.name} (x${quantity})</span>
-        <span>Rs ${total}</span>
-      </div>
+        <div class="product">
+            <span>Delivery Charges</span>
+            <span>Rs ${deliveryCharge}</span>
+        </div>
     `;
-  });
 
-  summaryHTML += `
-    <div class="total">
-      Total: Rs ${order.total}
-    </div>
-  `;
+    summaryHTML += `
+        <div class="total">
+            Total: Rs ${totalWithDelivery}
+        </div>
+    `;
+    document.getElementById("orderSummary").innerHTML = summaryHTML;
 
-  document.getElementById("orderSummary").innerHTML = summaryHTML;
+
+    // WhatsApp button
+    document.getElementById('whatsappBtn').onclick = () => {
+        let message = `Hello! I would like to confirm my order.\n\nOrder Number: ${order.orderNumber}\nTotal: Rs ${totalWithDelivery}\n\nOrder Details:\n`;
+        order.items.forEach(item => {
+            const quantity = item.quantity || 1;
+            message += `${item.name} (x${quantity}) - Rs ${item.price * quantity}\n`;
+        });
+        message += `Delivery Charges - Rs ${deliveryCharge}\n`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/923425324001?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+    };
+
+    document.querySelector(".home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
 }
-
-
-
-// Back to Home button
-function goHome() {
-  window.location.href = "index.html";
-}
-
-// WhatsApp Button Functionality
-document.getElementById('whatsappBtn').addEventListener('click', function() {
-  const phoneNumber = '03349503619'; // Your WhatsApp number (no '+' sign)
-  let message = `Hello! I would like to confirm my order.\n\nOrder Number: ${order.orderNumber}\nTotal: Rs ${order.total}\n\nOrder Details:\n`;
-
-  order.items.forEach(item => {
-    message += `${item.name} (x${item.quantity || 1}) - Rs ${item.price * (item.quantity || 1)}\n`;
-  });
-
-  const encodedMessage = encodeURIComponent(message);  // Encode the message
-  const whatsappURL = `https://wa.me/${923425324001}?text=${encodedMessage}`;
-  window.open(whatsappURL, '_blank');  // Open WhatsApp chat in a new tab
-});
 </script>
+
 
 </body>
 </html>
