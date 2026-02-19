@@ -186,10 +186,9 @@ message += `Phone: ${phone}\n`;
 message += `Email: ${email}\n`;
 message += `Address: ${address}\n`;
 message += `City: ${city}\n`;
-message += `Postal Code: ${postalCode}\n`;
 message += `Country: ${country}\n\n`;
 
-message += `🛒 *Order Items*\n`;
+message += `🛒 *Ordered Items Include*\n`;
 
 cart.forEach(item=>{
 const quantity = Number(item.quantity) || 1;
@@ -216,4 +215,3 @@ window.open(url, "_blank");
 
 </body>
 </html>
-
