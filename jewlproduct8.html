@@ -18,6 +18,53 @@ body{
   background:black;
 }
 
+/* ================= HEADER ================= */
+
+.site-header{
+  position:sticky;
+  top:0;
+  background:black;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:20px 40px;
+  border-bottom:1px solid #222;
+  z-index:100;
+}
+
+.logo{
+  text-align:center;
+}
+
+.logo a{
+  color:white;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:5px;
+  letter-spacing:3px;
+}
+
+.cart-icon{
+  justify-self:end;
+  position:relative;
+  font-size:24px;
+  cursor:pointer;
+  color:white;
+}
+
+#cartCount{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#d4af37;
+  color:black;
+  font-size:12px;
+  font-weight:bold;
+  padding:4px 7px;
+  border-radius:50%;
+}
+
+
 .container{
   max-width:1200px;
   margin:auto;
@@ -231,11 +278,165 @@ body{
 }
 
 }
+.button-group{
+  display:flex;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.add-btn{
+  background:white;
+  color:black;
+}
+
+.buy-btn{
+  background:#d4af37;
+  color:black;
+  font-weight:bold;
+}
+
+.buy-btn:hover{
+  background:white;
+  color:black;
+}
+
+
+/* ===== CART POPUP ===== */
+
+.cart-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    z-index:200;
+}
+
+.cart-popup{
+    position:fixed;
+    top:0;
+    right:-400px;
+    width:350px;
+    height:100%;
+    background:black;
+    color:white;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.5);
+    padding:20px;
+    transition:0.4s;
+    z-index:300;
+    display:flex;
+    flex-direction:column;
+}
+
+.cart-popup.active{
+    right:0;
+}
+
+.cart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.close-cart{
+    cursor:pointer;
+    font-size:20px;
+}
+
+#cartItems{
+    flex:1;
+    overflow-y:auto;
+}
+
+.cart-item{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+    border-bottom:1px solid #333;
+    padding-bottom:10px;
+}
+
+.cart-item img{
+    width:60px;
+    border-radius:6px;
+}
+
+.cart-item-info{
+    flex:1;
+}
+
+.remove-btn{
+    color:red;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.cart-footer{
+    border-top:1px solid #333;
+    padding-top:15px;
+}
+
+.checkout-btn{
+    width:100%;
+    padding:12px;
+    background:#d4af37;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+.cart-qty{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:8px 0;
+}
+
+.cart-qty button{
+    width:25px;
+    height:25px;
+    border:none;
+    background:#d4af37;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cart-qty span{
+    min-width:20px;
+    text-align:center;
+}
+
+
+
 
 </style>
 </head>
 
 <body>
+
+<header class="site-header">
+  
+  <!-- Empty div for spacing -->
+  <div class="header-left"></div>
+
+  <!-- LOGO CENTER -->
+  <div class="logo">
+    <a href="index.html">OUTFITITORY</a>
+  </div>
+
+  <!-- CART ICON RIGHT -->
+  <div class="cart-icon" onclick="goToCart()">
+    🛒
+    <span id="cartCount">0</span>
+  </div>
+
+</header>
+
 
 <div class="container">
 
@@ -250,14 +451,13 @@ body{
 <img src="img5b.png" onclick="changeImage(this)">
 <img src="img5c.png" onclick="changeImage(this)">
 <img src="img5d.png" onclick="changeImage(this)">
-<img src="img5e.png" onclick="changeImage(this)">
 </div>
 
 </div>
 
 <div class="product-info">
 
-<h1>Dark Pink Luxury Crystal Set</h1>
+<h1>Dark Pink Luxury Marble Set</h1>
 <p class="price">Rs 1,000.00</p>
 <p class="stock">Hurry! Only Few Pieces Left</p>
 
@@ -267,7 +467,12 @@ body{
 <button onclick="changeQty(1)">+</button>
 </div>
 
-<button class="cart-btn" onclick="buyNow()">BUY NOW</button>
+<div class="button-group">
+  <button class="cart-btn add-btn" onclick="addToCart()">ADD TO CART</button>
+  <button class="cart-btn buy-btn" onclick="buyNow()">BUY NOW</button>
+</div>
+
+
 
 <div class="info-box">
 Dispatch Time: 2-4 Days <br>
@@ -312,6 +517,26 @@ Style: Trendy "Korean style" ya "Traditional Eastern" dono looks ko support kart
 <div class="modal" id="zoomModal">
 <img id="zoomImg">
 </div>
+<!-- CART POPUP -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="cart-popup" id="cartPopup">
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+        <span onclick="closeCart()" class="close-cart">✖</span>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+        <h3>Total: Rs <span id="cartTotal">0</span></h3>
+        <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+            CHECKOUT
+        </button>
+    </div>
+</div>
+
+
 
 <script>
 let qty = 1;
@@ -322,48 +547,61 @@ function changeQty(num){
     document.getElementById("qty").innerText = qty;
 }
 
-function buyNow() {
-    // Get product info
+function getProductData(){
     const productName = document.querySelector(".product-info h1").innerText;
     const priceText = document.querySelector(".product-info .price").innerText;
     const productPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
-    const quantity = qty || 1;
     const productImage = document.getElementById("mainImage").src;
 
-    const product = { name: productName, price: productPrice, image: productImage, quantity };
+    return {
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        quantity: qty
+    };
+}
 
-    // Save in cart
+function saveToCart(product){
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Update quantity if product already exists
-    const existing = cart.find(p => p.name === productName);
+    const existing = cart.find(p => p.name === product.name);
+
     if(existing){
-        existing.quantity += quantity;
+        existing.quantity += product.quantity;
     } else {
         cart.push(product);
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+}
 
-    // Save this order separately for confirmation
-    const orderTotal = productPrice * quantity;
-    const orderNumber = `OT${Math.floor(Math.random() * 1000000)}`;
-    const currentOrder = {
-        orderNumber: orderNumber,
-        date: new Date().toLocaleString(),
-        items: [product],
-        total: orderTotal
-    };
-    localStorage.setItem("lastOrder", JSON.stringify(currentOrder));
+function addToCart(){
+    const product = getProductData();
+    saveToCart(product);
 
-    // Redirect to checkout
+    qty = 1;
+    document.getElementById("qty").innerText = qty;
+
+    updateCartCount();
+    renderCart();     // refresh cart content
+    openCart();       // 👈 open popup automatically
+}
+
+
+function buyNow(){
+    const product = getProductData();
+    saveToCart(product);
+
     window.location.href = "checkout.html";
 }
 
-// Modal zoom (optional)
+
+
+// Modal zoom
 let mainImage = document.getElementById("mainImage");
 let modal = document.getElementById("zoomModal");
 let zoomImg = document.getElementById("zoomImg");
+
 window.onload = function(){
     modal.style.display = "none";
     mainImage.onclick = function(){
@@ -375,11 +613,108 @@ window.onload = function(){
     }
 }
 
-// Thumbnail image switch
+// Thumbnail switch
 function changeImage(element){
     document.getElementById("mainImage").src = element.src;
 }
+function updateCartCount(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalItems = 0;
+
+    cart.forEach(item => {
+        totalItems += item.quantity;
+    });
+
+    document.getElementById("cartCount").innerText = totalItems;
+}
+
+function goToCart(){
+    openCart();
+}
+
+
+// Update count when page loads
+updateCartCount();
+
+
+function openCart(){
+    document.getElementById("cartPopup").classList.add("active");
+    document.getElementById("cartOverlay").style.display = "block";
+    renderCart();
+}
+
+function closeCart(){
+    document.getElementById("cartPopup").classList.remove("active");
+    document.getElementById("cartOverlay").style.display = "none";
+}
+
+function renderCart(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartItemsDiv = document.getElementById("cartItems");
+    let total = 0;
+
+    cartItemsDiv.innerHTML = "";
+
+    if(cart.length === 0){
+        cartItemsDiv.innerHTML = "<p>Your cart is empty</p>";
+    }
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}">
+                <div class="cart-item-info">
+                    <p>${item.name}</p>
+
+                    <div class="cart-qty">
+                        <button onclick="changeCartQty(${index}, -1)">−</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeCartQty(${index}, 1)">+</button>
+                    </div>
+
+                    <p>Rs ${item.price * item.quantity}</p>
+
+                    <span class="remove-btn" onclick="removeItem(${index})">
+                        Remove
+                    </span>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("cartTotal").innerText = total;
+}
+
+
+function removeItem(index){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+    updateCartCount();
+}
+
+function changeCartQty(index, change){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart[index].quantity += change;
+
+    if(cart[index].quantity <= 0){
+        cart.splice(index, 1);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    renderCart();
+    updateCartCount();
+}
+
+
+
 </script>
+
 
 
 </body>

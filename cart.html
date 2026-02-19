@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart - OUTFITITORY</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:black;
+  color:white;
+}
+
+/* HEADER */
+
+.site-header{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:20px 40px;
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  text-align:center;
+}
+
+.logo a{
+  color:white;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:bold;
+  letter-spacing:3px;
+}
+
+/* CART PAGE */
+
+.cart-container{
+  max-width:1100px;
+  margin:50px auto;
+  padding:20px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid #333;
+  padding:20px 0;
+}
+
+.cart-item img{
+  width:100px;
+  border-radius:8px;
+}
+
+.item-info{
+  flex:1;
+}
+
+.cart-qty{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+}
+
+.cart-qty button{
+  width:30px;
+  height:30px;
+  border:none;
+  background:#d4af37;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.remove-btn{
+  color:red;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.summary{
+  margin-top:40px;
+  text-align:right;
+}
+
+.summary h2{
+  margin-bottom:20px;
+}
+
+.checkout-btn{
+  padding:15px 30px;
+  background:#d4af37;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.empty-cart{
+  text-align:center;
+  margin-top:100px;
+  font-size:22px;
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div></div>
+  <div class="logo">
+    <a href="index.html">OUTFITITORY</a>
+  </div>
+  <div></div>
+</header>
+
+<div class="cart-container" id="cartContainer"></div>
+
+<script>
+
+function loadCart(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let container = document.getElementById("cartContainer");
+    let total = 0;
+
+    container.innerHTML = "";
+
+    if(cart.length === 0){
+        container.innerHTML = "<div class='empty-cart'>Your cart is empty 🛒</div>";
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        container.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}">
+                <div class="item-info">
+                    <h3>${item.name}</h3>
+
+                    <div class="cart-qty">
+                        <button onclick="changeQty(${index}, -1)">−</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                    </div>
+
+                    <p>Price: Rs ${item.price}</p>
+                    <p><strong>Subtotal: Rs ${item.price * item.quantity}</strong></p>
+
+                    <span class="remove-btn" onclick="removeItem(${index})">
+                        Remove
+                    </span>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML += `
+        <div class="summary">
+            <h2>Total: Rs ${total}</h2>
+            <button class="checkout-btn" onclick="goToCheckout()">
+                PROCEED TO CHECKOUT
+            </button>
+        </div>
+    `;
+}
+
+function changeQty(index, change){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart[index].quantity += change;
+
+    if(cart[index].quantity <= 0){
+        cart.splice(index,1);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+function removeItem(index){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index,1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+function goToCheckout(){
+    window.location.href = "checkout.html";
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>

@@ -6,193 +6,211 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* Global Styles */
 * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 body { margin: 0; background: radial-gradient(circle at top right, #1a1a1a, #000 60%); color: white; }
 
-/* Layout */
+/* LOGO */
+.logo {
+    text-align: center;
+    padding: 20px 0;
+}
+.logo{
+    height: 60px;
+    letter-spacing: 3px;
+    text-decoration: none;
+    color: inherit;
+}
+
 .checkout { display: grid; grid-template-columns: 1.2fr 1fr; min-height: 100vh; gap: 20px; padding: 20px; overflow-x: hidden; }
 
-/* LEFT FORM */
-.checkout-form { padding: 60px 80px; }
-.checkout-form h2 { margin-top: 40px; margin-bottom: 20px; font-family: 'Playfair Display', serif; letter-spacing: 2px; color: #d4af37; }
+.checkout-form { padding: 40px 80px; }
+.checkout-form h2 { margin-top: 30px; margin-bottom: 20px; font-family: 'Playfair Display', serif; letter-spacing: 2px; color: #d4af37; }
+
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.checkout-form input, .checkout-form select { width: 100%; padding: 14px; margin-bottom: 18px; border: 1px solid #333; background: #111; color: white; border-radius: 6px; transition: 0.3s ease; }
-.checkout-form input:focus, .checkout-form select:focus { outline: none; border-color: #d4af37; box-shadow: 0 0 0 1px #d4af37; }
-.checkbox { display: flex; align-items: center; margin-bottom: 20px; cursor: pointer; }
-.checkbox input { margin-right: 10px; }
 
-/* RIGHT SUMMARY */
+.checkout-form input, .checkout-form select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #333;
+    background: #111;
+    color: white;
+    border-radius: 6px;
+}
+
 .checkout-summary { background: #0d0d0d; padding: 60px 50px; border-left: 1px solid #222; display: flex; flex-direction: column; justify-content: space-between; }
-.product { display: grid; grid-template-columns: 60px 1fr auto; gap: 15px; align-items: center; margin-bottom: 25px; padding: 18px; background: #111; border: 1px solid #1f1f1f; border-radius: 12px; transition: 0.3s ease; }
-.product:hover { border-color: #d4af37; box-shadow: 0 10px 25px rgba(212,175,55,0.15); }
-.product img { width: 60px; border-radius: 8px; }
-.product-name { font-weight: 500; }
-.discount { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-.discount input { width: 80%; padding: 12px; background: #111; border: 1px solid #333; color: white; border-radius: 6px; }
-.discount button { padding: 12px 18px; background: transparent; border: 1px solid #d4af37; color: #d4af37; cursor: pointer; border-radius: 6px; transition: 0.3s ease; }
-.discount button:hover { background: #d4af37; color: black; }
-.price-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 16px; }
-.total { display: flex; justify-content: space-between; font-size: 22px; margin-top: 10px; }
-.place-order button { width: 100%; padding: 16px; font-size: 18px; background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37); background-size: 200% auto; color: black; border: none; cursor: pointer; border-radius: 8px; letter-spacing: 1px; transition: 0.4s ease; }
-.place-order button:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,175,55,0.4); }
-.secure-badge { font-size: 14px; margin-bottom: 15px; }
 
-/* Responsive */
-@media (max-width: 900px) { .checkout { grid-template-columns: 1fr; } .checkout-summary { border-left: none; border-top: 1px solid #222; } .checkout-form { padding: 20px 30px; } .checkout-form h2 { font-size: 24px; } .product { grid-template-columns: 50px 1fr auto; } }
-@media (max-width: 600px) { .checkout-form input, .checkout-form select, .discount input { padding: 12px; font-size: 14px; } .place-order button { font-size: 14px; padding: 12px; } .checkout-form { padding: 15px 20px; } .checkout-summary { padding: 20px; } }
-@media (max-width: 450px) { .checkout { padding: 10px; } .checkout-form, .checkout-summary { padding: 10px; } .product { padding: 12px; grid-template-columns: 40px 1fr auto; } }
+.product { display: grid; grid-template-columns: 60px 1fr auto; gap: 15px; align-items: center; margin-bottom: 25px; padding: 18px; background: #111; border-radius: 12px; }
+
+.product img { width: 60px; border-radius: 8px; }
+
+.price-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+
+.total { display: flex; justify-content: space-between; font-size: 22px; margin-top: 10px; }
+
+.place-order button {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+}
 </style>
 </head>
 <body>
 
-<form id="checkoutForm">
+<div class="logo">
+    <!-- Replace logo.png with your actual logo file -->
+    <a href="index.html" class="logo"> OUTFITITORY</a>
+</div>
 
+<form id="checkoutForm">
 <div class="checkout">
 
-  <!-- LEFT FORM -->
-  <div class="checkout-form">
-    <h2>Contact</h2>
-    <input type="email" placeholder="Email" required>
-    <label class="checkbox"><input type="checkbox"> Email me with news and offers</label>
+<div class="checkout-form">
 
-    <h2>Delivery</h2>
-    <p class="hint">This will also be used as your billing address.</p>
+<h2>Contact</h2>
+<input type="email" id="email" placeholder="Email" required>
+<input type="tel" id="phone" placeholder="Phone Number" required>
 
-    <div class="two-cols">
-      <input type="text" placeholder="First name" required>
-      <input type="text" placeholder="Last name" required>
-    </div>
+<h2>Delivery</h2>
 
-    <input type="text" placeholder="Address" required>
+<div class="two-cols">
+<input type="text" id="firstName" placeholder="First name" required>
+<input type="text" id="lastName" placeholder="Last name" required>
+</div>
 
-    <div class="two-cols">
-      <input type="text" placeholder="City" required>
-      <input type="text" placeholder="Postal code (optional)">
-      <select><option>Pakistan</option></select>
-    </div>
-  </div>
+<input type="text" id="address" placeholder="Address" required>
 
-  <!-- RIGHT SUMMARY -->
-  <div class="checkout-summary">
-    <div id="checkoutProducts"></div>
+<div class="two-cols">
+<input type="text" id="city" placeholder="City" required>
+<input type="text" id="postalCode" placeholder="Postal code (optional)">
+<select id="country">
+<option>Pakistan</option>
+</select>
+</div>
 
-    <div class="secure-badge">🔒 Secure Checkout • Encrypted & Protected</div>
+</div>
 
-    <div class="discount">
-      <input type="text" placeholder="Discount code or gift card">
-      <button type="button" id="applyDiscount">Apply</button>
-    </div>
+<div class="checkout-summary">
+<div id="checkoutProducts"></div>
 
-    <div class="price-row">
-      <span>Subtotal</span>
-      <span>Rs <span id="subtotal">0</span></span>
-    </div>
-    <div class="price-row">
-      <span>Shipping</span>
-      <span>Rs <span id="shipping">250</span></span>
-    </div>
-    <hr>
-    <div class="total">
-      <strong>Total</strong>
-      <strong>Rs <span id="total">0</span></strong>
-    </div>
+<div class="price-row">
+<span>Subtotal</span>
+<span>Rs <span id="subtotal">0</span></span>
+</div>
 
-    <div class="place-order">
-      <button type="submit" id="placeOrderBtn">Place Order</button>
-    </div>
-  </div>
+<div class="price-row">
+<span>Shipping</span>
+<span>Rs <span id="shipping">250</span></span>
+</div>
 
+<hr>
+
+<div class="total">
+<strong>Total</strong>
+<strong>Rs <span id="total">0</span></strong>
+</div>
+
+<div class="place-order">
+<button type="submit">Place Order</button>
+</div>
+
+</div>
 </div>
 </form>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const container = document.getElementById("checkoutProducts");
-    const subtotalEl = document.getElementById("subtotal");
-    const totalEl = document.getElementById("total");
-    const shippingEl = document.getElementById("shipping");
-    const placeOrderBtn = document.getElementById("placeOrderBtn");
 
-    const shipping = 250;
-    shippingEl.textContent = shipping;
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const container = document.getElementById("checkoutProducts");
+const subtotalEl = document.getElementById("subtotal");
+const totalEl = document.getElementById("total");
+const shippingEl = document.getElementById("shipping");
 
-    if (cart.length === 0) {
-        container.innerHTML = "<p style='color:white;'>Your cart is empty.</p>";
-        subtotalEl.textContent = 0;
-        totalEl.textContent = 0;
-        placeOrderBtn.disabled = true;
-        placeOrderBtn.style.opacity = 0.6;
-        return;
-    }
+const shipping = 250;
+shippingEl.textContent = shipping;
 
-    // Build product list and subtotal
-    let subtotal = 0;
-    container.innerHTML = "";
-    cart.forEach(item => {
-        const quantity = Number(item.quantity) || 1;
-        const price = Number(item.price);
-        const productTotal = price * quantity;
-        subtotal += productTotal;
+let subtotal = 0;
 
-        container.innerHTML += `
-            <div class="product">
-                <img src="${item.image}" alt="${item.name}">
-                <div>
-                    <p class="product-name">${item.name}</p>
-                    <small>Qty: ${quantity}</small>
-                </div>
-                <span>Rs ${productTotal}</span>
+cart.forEach(item => {
+    const quantity = Number(item.quantity) || 1;
+    const price = Number(item.price);
+    const productTotal = price * quantity;
+    subtotal += productTotal;
+
+    container.innerHTML += `
+        <div class="product">
+            <img src="${item.image}">
+            <div>
+                <p>${item.name}</p>
+                <small>Qty: ${quantity}</small>
             </div>
-        `;
-    });
+            <span>Rs ${productTotal}</span>
+        </div>
+    `;
+});
 
-    subtotalEl.textContent = subtotal;
-    totalEl.textContent = subtotal + shipping;
+subtotalEl.textContent = subtotal;
+totalEl.textContent = subtotal + shipping;
 
-    // PLACE ORDER
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-        e.preventDefault();
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+e.preventDefault();
 
-        // Collect customer info
-        const email = document.querySelector(".checkout-form input[type='email']").value.trim();
-        const firstName = document.querySelector(".checkout-form input[placeholder='First name']").value.trim();
-        const lastName = document.querySelector(".checkout-form input[placeholder='Last name']").value.trim();
-        const address = document.querySelector(".checkout-form input[placeholder='Address']").value.trim();
-        const city = document.querySelector(".checkout-form input[placeholder='City']").value.trim();
-        const postalCode = document.querySelector(".checkout-form input[placeholder='Postal code (optional)']").value.trim();
-        const country = document.querySelector(".checkout-form select").value;
+const email = document.getElementById("email").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const firstName = document.getElementById("firstName").value.trim();
+const lastName = document.getElementById("lastName").value.trim();
+const address = document.getElementById("address").value.trim();
+const city = document.getElementById("city").value.trim();
+const postalCode = document.getElementById("postalCode").value.trim();
+const country = document.getElementById("country").value;
 
-        if (!email || !firstName || !lastName || !address || !city) {
-            alert("Please fill in all required fields.");
-            return;
-        }
+if(!email || !phone || !firstName || !lastName || !address || !city){
+alert("Please fill all required fields");
+return;
+}
 
-        // Build order object
-        const orderNumber = `OT${Math.floor(Math.random() * 1000000)}`;
-        const currentOrder = {
-            orderNumber: orderNumber,
-            date: new Date().toLocaleString(),
-            items: cart.map(item => ({
-                name: item.name,
-                price: Number(item.price),
-                quantity: Number(item.quantity),
-                image: item.image
-            })),
-            subtotal: subtotal,
-            shipping: shipping,
-            total: subtotal + shipping,
-            customer: { email, firstName, lastName, address, city, postalCode, country }
-        };
+const orderNumber = "OT" + Math.floor(Math.random() * 1000000);
 
-        // Save order and clear cart
-        localStorage.setItem("lastOrder", JSON.stringify(currentOrder));
-        localStorage.removeItem("cart");
+let message = `🛍️ *NEW ORDER*\n\n`;
+message += `Order No: ${orderNumber}\n\n`;
 
-        // Redirect
-        window.location.href = "order-confirmation.html";
-    });
+message += `👤 *Customer Details*\n`;
+message += `Name: ${firstName} ${lastName}\n`;
+message += `Phone: ${phone}\n`;
+message += `Email: ${email}\n`;
+message += `Address: ${address}\n`;
+message += `City: ${city}\n`;
+message += `Postal Code: ${postalCode}\n`;
+message += `Country: ${country}\n\n`;
+
+message += `🛒 *Order Items*\n`;
+
+cart.forEach(item=>{
+const quantity = Number(item.quantity) || 1;
+const price = Number(item.price);
+message += `• ${item.name} (x${quantity}) - Rs ${price * quantity}\n`;
+});
+
+message += `\nSubtotal: Rs ${subtotal}`;
+message += `\nShipping: Rs ${shipping}`;
+message += `\nTotal: Rs ${subtotal + shipping}`;
+
+const phoneNumber = "923349503619"; // CHANGE TO YOUR NUMBER
+
+const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+localStorage.removeItem("cart");
+
+window.open(url, "_blank");
+
+});
+
 });
 </script>
 

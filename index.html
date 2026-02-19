@@ -267,7 +267,6 @@ nav {
     }
 }
 
-
 .hero-text h2 {
     font-size: 50px;
     margin-bottom: 20px;
@@ -277,6 +276,206 @@ nav {
     color: grey;
     margin-bottom: 30px;
 }
+
+
+
+
+
+/* ========================= */
+/* PRODUCT SLIDER */
+/* ========================= */
+
+.product-slider-section {
+    padding: 80px 60px;
+    background: #0d0d0d;
+}
+
+.slider-title {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.slider-item {
+    min-width: 25%; /* Show 4 items */
+    padding: 20px;
+    text-align: center;
+}
+
+.slider-item img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.slider-item h4 {
+    margin: 15px 0 5px;
+}
+
+.slider-item p {
+    color: #d4af37;
+}
+
+.slider-btn {
+    position: absolute;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    font-size: 24px;
+    color: white;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.slider-btn:hover {
+    background: #d4af37;
+    color: black;
+}
+
+.prev {
+    left: -20px;
+}
+
+.next {
+    right: -20px;
+}
+/* ========================= */
+/* SLIDER LUXURY CARD STYLE */
+/* ========================= */
+
+.slider-card {
+    display: block;
+    background: #111;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+    border: 1px solid #222;
+}
+
+/* GOLD SHIMMER BORDER */
+.slider-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        #d4af37,
+        transparent
+    );
+    background-size: 200% 200%;
+    animation: shimmer 3s linear infinite;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.slider-card:hover {
+    transform: translateY(-8px);
+}
+
+/* IMAGE CONTAINER */
+.slider-img {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slider-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Hide back image */
+.slider-img .back-img {
+    opacity: 0;
+}
+
+/* Swap on hover */
+.slider-card:hover .front-img {
+    opacity: 0;
+}
+
+.slider-card:hover .back-img {
+    opacity: 1;
+}
+
+/* Text */
+.slider-card h4 {
+    margin: 20px 0 5px;
+}
+
+.slider-card p {
+    color: #d4af37;
+}
+
+
+/* Responsive */
+/* Default = Desktop (3 items) */
+.slider-item {
+    min-width: 33.33%;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .slider-item {
+        min-width: 50%; /* 2 items */
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .slider-item {
+        min-width: 100%; /* 1 item */
+    }
+}
+
+
+
+
+
+
 
 /* ========================= */
 /* HERO SLIDE ANIMATION */
@@ -793,7 +992,7 @@ footer {
 
     <div class="cart-footer" style="position: sticky; bottom: 0; background: #111; padding: 15px 0; border-top: 1px solid #222; z-index: 10;">
     <p class="cart-total">Subtotal: Rs <span id="cartTotal">0</span></p>
-    <button class="btn view-cart" aria-label="View Cart">View Cart</button>
+    <a href="cart.html" class="btn view-cart" aria-label="View Cart">View Cart</a>
     <a href="checkout.html" class="btn checkout-btn" aria-label="Proceed to checkout">Checkout</a>
 </div>
 
@@ -807,7 +1006,126 @@ footer {
     </div>
 
     <img src="heroimg.png" alt="Luxury Jewelry" />
+   </section>
+
+
+
+
+
+
+<section class="product-slider-section">
+    <h3 class="slider-title">Trending Now</h3>
+
+    <div class="slider-container">
+        <button class="slider-btn prev">&#10094;</button>
+
+        <div class="slider-wrapper">
+            <div class="slider-track" id="productTrack">
+
+                <!-- ITEM 1 -->
+                <div class="slider-item">
+                    <a href="jewlproduct3.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="bluefront.png" class="front-img">
+                            <img src="blueside.png" class="back-img">
+                        </div>
+                        <h4>Royal Blue Crystal Set</h4>
+                        <p>Rs 1300</p>
+                    </a>
+                </div>
+
+                <!-- ITEM 2 -->
+                <div class="slider-item">
+                    <a href="jewlproduct.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="blackfront.png" class="front-img">
+                            <img src="blackside.png" class="back-img">
+                        </div>
+                        <h4>Black Marble Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="slider-item">
+                    <a href="jewlproduct2.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="redwhitefront.png" class="front-img">
+                            <img src="redwhiteside.png" class="back-img">
+                        </div>
+                        <h4>Crystal Red Set</h4>
+                        <p>Rs 1200</p>
+                    </a>
+                </div>
+
+                <!-- ITEM 4 -->
+                <div class="slider-item">
+                    <a href="jewlproduct6.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="pinkfront.png" class="front-img">
+                            <img src="pinkside.png" class="back-img">
+                        </div>
+                        <h4>Pink Crystal Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+                <!-- ITEM 5 -->
+                <div class="slider-item">
+                    <a href="jewlproduct4.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="img4a.png" class="front-img">
+                            <img src="img4b.png" class="back-img">
+                        </div>
+                        <h4>Violet Luxury Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+                <div class="slider-item">
+                    <a href="jewlproduct7.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="img6a.png" class="front-img">
+                            <img src="img6b.png" class="back-img">
+                        </div>
+                        <h4>Midnight Green Luxury Marble Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+                <div class="slider-item">
+                    <a href="jewlproduct8.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="img5a.png" class="front-img">
+                            <img src="img5b.png" class="back-img">
+                        </div>
+                        <h4>Dark Pink Crystal Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+                  <div class="slider-item">
+                    <a href="jewlproduct9.html" class="slider-card">
+                        <div class="slider-img">
+                            <img src="img7a.png" class="front-img">
+                            <img src="img7b.png" class="back-img">
+                        </div>
+                        <h4>Turquoise Blue Luxury Marble Set</h4>
+                        <p>Rs 1000</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <button class="slider-btn next">&#10095;</button>
+    </div>
 </section>
+
+
+
+
+
 
 <section class="products">
     <h3>Featured Collection</h3>
@@ -1037,7 +1355,84 @@ window.removeItem = function(index) {
 
 updateCart();
 
+
+
+
+// PRODUCT SLIDER FUNCTIONALITY
+// PRODUCT SLIDER FUNCTIONALITY
+const track = document.getElementById("productTrack");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+let index = 0;
+let autoSlide;
+
+// Detect how many items are visible
+function getVisibleItems() {
+    if (window.innerWidth <= 600) return 1;
+    if (window.innerWidth <= 992) return 2;
+    return 3;
+}
+
+function moveSlide() {
+    const items = document.querySelectorAll(".slider-item");
+    const itemWidth = items[0].offsetWidth;
+    track.style.transform = `translateX(-${index * itemWidth}px)`;
+}
+
+function nextSlide() {
+    const items = document.querySelectorAll(".slider-item");
+    const visible = getVisibleItems();
+
+    if (index < items.length - visible) {
+        index++;
+    } else {
+        index = 0;
+    }
+
+    moveSlide();
+}
+
+function prevSlide() {
+    const items = document.querySelectorAll(".slider-item");
+    const visible = getVisibleItems();
+
+    if (index > 0) {
+        index--;
+    } else {
+        index = items.length - visible;
+    }
+
+    moveSlide();
+}
+
+nextBtn.addEventListener("click", nextSlide);
+prevBtn.addEventListener("click", prevSlide);
+
+// Auto slide every 3 seconds
+function startAutoSlide() {
+    autoSlide = setInterval(nextSlide, 3000);
+}
+
+function stopAutoSlide() {
+    clearInterval(autoSlide);
+}
+
+startAutoSlide();
+
+// Pause on hover (optional but professional)
+track.addEventListener("mouseenter", stopAutoSlide);
+track.addEventListener("mouseleave", startAutoSlide);
+
+// Reset position on resize
+window.addEventListener("resize", () => {
+    index = 0;
+    moveSlide();
 });
+
+
+});
+
 </script>
 
 </body>

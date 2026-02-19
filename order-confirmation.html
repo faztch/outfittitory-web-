@@ -197,16 +197,40 @@ if (!order) {
 
     // WhatsApp button
     document.getElementById('whatsappBtn').onclick = () => {
-        let message = `Hello! I would like to confirm my order.\n\nOrder Number: ${order.orderNumber}\nTotal: Rs ${totalWithDelivery}\n\nOrder Details:\n`;
-        order.items.forEach(item => {
-            const quantity = item.quantity || 1;
-            message += `${item.name} (x${quantity}) - Rs ${item.price * quantity}\n`;
-        });
-        message += `Delivery Charges - Rs ${deliveryCharge}\n`;
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappURL = `https://wa.me/923425324001?text=${encodedMessage}`;
-        window.open(whatsappURL, '_blank');
-    };
+
+    let message = `🛍️ *NEW ORDER - OUTFITITORY* \n\n`;
+
+    message += `Order Number: ${order.orderNumber}\n`;
+    message += `Date: ${order.date}\n\n`;
+
+    message += `👤 *Customer Details*\n`;
+    message += `Name: ${order.customer?.name || "Not Provided"}\n`;
+    message += `Phone: ${order.customer?.phone || "Not Provided"}\n`;
+    message += `Address: ${order.customer?.address || "Not Provided"}\n`;
+    message += `City: ${order.customer?.city || "Not Provided"}\n\n`;
+
+    message += `🛒 *Order Items*\n`;
+
+    order.items.forEach(item => {
+        const quantity = item.quantity || 1;
+        const subtotal = item.price * quantity;
+        message += `• ${item.name} (x${quantity}) - Rs ${subtotal}\n`;
+    });
+
+    message += `\n🚚 Delivery Charges: Rs ${deliveryCharge}\n`;
+    message += `💰 *TOTAL: Rs ${order.total}*\n\n`;
+
+    message += `Payment Method: Cash on Delivery`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/923349503619?text=${encodedMessage}`;
+
+    window.open(whatsappURL, '_blank');
+
+    // Clear cart after sending
+    localStorage.removeItem("cart");
+};
+
 
     document.querySelector(".home-btn").onclick = () => {
         window.location.href = "index.html";
