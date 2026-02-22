@@ -6,7 +6,6 @@
 <title>Jewelry Collection</title>
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -19,88 +18,153 @@ body{
   color:white;
 }
 
-/* ========================= */
-/* PAGE TITLE ANIMATION */
-/* ========================= */
+/* NAVBAR */
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(6px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 18px 40px;
+  border-bottom: 1px solid #222;
+}
 
-.page-title {
-  text-align: center;
-  margin: 70px 0 50px;
-  font-size: 42px;
-  letter-spacing: 3px;
-  font-family: 'Playfair Display', serif;
+.nav-logo a{
   color: #d4af37;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  font-family: 'Playfair Display', serif;
+}
+
+.nav-cart{
+  justify-self: end;
   position: relative;
-  
-  /* Initial state: invisible and slightly translated */
-  opacity: 0;
-  transform: translateY(-30px);
-  
-  /* Animation applied */
-  animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Keyframes for fadeInUp animation */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px); /* Start position off-screen */
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0); /* End position at normal place */
-  }
+.nav-cart a{
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
 }
 
-/* Page title separator */
-.page-title::after {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 2px;
-  background: #d4af37;
-  margin: 20px auto 0;
+.cart-count{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#d4af37;
+  color:black;
+  font-size:11px;
+  font-weight:600;
+  padding:2px 6px;
+  border-radius:50%;
 }
 
+/* POPUP CART */
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:999;
+}
+
+.cart-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.popup-cart{
+  position:fixed;
+  top:0;
+  right:-380px;
+  width:360px;
+  height:100vh;
+  background:#000;
+  padding:24px;
+  transition:.3s;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+}
+
+.popup-cart.active{
+  right:0;
+}
+
+.popup-item{
+  display:flex;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.popup-item img{
+  width:60px;
+  height:80px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+.popup-item-info{
+  flex:1;
+  font-size:14px;
+}
+
+.qty-controls{
+  display:flex;
+  gap:8px;
+  margin-top:6px;
+}
+
+.qty-controls button{
+  width:26px;
+  height:26px;
+  border:none;
+  background:#d4af37;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.popup-footer{
+  margin-top:auto;
+  border-top:1px solid #222;
+  padding-top:16px;
+}
+
+.popup-total{
+  display:flex;
+  justify-content:space-between;
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.checkout-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  padding:14px;
+  background:#d4af37;
+  color:black;
+  font-weight:600;
+  text-decoration:none;
+}
+/* ========================= */
+/* PRODUCT GRID & CARD SIZING */
+/* ========================= */
 
 .product-grid{
   max-width:1200px;
-  margin:auto;
+  margin:0 auto 80px;
   padding:20px;
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:40px;
-}
-
-/* Tablet */
-@media (max-width: 1024px){
-  .product-grid{
-    grid-template-columns:repeat(2, 1fr);
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px){
-  .product-grid{
-    grid-template-columns:repeat(2, 1fr);
-    gap:20px;
-  }
-
-  .card img{
-    height:200px;
-  }
-
-  .card-content{
-    padding:14px;
-  }
-
-  .card-content h4{
-    font-size:14px;
-  }
-
-  .price{
-    font-size:14px;
-  }
 }
 
 .card{
@@ -108,7 +172,7 @@ body{
   border-radius:18px;
   overflow:hidden;
   border:1px solid rgba(212,175,55,0.15);
-  transition:all 0.4s ease;
+  transition:0.4s ease;
 }
 
 .card:hover{
@@ -121,7 +185,7 @@ body{
   width:100%;
   height:320px;
   object-fit:cover;
-  transition:transform 0.6s ease;
+  transition:0.6s ease;
 }
 
 .card:hover img{
@@ -134,43 +198,73 @@ body{
 }
 
 .card-content h4{
-  margin-bottom:10px;
   font-size:18px;
   font-weight:500;
+  margin-bottom:10px;
   letter-spacing:1px;
 }
 
 .price{
-  font-weight:600;
   font-size:18px;
+  font-weight:600;
   color:#d4af37;
 }
 
+/* Tablet */
+@media (max-width:1024px){
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width:600px){
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+
+  .card img{
+    height:200px;
+  }
+
+  .card-content{
+    padding:14px;
+  }
+
+  .card-content h4,
+  .price{
+    font-size:14px;
+  }
+}
+/* REMOVE LINK UNDERLINE & FORCE WHITE TEXT */
 .card a{
-  text-decoration:none;
-  color:inherit;
-  display:block;
-}
-footer {
-  background-color: black;
-  color: #d4af37;
-  padding: 50px;
-  text-align: center;
-  font-size: 20px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  margin-top: auto;
+  text-decoration: none;
+  color: white;
 }
 
-
+.card a:hover{
+  text-decoration: none;
+  color: white;
+}
 </style>
 </head>
 
 <body>
 
-<h1 class="page-title">Our Jewelry Collection</h1>
+<header class="navbar">
+  <div></div>
+  <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+  <div class="nav-cart">
+    <a href="javascript:void(0)" onclick="openCart()">🛒
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+  </div>
+</header>
 
+<h1 style="text-align:center;margin:60px 0;color:#d4af37">Our Jewelry Collection</h1>
+
+<!-- PRODUCT GRID UNCHANGED -->
 <div class="product-grid">
 
 <div class="card">
@@ -178,7 +272,7 @@ footer {
     <img src="blackfront.png" alt="Black Set">
     <div class="card-content">
       <h4>Black Luxury Marble Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -188,7 +282,7 @@ footer {
     <img src="redwhitefront.png" alt="Red White Set">
     <div class="card-content">
       <h4>Red White Luxury Marble Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -198,7 +292,7 @@ footer {
     <img src="bluefront.png" alt="Blue Set">
     <div class="card-content">
       <h4>Blue Luxury Crystal Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -208,7 +302,7 @@ footer {
     <img src="img4a.png" alt="Violet Set">
     <div class="card-content">
       <h4>Violet Luxury Crystal Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -218,7 +312,7 @@ footer {
     <img src="img2c.png" alt="White Set">
     <div class="card-content">
       <h4>White Luxury Pearl Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -228,7 +322,37 @@ footer {
     <img src="pinkfront.png" alt="Pink Set">
     <div class="card-content">
       <h4>Pink Luxury Crystal Set</h4>
-      <p class="price">Rs 1300</p>
+      <p class="price">Rs 2,000.00</p>
+    </div>
+  </a>
+</div>
+
+<div class="card">
+  <a href="jewlproduct7.html">
+    <img src="img6a.png" alt="White Set">
+    <div class="card-content">
+      <h4>Midnight Green Luxury Marble Set</h4>
+      <p class="price">Rs 2,000.00</p>
+    </div>
+  </a>
+</div>
+
+<div class="card">
+  <a href="jewlproduct8.html">
+    <img src="img5a.png" alt="White Set">
+    <div class="card-content">
+      <h4>Dark Pink Luxury Marble Set</h4>
+      <p class="price">Rs 2,000.00</p>
+    </div>
+  </a>
+</div>
+
+<div class="card">
+  <a href="jewlproduct9.html">
+    <img src="img7a.png" alt="White Set">
+    <div class="card-content">
+      <h4>Turquoise Blue Luxury Marble Set</h4>
+      <p class="price">Rs 2,000.00</p>
     </div>
   </a>
 </div>
@@ -237,6 +361,102 @@ footer {
 <footer>
   <p>© 2026 Outfititory. All Rights Reserved.</p>
 </footer>
+
+<script>
+function getCart(){
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+function saveCart(cart){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function updateCartCount(){
+  const cart = getCart();
+  let count = 0;
+  cart.forEach(item => count += item.quantity);
+  const el = document.getElementById("cartCount");
+  el.textContent = count;
+  el.style.display = count > 0 ? "inline-block" : "none";
+}
+
+function openCart(){
+  document.getElementById("cartOverlay").classList.add("active");
+  document.getElementById("popupCart").classList.add("active");
+  renderPopupCart();
+}
+
+function closeCart(){
+  document.getElementById("cartOverlay").classList.remove("active");
+  document.getElementById("popupCart").classList.remove("active");
+}
+
+function changeQty(index, change){
+  const cart = getCart();
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+    cart.splice(index,1);
+  }
+
+  saveCart(cart);
+  updateCartCount();
+  renderPopupCart();
+}
+
+function renderPopupCart(){
+  const cart = getCart();
+  const container = document.getElementById("popupCartItems");
+  const totalEl = document.getElementById("popupTotal");
+
+  let total = 0;
+  container.innerHTML = "";
+
+  if(cart.length === 0){
+    container.innerHTML = "<p style='color:#aaa'>Your cart is empty</p>";
+    totalEl.textContent = "Rs 0";
+    return;
+  }
+
+  cart.forEach((item,index)=>{
+    total += item.price * item.quantity;
+
+    container.innerHTML += `
+      <div class="popup-item">
+        <img src="${item.image}">
+        <div class="popup-item-info">
+          <div>${item.name}</div>
+          <div>Rs ${item.price * item.quantity}</div>
+          <div class="qty-controls">
+            <button onclick="changeQty(${index},-1)">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQty(${index},1)">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  totalEl.textContent = "Rs " + total;
+}
+
+updateCartCount();
+</script>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="popup-cart" id="popupCart">
+  <h3>Your Cart</h3>
+  <div id="popupCartItems"></div>
+
+  <div class="popup-footer">
+    <div class="popup-total">
+      <span>Subtotal</span>
+      <strong id="popupTotal">Rs 0</strong>
+    </div>
+    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+  </div>
+</div>
 
 </body>
 </html>

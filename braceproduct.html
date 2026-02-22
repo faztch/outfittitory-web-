@@ -6,7 +6,38 @@
 <title>Luxury Marble Set</title>
 
 <style>
-<style>
+
+/* ====================== */
+/* NAVBAR */
+/* ====================== */
+
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.9);
+  padding: 22px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-logo{
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: #d4af37;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Remove default link styling from logo */
+.navbar a{
+  text-decoration: none;
+  color: inherit;
+}
+
 
 *{
   margin:0;
@@ -53,6 +84,7 @@ body{
   justify-content:center;
   overflow:hidden;
 }
+
 
 .main-img img{
   width:100%;
@@ -274,6 +306,9 @@ body{
 </head>
 
 <body>
+  <nav class="navbar">
+  <a href="index.html"><div class="nav-logo">OUTFITITORY</div></a>
+</nav>
 
 <div class="container">
 
@@ -303,8 +338,8 @@ body{
 
 <div class="product-info">
 
-<h1>Multi Coloured Bracelets </h1>
-<p class="price">Rs 100.00</p>
+<h1 id="productName">Multi Coloured Bracelets</h1>
+<p class="price" id="productPrice">Rs 380.00</p>
 <p class="stock">Hurry! Only Few Pieces Left</p>
 
 <div class="quantity">
@@ -418,6 +453,67 @@ window.onload = function(){
 // Thumbnail image switch
 function changeImage(element){
     document.getElementById("mainImage").src = element.src;
+}
+
+const products = {
+  gold: {
+    name: "Gold Bracelet",
+    price: "Rs 380",
+    images: ["goldbrfront.png", "goldbrside.png"]
+  },
+  white: {
+    name: "White Bracelet",
+    price: "Rs 380",
+    images: ["whitebrfront.png", "whitebrside.png"]
+  },
+  white2: {
+    name: "White Bracelet",
+    price: "Rs 380",
+    images: ["white2brfront.png", "white2brside.png"]
+  },
+  sea: {
+    name: "Sea Bracelet",
+    price: "Rs 380",
+    images: ["seabrfront.png", "seabrside.png"]
+  },
+  black: {
+    name: "Black Bracelet",
+    price: "Rs 380",
+    images: ["blackbrfront.png", "blackbrside.png"]
+  },
+  pink: {
+    name: "Pink Bracelet",
+    price: "Rs 380",
+    images: ["pinkbrfront.png"]
+  },
+  name: {
+    name: "Your Name Bracelet",
+    price: "Rs 380",
+    images: ["namebrfront.png", "namebrside.png"]
+  }
+};
+
+// Read URL
+const params = new URLSearchParams(window.location.search);
+const productKey = params.get("product");
+
+if (products[productKey]) {
+  const product = products[productKey];
+
+  document.getElementById("productName").innerText = product.name;
+  document.getElementById("productPrice").innerText = product.price;
+  document.getElementById("mainImage").src = product.images[0];
+
+  // Thumbnails
+  const thumbs = document.querySelector(".thumbnails");
+  thumbs.innerHTML = "";
+
+  product.images.forEach(img => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.onclick = () => changeImage(thumb);
+    thumbs.appendChild(thumb);
+  });
 }
 </script>
 

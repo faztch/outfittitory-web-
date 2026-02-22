@@ -6,17 +6,16 @@
 <title>Your Cart - OUTFITITORY</title>
 
 <style>
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body{
-  background:black;
-  color:white;
+  background:#000;
+  color:#fff;
 }
 
 /* HEADER */
@@ -25,93 +24,141 @@ body{
   display:grid;
   grid-template-columns:1fr auto 1fr;
   align-items:center;
-  padding:20px 40px;
+  padding:24px 40px;
   border-bottom:1px solid #222;
 }
-
-.logo{
+.cart-title{
+  margin-top:8px;
+  font-size:50px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#fff;
   text-align:center;
+  opacity:0.9;
 }
 
 .logo a{
   color:white;
   text-decoration:none;
-  font-size:22px;
+  font-size:24px;
   font-weight:bold;
-  letter-spacing:3px;
+  letter-spacing:4px;
 }
 
 /* CART PAGE */
 
 .cart-container{
   max-width:1100px;
-  margin:50px auto;
+  margin:60px auto;
   padding:20px;
 }
 
 .cart-item{
   display:flex;
   align-items:center;
-  gap:20px;
-  border-bottom:1px solid #333;
-  padding:20px 0;
+  gap:24px;
+  padding:24px 0;
+  border-bottom:1px solid #222;
 }
 
 .cart-item img{
-  width:100px;
-  border-radius:8px;
+  width:120px;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
 }
 
 .item-info{
   flex:1;
 }
 
+.item-info h3{
+  font-size:18px;
+  margin-bottom:8px;
+}
+
 .cart-qty{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin:10px 0;
+  gap:12px;
+  margin:12px 0;
 }
 
 .cart-qty button{
-  width:30px;
-  height:30px;
+  width:32px;
+  height:32px;
   border:none;
   background:#d4af37;
   color:black;
   font-weight:bold;
   cursor:pointer;
+  border-radius:6px;
+}
+
+.cart-qty span{
+  min-width:24px;
+  text-align:center;
+}
+
+.item-info p{
+  font-size:14px;
+  color:#ccc;
+  margin:4px 0;
 }
 
 .remove-btn{
-  color:red;
+  display:inline-block;
+  margin-top:10px;
+  color:#ff5c5c;
+  font-size:13px;
   cursor:pointer;
-  font-size:14px;
 }
 
+/* SUMMARY */
+
 .summary{
-  margin-top:40px;
-  text-align:right;
+  margin-top:50px;
+  padding:30px;
+  border:1px solid #222;
+  border-radius:14px;
+  background:#0b0b0b;
+  max-width:360px;
+  margin-left:auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 
 .summary h2{
-  margin-bottom:20px;
+  font-size:22px;
+  font-weight:normal;
+  border-bottom:1px solid #222;
+  padding-bottom:16px;
 }
 
 .checkout-btn{
-  padding:15px 30px;
+  width:100%;
+  padding:16px 0;
   background:#d4af37;
   border:none;
   font-weight:bold;
+  letter-spacing:1px;
   cursor:pointer;
+  transition:all 0.3s ease;
 }
+
+.checkout-btn:hover{
+  background:#c19c2d;
+  transform:translateY(-2px);
+}
+/* EMPTY CART */
 
 .empty-cart{
   text-align:center;
-  margin-top:100px;
+  margin-top:120px;
   font-size:22px;
+  color:#aaa;
 }
-
 </style>
 </head>
 <body>
@@ -120,9 +167,12 @@ body{
   <div></div>
   <div class="logo">
     <a href="index.html">OUTFITITORY</a>
+    
   </div>
   <div></div>
 </header>
+<div class="cart-title">YOUR CART</div>
+
 
 <div class="cart-container" id="cartContainer"></div>
 
