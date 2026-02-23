@@ -35,14 +35,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px);
-    border-bottom: 1px solid #222;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 20px clamp(20px, 5vw, 60px);
     border-bottom: 1px solid #222;
 }
@@ -752,20 +744,6 @@ footer {
         text-align: center;
     }
 
-    .nav-right.active {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.8);
-        height: 100%;
-        padding-top: 50px;
-    }
-
 
     .nav-right ul {
         display: none;
@@ -978,6 +956,105 @@ footer {
     }
 }
 
+/* ========================= */
+/* FIX MOBILE CART DRAWER */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .cart-drawer {
+    height: 100dvh;
+    padding: 16px;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow: hidden;
+  }
+
+  #cartItems {
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 120px; /* space for footer */
+  }
+
+  .cart-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #111;
+    padding: 14px 16px;
+    border-top: 1px solid #222;
+    z-index: 10;
+  }
+
+  .checkout-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .cart-close {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+/* ========================= */
+/* MOBILE LEFT SLIDE MENU */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .nav-right {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    width: 280px;
+    background: #0b0b0b;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(.77,0,.18,1);
+    z-index: 2000;
+    padding: 80px 20px 20px;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .nav-right.active {
+    transform: translateX(0);
+  }
+
+  .nav-right ul {
+    display: flex !important;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .nav-right ul li a {
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  .cart-icon {
+    margin-top: auto;
+    justify-content: flex-start;
+    font-size: 20px;
+  }
+
+  /* Dark overlay */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1500;
+  }
+
+  .menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
 
 
 </style>
@@ -1012,6 +1089,10 @@ footer {
     </div>
 
 </nav>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+
 
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
@@ -1277,8 +1358,16 @@ footer {
 const hamburger = document.getElementById("hamburger");
 const navRight = document.querySelector(".nav-right");
 
+const menuOverlay = document.getElementById("menuOverlay");
+
 hamburger.addEventListener("click", () => {
-    navRight.classList.toggle("active");
+  navRight.classList.add("active");
+  menuOverlay.classList.add("active");
+});
+
+menuOverlay.addEventListener("click", () => {
+  navRight.classList.remove("active");
+  menuOverlay.classList.remove("active");
 });
 
 // Cart functionality remains the same
