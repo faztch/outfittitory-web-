@@ -1,721 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxury Marble Set</title>
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
-body{
-  background:black;
-}
-
-/* ================= HEADER ================= */
-
-.site-header{
-  position:sticky;
-  top:0;
-  background:black;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  padding:20px 40px;
-  border-bottom:1px solid #222;
-  z-index:100;
-}
-
-.logo{
-  text-align:center;
-}
-
-.logo a{
-  color:white;
-  text-decoration:none;
-  font-size:22px;
-  font-weight:5px;
-  letter-spacing:3px;
-}
-
-.cart-icon{
-  justify-self:end;
-  position:relative;
-  font-size:24px;
-  cursor:pointer;
-  color:white;
-}
-
-#cartCount{
-  position:absolute;
-  top:-8px;
-  right:-10px;
-  background:#d4af37;
-  color:black;
-  font-size:12px;
-  font-weight:bold;
-  padding:4px 7px;
-  border-radius:50%;
-}
-
-
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-}
-
-.gallery{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-.main-img img{
-  width:100%;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.thumbnails{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
-  flex-wrap:no-wrap;
-}
-
-.thumbnails img{
-  width:80px;
-  border-radius:8px;
-  cursor:pointer;
-  border:2px solid transparent;
-}
-
-.thumbnails img:hover{
-  border-color:#181818;
-}
-
-.product-info h1{
-  font-size:52px;
-  margin-bottom:10px;
-  color: white;
-}
-
-.price{
-  font-size:24px;
-  font-weight:bold;
-  margin:15px 0;
-  color: white;
-}
-
-.stock{
-  color:red;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:25px;
-  color: white;
-}
-
-.quantity button{
-  padding:6px 12px;
-  font-size:18px;
-  cursor:pointer;
-  color: black;
-}
-
-.cart-btn{
-  width:100%;
-  padding:15px;
-  background:white;
-  color:black;
-  border:2px;
-  font-size:16px;
-  cursor:pointer;
-  border-radius:6px;
-  transition:.3s;
-}
-
-.cart-btn:hover{
-  background:black;
-  color:white;
-}
-
-.info-box{
-  margin-top:20px;
-  padding:15px;
-  background:black;
-  color: white;
-  border-radius:10px;
-  line-height:1.6;
-}
-
-.tabs{
-  margin-top:10px;
-}
-
-.tab-buttons{
-  display:flex;
-  border-bottom:2px solid white;
-}
-
-.tab-buttons button{
-  padding:12px 20px;
-  border:2px solid black;
-  background:black;
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.tab-buttons button.active{
-  border-bottom:5px solid black;
-}
-
-.tab-content{
-  padding:20px 0;
-  display:none;
-  color: white;
-}
-
-.tab-content.active{
-  display:block;
-  letter-spacing: 2px;
-  word-spacing: 2px;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    background: rgba(0, 0, 0, 0.9);
-    width: 100%;
-    height: 100%;
-    top: 0; 
-    left: 0;
-    justify-content: center; 
-    align-items: center; 
-}
-
-.modal img {
-    max-width: 90%;
-    max-height: 90%;
-}
-
-@media (max-width: 768px){
-
-.container{
-  grid-template-columns:1fr;
-  gap:30px;
-  padding:20px 15px;
-}
-
-.product-info h1{
-  font-size:28px;
-}
-
-.price{
-  font-size:20px;
-}
-
-.stock{
-  font-size:14px;
-}
-
-.quantity{
-  gap:10px;
-}
-
-.quantity button{
-  padding:8px 14px;
-  font-size:16px;
-}
-
-.cart-btn{
-  padding:14px;
-  font-size:15px;
-}
-
-.info-box{
-  font-size:14px;
-}
-
-.tab-content{
-  font-size:14px;
-  letter-spacing:1px;
-  word-spacing:1px;
-}
-
-/* Make thumbnails scroll horizontally */
-.thumbnails{
-  overflow-x:auto;
-  gap:10px;
-}
-
-.thumbnails img{
-  width:65px;
-  flex-shrink:0;
-}
-
-.cart-btn{
-  border-radius:30px;
-  font-weight:bold;
-  letter-spacing:1px;
-}
-
-}
-.button-group{
-  display:flex;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.add-btn{
-  background:white;
-  color:black;
-}
-
-.buy-btn{
-  background:#d4af37;
-  color:black;
-  font-weight:bold;
-}
-
-.buy-btn:hover{
-  background:white;
-  color:black;
-}
-
-
-/* ===== CART POPUP ===== */
-
-.cart-overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    z-index:200;
-}
-
-.cart-popup{
-    position:fixed;
-    top:0;
-    right:-400px;
-    width:350px;
-    height:100%;
-    background:black;
-    color:white;
-    box-shadow:-5px 0 20px rgba(0,0,0,0.5);
-    padding:20px;
-    transition:0.4s;
-    z-index:300;
-    display:flex;
-    flex-direction:column;
-}
-
-.cart-popup.active{
-    right:0;
-}
-
-.cart-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.close-cart{
-    cursor:pointer;
-    font-size:20px;
-}
-
-#cartItems{
-    flex:1;
-    overflow-y:auto;
-}
-
-.cart-item{
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-    border-bottom:1px solid #333;
-    padding-bottom:10px;
-}
-
-.cart-item img{
-    width:60px;
-    border-radius:6px;
-}
-
-.cart-item-info{
-    flex:1;
-}
-
-.remove-btn{
-    color:red;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.cart-footer{
-    border-top:1px solid #333;
-    padding-top:15px;
-}
-
-.checkout-btn{
-    width:100%;
-    padding:12px;
-    background:#d4af37;
-    border:none;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-
-.cart-qty{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin:8px 0;
-}
-
-.cart-qty button{
-    width:25px;
-    height:25px;
-    border:none;
-    background:#d4af37;
-    color:black;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.cart-qty span{
-    min-width:20px;
-    text-align:center;
-}
-
-
-
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midnight Green Marble Set — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .breadcrumb{max-width:1400px;margin:0 auto;padding:20px 40px;font-size:12px;letter-spacing:1px;color:var(--text-muted);}
+    .breadcrumb a{color:var(--text-muted);transition:var(--transition);}
+    .breadcrumb a:hover{color:var(--gold);}
+    .breadcrumb span{margin:0 8px;}
+    .pdp{max-width:1400px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+    .gallery{position:sticky;top:90px;}
+    .main-img-wrap{position:relative;overflow:hidden;border-radius:var(--radius-md);background:var(--off-white);aspect-ratio:3/4;margin-bottom:12px;cursor:zoom-in;}
+    .main-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;}
+    .main-img-wrap:hover img{transform:scale(1.04);}
+    .thumbs{display:flex;gap:10px;}
+    .thumb{width:80px;height:90px;object-fit:cover;border-radius:var(--radius);cursor:pointer;border:2px solid transparent;transition:var(--transition);opacity:0.7;}
+    .thumb:hover,.thumb.active{opacity:1;border-color:var(--gold);}
+    .product-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+    .product-title{font-size:40px;font-weight:300;color:var(--charcoal);margin-bottom:16px;line-height:1.2;}
+    .product-price{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);margin-bottom:24px;}
+    .stars-display{color:var(--gold);letter-spacing:2px;}
+    .review-count{font-size:13px;color:var(--text-muted);}
+    .product-stars{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+    .divider{border:none;border-top:1px solid var(--border-light);margin:24px 0;}
+    .product-desc{font-size:14px;color:var(--text-muted);line-height:1.9;margin-bottom:28px;}
+    .qty-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+    .qty-selector{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius);width:fit-content;margin-bottom:20px;overflow:hidden;}
+    .qty-selector button{width:44px;height:44px;background:none;border:none;font-size:18px;color:var(--charcoal);transition:var(--transition);}
+    .qty-selector button:hover{background:var(--off-white);}
+    .qty-display{min-width:48px;text-align:center;font-size:16px;border-left:1px solid var(--border-light);border-right:1px solid var(--border-light);padding:0 4px;height:44px;display:flex;align-items:center;justify-content:center;}
+    .cta-group{display:flex;gap:12px;margin-bottom:28px;}
+    .cta-group .btn-primary,.cta-group .btn-outline{flex:1;padding:16px;text-align:center;}
+    .feature-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+    .feature-list li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-muted);}
+    .feature-list li::before{content:'✓';color:var(--gold);font-weight:600;flex-shrink:0;}
+    .accordion{border-top:1px solid var(--border-light);margin-top:32px;}
+    .accordion-item{border-bottom:1px solid var(--border-light);}
+    .accordion-trigger{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 0;background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal);text-align:left;}
+    .accordion-trigger .icon{font-size:18px;color:var(--gold);transition:transform 0.3s ease;}
+    .accordion-item.open .icon{transform:rotate(45deg);}
+    .accordion-body{display:none;padding:0 0 16px;font-size:14px;color:var(--text-muted);line-height:1.8;}
+    .accordion-item.open .accordion-body{display:block;}
+    .related-section{background:var(--off-white);padding:80px 40px;}
+    .section-header{text-align:center;margin-bottom:48px;}
+    .section-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+    .section-title{font-size:40px;font-weight:300;color:var(--charcoal);}
+    .related-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+    .rel-card{background:var(--white);border-radius:var(--radius-md);overflow:hidden;transition:var(--transition);}
+    .rel-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);}
+    .rel-card img{width:100%;aspect-ratio:1;object-fit:cover;}
+    .rel-info{padding:14px 16px;}
+    .rel-name{font-size:13px;color:var(--charcoal);margin-bottom:4px;}
+    .rel-price{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);}
+    .zoom-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:3000;display:none;align-items:center;justify-content:center;}
+    .zoom-overlay.open{display:flex;}
+    .zoom-overlay img{max-width:90vw;max-height:90vh;object-fit:contain;}
+    .zoom-overlay .z-close{position:absolute;top:24px;right:24px;background:none;border:none;color:white;font-size:36px;cursor:pointer;}
+    @media(max-width:900px){.pdp{grid-template-columns:1fr;gap:40px;padding:0 20px 60px;}.gallery{position:static;}.related-grid{grid-template-columns:repeat(2,1fr);}.related-section{padding:60px 20px;}}
+    @media(max-width:600px){.product-title{font-size:28px;}.cta-group{flex-direction:column;}}
+  </style>
 </head>
-
 <body>
-
-<header class="site-header">
-  
-  <!-- Empty div for spacing -->
-  <div class="header-left"></div>
-
-  <!-- LOGO CENTER -->
-  <div class="logo">
-    <a href="index.html">OUTFITITORY</a>
-  </div>
-
-  <!-- CART ICON RIGHT -->
-  <div class="cart-icon" onclick="goToCart()">
-    🛒
-    <span id="cartCount">0</span>
-  </div>
-
-</header>
-
-
-<div class="container">
-
-<div class="gallery">
-
-<div class="main-img">
-<img src="img6a.png" id="mainImage">
-</div>
-
-<div class="thumbnails">
-<img src="img6a.png" onclick="changeImage(this)">
-<img src="img6b.png" onclick="changeImage(this)">
-<img src="img6c.png" onclick="changeImage(this)">
-<img src="img6d.png" onclick="changeImage(this)">
-</div>
-
-</div>
-
-<div class="product-info">
-
-<h1>Midnight Green Luxury Marble Set</h1>
-<p class="price">Rs 2,000.00</p>
-<p class="stock">Hurry! Only Few Pieces Left</p>
-
-<div class="quantity">
-<button onclick="changeQty(-1)">-</button>
-<span id="qty">1</span>
-<button onclick="changeQty(1)">+</button>
-</div>
-
-<div class="button-group">
-  <button class="cart-btn add-btn" onclick="addToCart()">ADD TO CART</button>
-  <button class="cart-btn buy-btn" onclick="buyNow()">BUY NOW</button>
-</div>
-
-
-
-<div class="info-box">
-Dispatch Time: 2-4 Days <br>
-Free Shipping Over Rs 4500
-</div>
-
-<div class="tabs">
-
-<div class="tab-buttons">
-<button class="active" onclick="openTab(event,'desc')">Description</button>
-<button onclick="openTab(event,'why')">Why Buy</button>
-</div>
-
-<div id="desc" class="tab-content active">
-<p>
-Design: Yeh handmade (hath se bane hue) sets hain jin mein pearl beads, crystals aur stones ka istemal kiya gaya hai.
-Colors: In mein mukhtalif rangon ke combinations hain:
-Red & White: Pearl aur crystals ke saath jo bridal ya party wear ke liye best hai.
-Blue & Silver: Ek elegant look jo dark outfits ke saath khubsurat lagta hai.
-Material: Artificial pearls, high-quality beads, crystals aur durable beading wire/thread.
-Set Includes: Har set mein aam taur par ek Necklace (Haar), ek pair Earrings (Jhumkay) aur kabhi kabhi Bracelet (Kangan) bhi shamil hota hai.
-Style: Trendy "Korean style" ya "Traditional Eastern" dono looks ko support karta hai.
-</p>
-</div>
-
-<div id="why" class="tab-content">
-<ul>
-<li>Timeless Design</li>
-<li>Perfect for weddings and parties</li>
-<li>Includes matching earrings</li>
-<li>Lightweight and comfortable</li>
-<li>Perfect gift option</li>
-</ul>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="modal" id="zoomModal">
-<img id="zoomImg">
-</div>
-<!-- CART POPUP -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-
-<div class="cart-popup" id="cartPopup">
-    <div class="cart-header">
-        <h2>Your Cart</h2>
-        <span onclick="closeCart()" class="close-cart">✖</span>
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a></div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
-
-    <div id="cartItems"></div>
-
-    <div class="cart-footer">
-        <h3>Total: Rs <span id="cartTotal">0</span></h3>
-        <button class="checkout-btn" onclick="window.location.href='checkout.html'">
-            CHECKOUT
-        </button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+</nav>
+<div class="breadcrumb"><a href="index.html">Home</a><span>›</span><a href="plp.html">Jewelry Sets</a><span>›</span><span>Midnight Green Marble Set</span></div>
+<div class="pdp">
+  <div class="gallery">
+    <div class="main-img-wrap" onclick="openZoom()">
+      <img id="mainImage" src="img6a.png" alt="Midnight Green Marble Set" onerror="this.parentNode.style.background='var(--warm-gray)'">
     </div>
+    <div class="thumbs">
+      <img class="thumb active" src="img6a.png" onclick="changeImg(this)" onerror="this.style.display='none'">
+    </div>
+  </div>
+  <div class="product-info">
+    <p class="product-eyebrow">Jewelry Set</p>
+    <h1 class="product-title">Midnight Green Marble Set</h1>
+    <div class="product-stars"><span class="stars-display">★★★★★</span><span class="review-count">(18 reviews)</span></div>
+    <div class="product-price">Rs 2,000</div>
+    <hr class="divider">
+    <p class="product-desc">Rich midnight green marble for a daring, luxurious statement piece. This stunning set includes a necklace, pair of earrings, and a matching ring — crafted to complete any outfit with elegance.</p>
+    <p class="qty-label">Quantity</p>
+    <div class="qty-selector">
+      <button onclick="changeQty(-1)">−</button>
+      <span class="qty-display" id="qtyDisplay">1</span>
+      <button onclick="changeQty(1)">+</button>
+    </div>
+    <div class="cta-group">
+      <button class="btn-primary" onclick="handleAddToCart()"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+      <button class="btn-outline" onclick="handleBuyNow()">Buy Now</button>
+    </div>
+    <ul class="feature-list">
+      <li>Premium quality materials</li>
+      <li>Tarnish-resistant finish</li>
+      <li>Includes: Necklace, Earrings &amp; Ring</li>
+      <li>Cash on Delivery available</li>
+      <li>Free returns within 7 days</li>
+    </ul>
+    <div class="accordion">
+      <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">Materials &amp; Care<span class="icon">+</span></button><div class="accordion-body">Made with zinc alloy base, gold-toned plating, and high-quality synthetic stones. Keep away from water and perfumes.</div></div>
+      <div class="accordion-item"><button class="accordion-trigger" onclick="toggleAccordion(this)">Shipping &amp; Returns<span class="icon">+</span></button><div class="accordion-body">Nationwide delivery in 3–5 business days. Shipping Rs 250. Cash on Delivery available. Returns within 7 days if unused.</div></div>
+    </div>
+  </div>
 </div>
-
-
-
+<section class="related-section">
+  <div class="section-header"><p class="section-eyebrow">You May Also Love</p><h2 class="section-title">Related Products</h2></div>
+  <div class="related-grid" id="relatedGrid"></div>
+</section>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo-text">OUTFITITORY</span><p>Fine jewelry for every occasion.</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plp.html">Jewelry Sets</a></li><li><a href="bracelets.html">Bracelets</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="cart.html">Your Cart</a></li><li><a href="#">Return Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 OUTFITITORY. All rights reserved.</p></div>
+</footer>
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header"><h3>Your Cart</h3><button class="drawer-close" onclick="closeCartDrawer()">×</button></div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;"><div class="drawer-total-row"><span>Subtotal</span><span id="drawer-total">Rs 0</span></div><p class="drawer-shipping">Shipping: Rs 250</p><a href="checkout.html" class="btn-checkout">Proceed to Checkout</a></div>
+</div>
+<div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom()">
+  <button class="z-close" onclick="closeZoom()">×</button>
+  <img id="zoomImg" src="img6a.png" alt="">
+</div>
+<script src="shared.js"></script>
 <script>
-let qty = 1;
-
-function changeQty(num){
-    qty += num;
-    if(qty < 1) qty = 1;
-    document.getElementById("qty").innerText = qty;
-}
-
-function getProductData(){
-    const productName = document.querySelector(".product-info h1").innerText;
-    const priceText = document.querySelector(".product-info .price").innerText;
-    const productPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
-    const productImage = document.getElementById("mainImage").src;
-
-    return {
-        name: productName,
-        price: productPrice,
-        image: productImage,
-        quantity: qty
-    };
-}
-
-function saveToCart(product){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    const existing = cart.find(p => p.name === product.name);
-
-    if(existing){
-        existing.quantity += product.quantity;
-    } else {
-        cart.push(product);
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-function addToCart(){
-    const product = getProductData();
-    saveToCart(product);
-
-    qty = 1;
-    document.getElementById("qty").innerText = qty;
-
-    updateCartCount();
-    renderCart();     // refresh cart content
-    openCart();       // 👈 open popup automatically
-}
-
-
-function buyNow(){
-    const product = getProductData();
-    saveToCart(product);
-
-    window.location.href = "checkout.html";
-}
-
-
-
-// Modal zoom
-let mainImage = document.getElementById("mainImage");
-let modal = document.getElementById("zoomModal");
-let zoomImg = document.getElementById("zoomImg");
-
-window.onload = function(){
-    modal.style.display = "none";
-    mainImage.onclick = function(){
-        modal.style.display = "flex";
-        zoomImg.src = this.src;
-    }
-    modal.onclick = function(){
-        modal.style.display = "none";
-    }
-}
-
-// Thumbnail switch
-function changeImage(element){
-    document.getElementById("mainImage").src = element.src;
-}
-function updateCartCount(){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let totalItems = 0;
-
-    cart.forEach(item => {
-        totalItems += item.quantity;
-    });
-
-    document.getElementById("cartCount").innerText = totalItems;
-}
-
-function goToCart(){
-    openCart();
-}
-
-
-// Update count when page loads
-updateCartCount();
-
-
-function openCart(){
-    document.getElementById("cartPopup").classList.add("active");
-    document.getElementById("cartOverlay").style.display = "block";
-    renderCart();
-}
-
-function closeCart(){
-    document.getElementById("cartPopup").classList.remove("active");
-    document.getElementById("cartOverlay").style.display = "none";
-}
-
-function renderCart(){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartItemsDiv = document.getElementById("cartItems");
-    let total = 0;
-
-    cartItemsDiv.innerHTML = "";
-
-    if(cart.length === 0){
-        cartItemsDiv.innerHTML = "<p>Your cart is empty</p>";
-    }
-
-    cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-
-        cartItemsDiv.innerHTML += `
-            <div class="cart-item">
-                <img src="${item.image}">
-                <div class="cart-item-info">
-                    <p>${item.name}</p>
-
-                    <div class="cart-qty">
-                        <button onclick="changeCartQty(${index}, -1)">−</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="changeCartQty(${index}, 1)">+</button>
-                    </div>
-
-                    <p>Rs ${item.price * item.quantity}</p>
-
-                    <span class="remove-btn" onclick="removeItem(${index})">
-                        Remove
-                    </span>
-                </div>
-            </div>
-        `;
-    });
-
-    document.getElementById("cartTotal").innerText = total;
-}
-
-
-function removeItem(index){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-    updateCartCount();
-}
-
-function changeCartQty(index, change){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    cart[index].quantity += change;
-
-    if(cart[index].quantity <= 0){
-        cart.splice(index, 1);
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    renderCart();
-    updateCartCount();
-}
-
-
-
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30);});
+let qty=1;
+function changeQty(d){qty=Math.max(1,qty+d);document.getElementById('qtyDisplay').textContent=qty;}
+function handleAddToCart(){addToCart({id:'p7',name:'Midnight Green Marble Set',price:2000,image:'img6a.png',quantity:qty});openCartDrawer();}
+function handleBuyNow(){addToCart({id:'p7',name:'Midnight Green Marble Set',price:2000,image:'img6a.png',quantity:qty});window.location.href='checkout.html';}
+function changeImg(el){document.getElementById('mainImage').src=el.src;document.getElementById('zoomImg').src=el.src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function openZoom(){document.getElementById('zoomImg').src=document.getElementById('mainImage').src;document.getElementById('zoomOverlay').classList.add('open');}
+function closeZoom(){document.getElementById('zoomOverlay').classList.remove('open');}
+function toggleAccordion(btn){const item=btn.closest('.accordion-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');}
+const related=[{name:'Black Luxury Marble Set',price:2000,image:'blackfront.png',href:'jewlproduct.html'},{name:'Pink Crystal Set',price:2000,image:'pinkfront.png',href:'jewlproduct6.html'},{name:'Blue Crystal Set',price:2000,image:'bluefront.png',href:'jewlproduct3.html'},{name:'Violet Crystal Set',price:2000,image:'img4a.png',href:'jewlproduct4.html'}];
+document.getElementById('relatedGrid').innerHTML=related.map(r=>`<a href="${r.href}" class="rel-card"><img src="${r.image}" alt="${r.name}" onerror="this.style.display='none'"><div class="rel-info"><div class="rel-name">${r.name}</div><div class="rel-price">Rs ${r.price.toLocaleString()}</div></div></a>`).join('');
 </script>
-
-
-
 </body>
 </html>

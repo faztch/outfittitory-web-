@@ -1,164 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us - OUTFITORY Jewelry</title>
-
-<style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #faf7f5;
-        color: #333;
-        line-height: 1.6;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* HERO */
+    .about-hero {
+      background: var(--charcoal);
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-
-    header {
-        background: linear-gradient(135deg, #d4a373, #b08968);
-        color: white;
-        padding: 60px 20px;
-        text-align: center;
+    .about-hero::before {
+      content: 'OUTFITITORY';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 200px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.03);
+      white-space: nowrap;
+      letter-spacing: 20px;
+      pointer-events: none;
     }
+    .about-hero .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px; }
+    .about-hero h1 { font-size:60px;font-weight:300;color:var(--white);line-height:1.1; }
+    .about-hero h1 em { font-style:italic;color:var(--gold-light); }
+    .about-hero p { font-size:16px;color:rgba(255,255,255,0.55);margin-top:20px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8; }
 
-  header h1 {
-  text-align: center;
-  margin: 70px 0 50px;
-  font-size: 42px;
-  letter-spacing: 3px;
-  font-family: 'Playfair Display', serif;
-  color:white;
-  position: relative;
-  
-  /* Initial state: invisible and slightly translated */
-  opacity: 0;
-  transform: translateY(-30px);
-  
-  /* Animation applied */
-  animation: fadeInUp 0.5s ease-out forwards;
-}
-
-/* Keyframes for fadeInUp animation */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px); /* Start position off-screen */
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0); /* End position at normal place */
-  }
-}
-
-/* Page title separator */
-header h1::after {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 2px;
-  background: #d4af37;
-  margin: 20px auto 0;
-}
-
-    header p {
-        font-size: 1.2em;
-        margin-top: 10px;
-        opacity: 0.95;
+    /* STORY */
+    .story-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
     }
-
-    .container {
-        max-width: 900px;
-        margin: auto;
-        padding: 40px 20px;
+    .story-visual {
+      position: relative;
     }
-
-    .section {
-        margin-bottom: 40px;
+    .story-visual-main {
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-
-    .section h2 {
-        color: #b08968;
-        margin-bottom: 15px;
+    .story-visual-main .placeholder-icon { font-size:80px;opacity:0.15;color:var(--gold); }
+    .story-accent {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
     }
+    .story-accent .num { font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--gold); }
+    .story-accent p { font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-top:2px; }
 
-    .highlight-box {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        transition: 0.3s;
-    }
+    .story-text .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px; }
+    .story-text h2 { font-size:44px;font-weight:300;color:var(--charcoal);margin-bottom:24px;line-height:1.2; }
+    .story-text p { font-size:15px;color:var(--text-muted);line-height:1.9;margin-bottom:16px; }
 
-    .highlight-box:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    }
+    /* VALUES */
+    .values-section { background:var(--off-white);padding:80px 40px; }
+    .values-inner { max-width:1200px;margin:0 auto; }
+    .values-header { text-align:center;margin-bottom:56px; }
+    .values-header .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px; }
+    .values-header h2 { font-size:44px;font-weight:300;color:var(--charcoal); }
 
-    footer {
-        text-align: center;
-        padding: 20px;
-        background-color: #f1eae6;
-        font-size: 0.9em;
-        color: #555;
+    .values-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-light);border:1px solid var(--border-light);border-radius:var(--radius-md);overflow:hidden; }
+    .value-card { background:var(--white);padding:48px 36px;text-align:center;transition:var(--transition); }
+    .value-card:hover { background:var(--charcoal); }
+    .value-card:hover .value-icon,.value-card:hover h3,.value-card:hover p { color:rgba(255,255,255,0.9); }
+    .value-icon { font-size:32px;color:var(--gold);margin-bottom:20px;transition:var(--transition); }
+    .value-card h3 { font-size:22px;font-weight:400;color:var(--charcoal);margin-bottom:12px;letter-spacing:1px;transition:var(--transition); }
+    .value-card p { font-size:14px;color:var(--text-muted);line-height:1.8;transition:var(--transition); }
+
+    /* MISSION */
+    .mission-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      text-align: center;
     }
-</style>
+    .mission-section .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px; }
+    .mission-section h2 { font-size:44px;font-weight:300;color:var(--charcoal);margin-bottom:24px; }
+    .mission-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-style: italic;
+      color: var(--dark-gray);
+      line-height: 1.6;
+      padding: 32px;
+      border-left: 3px solid var(--gold);
+      text-align: left;
+      margin: 32px 0;
+      background: var(--off-white);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    .mission-section p { font-size:15px;color:var(--text-muted);line-height:1.9;margin-bottom:32px; }
+
+    /* CTA */
+    .about-cta {
+      background: var(--charcoal);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .about-cta h2 { font-size:44px;font-weight:300;color:var(--white);margin-bottom:12px; }
+    .about-cta p { font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:32px; }
+    .about-cta .btn-gold { display:inline-flex; }
+
+    @media(max-width:900px) {
+      .story-section { grid-template-columns:1fr;gap:40px;padding:60px 20px; }
+      .values-grid { grid-template-columns:1fr; }
+      .about-hero h1 { font-size:40px; }
+      .about-hero { padding:70px 20px; }
+      .mission-section,.values-section { padding:60px 20px; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-    <h1>About OUTFITITORY</h1>
-    <p>Where Style Meets Affordability</p>
-</header>
-
-<div class="container">
-
-    <div class="section highlight-box">
-        <h2>Our Story</h2>
-        <p>
-            At <strong>OUTFITITORY</strong>, we believe that beautiful jewelry should never be out of reach. 
-            Our journey began with a simple idea — to create stylish, elegant, and high-quality jewelry 
-            that everyone can enjoy without overspending.
-        </p>
-        <p>
-            We carefully design each piece to blend modern trends with timeless charm, allowing you to 
-            express your personality and confidence every day.
-        </p>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html" style="color:var(--gold);">About</a></div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+</nav>
 
-    <div class="section highlight-box">
-        <h2>Our Mission</h2>
-        <p>
-            Our mission is to make fashion-forward jewelry accessible to all. We focus on combining 
-            affordability with durability, ensuring you receive pieces that not only look stunning 
-            but also last.
-        </p>
+<!-- HERO -->
+<section class="about-hero">
+  <p class="eyebrow">Our Story</p>
+  <h1>Jewelry That Tells<br><em>Your Story</em></h1>
+  <p>Born from a passion for accessible elegance — OUTFITITORY brings fine-inspired jewelry to every woman, at a price that feels as good as the pieces look.</p>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="story-visual">
+    <div class="story-visual-main">
+      <span class="placeholder-icon">✦</span>
     </div>
-
-    <div class="section highlight-box">
-        <h2>Why Choose Us?</h2>
-        <p>
-            ✨ Trendy and elegant designs<br>
-            💎 Quality craftsmanship at fair prices<br>
-            ❤️ Jewelry made to make you feel confident and special<br>
-            🌍 Customer-first approach and reliable service
-        </p>
+    <div class="story-accent">
+      <div class="num">200+</div>
+      <p>Happy Customers</p>
     </div>
+  </div>
+  <div class="story-text">
+    <p class="eyebrow">How It Started</p>
+    <h2>Crafted with Love, Priced with Heart</h2>
+    <p>OUTFITITORY began with a simple belief — that every woman deserves to feel adorned, confident, and beautiful without having to overspend. We noticed a gap between fast fashion jewelry and expensive fine jewelry, and decided to fill it.</p>
+    <p>We carefully curate each piece, balancing modern trends with timeless design. Whether it's a marble set for a wedding or a simple bracelet for everyday wear — our jewelry is made to make you feel like the best version of yourself.</p>
+    <a href="plp.html" class="btn-primary" style="margin-top:8px;">Explore the Collection</a>
+  </div>
+</section>
 
-    <div class="section highlight-box">
-        <h2>Our Promise</h2>
-        <p>
-            Every piece at OUTFITITORY is created with attention to detail and love for style. 
-            Whether you’re shopping for everyday elegance or a meaningful gift, we promise 
-            to deliver jewelry that adds sparkle to your moments.
-        </p>
+<!-- VALUES -->
+<section class="values-section">
+  <div class="values-inner">
+    <div class="values-header">
+      <p class="eyebrow">What We Stand For</p>
+      <h2>Our Values</h2>
     </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-gem"></i></div>
+        <h3>Quality First</h3>
+        <p>Every piece is carefully selected for its finish, durability, and beauty. We don't compromise on quality.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-heart"></i></div>
+        <h3>Customer Love</h3>
+        <p>Our customers are the heart of everything we do. We go the extra mile to ensure your happiness.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-tag"></i></div>
+        <h3>Accessible Luxury</h3>
+        <p>Fine-inspired jewelry at prices everyone can enjoy. Beauty should never be a luxury only few can afford.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- MISSION -->
+<section class="mission-section">
+  <p class="eyebrow">Our Purpose</p>
+  <h2>A Promise We Keep</h2>
+  <div class="mission-quote">
+    "We believe that how you adorn yourself is an act of self-expression — and that every woman deserves to shine."
+  </div>
+  <p>Every piece at OUTFITITORY is selected with attention to detail, care for style, and respect for your budget. Whether you're shopping for a special occasion or everyday elegance, we promise to deliver jewelry that adds sparkle to your moments.</p>
+  <a href="contact.html" class="btn-outline">Get in Touch</a>
+</section>
 
-<footer>
-    © 2026 OUTFITITORY Jewelry | Designed to Shine With You
+<!-- CTA -->
+<section class="about-cta">
+  <h2>Ready to Find Your Piece?</h2>
+  <p>Browse our curated collections and discover jewelry that speaks to you.</p>
+  <a href="plp.html" class="btn-gold">Shop Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo-text">OUTFITITORY</span><p>Fine jewelry crafted to make you feel confident and special.</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plp.html">Jewelry Sets</a></li><li><a href="bracelets.html">Bracelets</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="cart.html">Your Cart</a></li><li><a href="#">Return Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 OUTFITITORY. All rights reserved.</p><p>Cash on Delivery · Pakistan Nationwide</p></div>
 </footer>
 
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header"><h3>Your Cart</h3><button class="drawer-close" onclick="closeCartDrawer()">×</button></div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;">
+    <div class="drawer-total-row"><span>Subtotal</span><span id="drawer-total">Rs 0</span></div>
+    <p class="drawer-shipping">Shipping: Rs 250</p>
+    <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30); });
+</script>
 </body>
 </html>

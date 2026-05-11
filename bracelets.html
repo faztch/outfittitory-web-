@@ -1,253 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jewelry Collection</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bracelets — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .page-banner { background:var(--off-white);padding:60px 40px;text-align:center;border-bottom:1px solid var(--border-light); }
+    .page-banner .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px; }
+    .page-banner h1 { font-size:48px;font-weight:300;color:var(--charcoal); }
+    .page-banner h1::after { content:'';display:block;width:60px;height:2px;background:var(--gold);margin:16px auto 0; }
+    .page-banner p { font-size:14px;color:var(--text-muted);margin-top:16px; }
 
-<style>
+    .collection-layout { max-width:1400px;margin:0 auto;padding:40px 40px 80px; }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
+    .collection-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .collection-count { font-size:13px;color:var(--text-muted);letter-spacing:1px; }
 
-body{
-  background:#000;
-  color:white;
-}
+    .products-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:28px; }
 
-/* ========================= */
-/* PAGE TITLE ANIMATION */
-/* ========================= */
+    .product-card { background:var(--white);border-radius:var(--radius-md);overflow:hidden;transition:var(--transition);position:relative;border:1px solid var(--border-light); }
+    .product-card:hover { box-shadow:var(--shadow-md);transform:translateY(-4px);border-color:transparent; }
 
-.page-title {
-  text-align: center;
-  margin: 70px 0 50px;
-  font-size: 42px;
-  letter-spacing: 3px;
-  font-family: 'Playfair Display', serif;
-  color: #d4af37;
-  position: relative;
-  
-  /* Initial state: invisible and slightly translated */
-  opacity: 0;
-  transform: translateY(-30px);
-  
-  /* Animation applied */
-  animation: fadeInUp 0.6s ease-out forwards;
-}
+    .product-img-wrap { position:relative;overflow:hidden;background:var(--off-white);aspect-ratio:1; }
+    .product-img-wrap img { width:100%;height:100%;object-fit:cover;transition:transform 0.7s ease; }
+    .product-card:hover .product-img-wrap img { transform:scale(1.06); }
 
-/* Keyframes for fadeInUp animation */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px); /* Start position off-screen */
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0); /* End position at normal place */
-  }
-}
+    .product-actions { position:absolute;bottom:-60px;left:0;right:0;padding:12px;display:flex;gap:8px;transition:var(--transition);background:linear-gradient(to top,rgba(255,255,255,0.95) 0%,transparent);padding-top:40px; }
+    .product-card:hover .product-actions { bottom:0; }
 
-/* Page title separator */
-.page-title::after {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 2px;
-  background: #d4af37;
-  margin: 20px auto 0;
-}
+    .atc-btn { flex:1;padding:10px;background:var(--charcoal);border:1.5px solid var(--charcoal);color:var(--white);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Jost',sans-serif;transition:var(--transition); }
+    .atc-btn:hover { background:var(--gold);border-color:var(--gold); }
 
+    .product-info { padding:18px 16px 20px; }
+    .product-name { font-size:14px;font-weight:400;color:var(--charcoal);margin-bottom:6px; }
+    .product-price { font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold); }
 
-.product-grid{
-  max-width:1200px;
-  margin:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:40px;
-}
+    /* Quick View */
+    .qv-overlay { position:fixed;inset:0;background:rgba(15,13,11,0.6);z-index:2000;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:20px; }
+    .qv-overlay.open { opacity:1;pointer-events:auto; }
+    .qv-modal { background:var(--white);border-radius:var(--radius-lg);width:100%;max-width:800px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;transform:scale(0.94) translateY(20px);transition:transform 0.35s ease;max-height:90vh; }
+    .qv-overlay.open .qv-modal { transform:scale(1) translateY(0); }
+    .qv-images { background:var(--off-white);position:relative;overflow:hidden;min-height:360px; }
+    .qv-images img { width:100%;height:100%;object-fit:cover; }
+    .qv-body { padding:40px 32px;overflow-y:auto;display:flex;flex-direction:column; }
+    .qv-close { position:absolute;top:16px;right:16px;width:36px;height:36px;background:var(--white);border:none;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:var(--transition); }
+    .qv-close:hover { background:var(--charcoal);color:var(--white);transform:rotate(90deg); }
+    .qv-body h2 { font-size:26px;font-weight:400;margin-bottom:8px;color:var(--charcoal); }
+    .qv-price { font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin-bottom:16px; }
+    .qv-desc { font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:24px;flex:1; }
+    .qv-actions { display:flex;flex-direction:column;gap:10px; }
+    .qv-actions .btn-primary,.qv-actions .btn-outline { width:100%;text-align:center; }
 
-/* Tablet */
-@media (max-width: 1024px){
-  .product-grid{
-    grid-template-columns:repeat(2, 1fr);
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px){
-  .product-grid{
-    grid-template-columns:repeat(2, 1fr);
-    gap:20px;
-  }
-
-  .card img{
-    height:200px;
-  }
-
-  .card-content{
-    padding:14px;
-  }
-
-  .card-content h4{
-    font-size:14px;
-  }
-
-  .price{
-    font-size:14px;
-  }
-}
-
-.card{
-  background:#111;
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid rgba(212,175,55,0.15);
-  transition:all 0.4s ease;
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  border-color:#d4af37;
-  box-shadow:0 25px 50px rgba(212,175,55,0.12);
-}
-
-.card img{
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  transition:transform 0.6s ease;
-}
-
-.card:hover img{
-  transform:scale(1.06);
-}
-
-.card-content{
-  padding:22px;
-  text-align:center;
-}
-
-.card-content h4{
-  margin-bottom:10px;
-  font-size:18px;
-  font-weight:500;
-  letter-spacing:1px;
-}
-
-.price{
-  font-weight:600;
-  font-size:18px;
-  color:#d4af37;
-}
-
-.card a{
-  text-decoration:none;
-  color:inherit;
-  display:block;
-}
-footer {
-  background-color: black;
-  color: #d4af37;
-  padding: 50px;
-  text-align: center;
-  font-size: 20px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  margin-top: auto;
-}
-
-
-</style>
+    @media (max-width:900px) { .products-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:600px) { .products-grid { grid-template-columns:repeat(2,1fr);gap:16px; } .collection-layout { padding:24px 16px 60px; } .page-banner { padding:40px 20px; } .page-banner h1 { font-size:36px; } .qv-modal { grid-template-columns:1fr; } .qv-images { height:240px;min-height:unset; } .qv-body { padding:24px 20px; } }
+  </style>
 </head>
-
 <body>
 
-<h1 class="page-title">Our Bracelets Collection</h1>
-
-<div class="product-grid">
-
-<div class="card">
-  <a href="braceproduct.html?product=gold">
-    <img src="goldbrfront.png" alt="Black Set">
-    <div class="card-content">
-      <h4>Gold Bracelet</h4>
-      <p class="price">Rs 380</p>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html" style="color:var(--gold);">Bracelets</a><a href="about.html">About</a></div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
     </div>
-  </a>
+  </div>
+  <div class="mobile-nav" id="mobile-nav"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <p class="eyebrow">Handcrafted</p>
+  <h1>Bracelets</h1>
+  <p>Delicate designs crafted to adorn your every gesture</p>
 </div>
 
-<div class="card">
-  <a href="braceproduct.html?product=white2">
-    <img src="white2brfront.png" alt="Red White Set">
-    <div class="card-content">
-      <h4>White Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
+<!-- COLLECTION -->
+<div class="collection-layout">
+  <div class="collection-toolbar">
+    <p class="collection-count">7 Products</p>
+  </div>
+  <div class="products-grid" id="braceletGrid"></div>
 </div>
 
-<div class="card">
-  <a href="braceproduct.html?product=sea">
-    <img src="seabrfront.png" alt="Blue Set">
-    <div class="card-content">
-      <h4>Sea Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="braceproduct.html?product=white">
-    <img src="whitebrfront.png" alt="Violet Set">
-    <div class="card-content">
-      <h4>White Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="braceproduct.html?product=black">
-    <img src="blackbrfront.png" alt="Black Set">
-    <div class="card-content">
-      <h4>Black Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="braceproduct.html?product=pink">
-    <img src="pinkbrfront.png" alt="Pink Set">
-    <div class="card-content">
-      <h4>Pink Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="braceproduct.html?product=name">
-    <img src="namebrfront.png" alt="Pink Set">
-    <div class="card-content">
-      <h4> Your Name Bracelet</h4>
-      <p class="price">Rs 380</p>
-    </div>
-  </a>
-</div>
-
-
-</div>
-<footer>
-  <p>© 2026 Outfititory. All Rights Reserved.</p>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo-text">OUTFITITORY</span><p>Fine jewelry crafted to make you feel confident and special.</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plp.html">Jewelry Sets</a></li><li><a href="bracelets.html">Bracelets</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="cart.html">Your Cart</a></li><li><a href="#">Return Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 OUTFITITORY. All rights reserved.</p><p>Cash on Delivery · Pakistan Nationwide</p></div>
 </footer>
 
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header"><h3>Your Cart</h3><button class="drawer-close" onclick="closeCartDrawer()">×</button></div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;">
+    <div class="drawer-total-row"><span>Subtotal</span><span id="drawer-total">Rs 0</span></div>
+    <p class="drawer-shipping">Shipping: Rs 250</p>
+    <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+  </div>
+</div>
+
+<!-- QUICK VIEW -->
+<div class="qv-overlay" id="qv-overlay">
+  <div class="qv-modal">
+    <div class="qv-images">
+      <button class="qv-close" onclick="closeQV()">×</button>
+      <img id="qv-img" src="" alt="">
+    </div>
+    <div class="qv-body">
+      <h2 id="qv-name"></h2>
+      <div class="qv-price" id="qv-price"></div>
+      <p class="qv-desc" id="qv-desc"></p>
+      <div class="qv-actions">
+        <button class="btn-primary" id="qv-atc">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30); });
+
+const bracelets = [
+  { id:'br1', name:'Gold Bracelet', price:380, image:'goldbrfront.png', desc:'A shimmering gold bracelet that adds warmth and radiance to any look.' },
+  { id:'br2', name:'White Bracelet (Pearl)', price:380, image:'white2brfront.png', desc:'Elegant white pearl-inspired bracelet, perfect for bridal and formal occasions.' },
+  { id:'br3', name:'Sea Bracelet', price:380, image:'seabrfront.png', desc:'Cool sea-toned beads evoking the calming beauty of ocean waves.' },
+  { id:'br4', name:'White Bracelet', price:380, image:'whitebrfront.png', desc:'Classic white bracelet for a clean, minimal, and timeless style.' },
+  { id:'br5', name:'Black Bracelet', price:380, image:'blackbrfront.png', desc:'Bold and sophisticated black bracelet for everyday chic.' },
+  { id:'br6', name:'Pink Bracelet', price:380, image:'pinkbrfront.png', desc:'Romantic pink tones perfect for a soft, feminine look.' },
+  { id:'br7', name:'Your Name Bracelet', price:380, image:'namebrfront.png', desc:'Personalized name bracelet — a meaningful gift or a beautiful keepsake for yourself.' },
+];
+
+document.getElementById('braceletGrid').innerHTML = bracelets.map(b => `
+  <div class="product-card">
+    <div class="product-img-wrap">
+      <img src="${b.image}" alt="${b.name}" loading="lazy" onerror="this.parentNode.style.background='var(--warm-gray)'">
+      <div class="product-actions">
+        <button class="atc-btn" onclick="openQV('${b.id}')">Quick View</button>
+        <button class="atc-btn" onclick="event.stopPropagation();addToCart({id:'${b.id}',name:'${b.name}',price:${b.price},image:'${b.image}'})">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-name">${b.name}</div>
+      <div class="product-price">Rs ${b.price.toLocaleString()}</div>
+    </div>
+  </div>
+`).join('');
+
+function openQV(id) {
+  const b = bracelets.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('qv-img').src = b.image;
+  document.getElementById('qv-name').textContent = b.name;
+  document.getElementById('qv-price').textContent = `Rs ${b.price.toLocaleString()}`;
+  document.getElementById('qv-desc').textContent = b.desc;
+  document.getElementById('qv-atc').onclick = () => {
+    addToCart({id:b.id,name:b.name,price:b.price,image:b.image});
+    closeQV();
+    openCartDrawer();
+  };
+  document.getElementById('qv-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeQV() {
+  document.getElementById('qv-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('qv-overlay').addEventListener('click', e => { if(e.target === document.getElementById('qv-overlay')) closeQV(); });
+</script>
 </body>
 </html>

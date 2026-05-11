@@ -2,242 +2,269 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Order Confirmation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: white;
-      font-family: 'Poppins', sans-serif;
+    body { background: var(--off-white); }
+
+    .confirm-header {
+      padding: 24px 40px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border-light);
       text-align: center;
-      padding: 60px 20px;
+    }
+    .confirm-header a { font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;letter-spacing:8px;color:var(--charcoal); }
+
+    .confirm-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
     }
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    h1 {
-      color: #d4af37;
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 2px;
-      font-size: 40px;
-    }
-
-    .order-box {
-      background: #111;
-      padding: 30px;
-      border-radius: 12px;
-      margin-top: 40px;
-      text-align: left;
-    }
-
-    .product {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #222;
-      padding-bottom: 10px;
-    }
-
-    .total {
-      font-size: 20px;
-      margin-top: 20px;
-      color: #d4af37;
-    }
-
-    .home-btn {
-      margin-top: 40px;
-      padding: 14px 30px;
-      background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-
-    .home-btn:hover {
-      background: #b8962e;
-    }
-
-    .whatsapp-btn {
-      margin-top: 20px;
-      padding: 14px 30px;
-      background: #25D366;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 18px;
-      color: white;
-      transition: 0.3s;
-    }
-
-    .whatsapp-btn:hover {
-      background: #128C7E;
-    }
-
-    /* Success Animation */
-    .success-animation {
-      margin-top: 20px;
-    }
-
-    .checkmark-circle {
-      width: 100px;
-      height: 100px;
-      position: relative;
-      margin: 0 auto 20px;
+    /* SUCCESS ANIMATION */
+    .success-ring {
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
-      background: rgba(212,175,55,0.1);
-      border: 2px solid #d4af37;
-      animation: pop 0.5s ease-out forwards;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      animation: ringPop 0.5s ease-out;
+    }
+    .success-ring i { font-size: 36px; color: var(--gold); animation: iconFade 0.4s 0.3s both; }
+    @keyframes ringPop { from { transform:scale(0.4); opacity:0; } to { transform:scale(1); opacity:1; } }
+    @keyframes iconFade { from { opacity:0; transform:scale(0.6); } to { opacity:1; transform:scale(1); } }
+
+    .confirm-title {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .confirm-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+    .confirm-subtitle strong { color: var(--gold); }
+
+    .order-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-light);
+      animation: fadeUp 0.5s 0.2s both;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+    .order-card-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .checkmark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 30px;
-      height: 60px;
-      border-right: 4px solid #d4af37;
-      border-bottom: 4px solid #d4af37;
-      transform: translate(-50%, -60%) rotate(45deg) scale(0);
-      animation: draw 0.5s 0.3s ease forwards;
-    }
+    .info-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:4px; }
+    .info-item { }
+    .info-label { font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px; }
+    .info-value { font-size:14px;color:var(--charcoal); }
 
-    @keyframes pop {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
     }
+    .order-item-row:last-of-type { border-bottom: none; }
+    .order-item-row img { width:56px;height:70px;object-fit:cover;border-radius:var(--radius);background:var(--off-white); }
+    .order-item-row .name { flex:1;font-size:13px;color:var(--charcoal); }
+    .order-item-row .qty { font-size:12px;color:var(--text-muted); }
+    .order-item-row .price { font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--charcoal); }
 
-    @keyframes draw {
-      to { transform: translate(-50%, -60%) rotate(45deg) scale(1); }
+    .totals-row { display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px;color:var(--dark-gray); }
+    .totals-row.grand { border-top:1px solid var(--border-light);padding-top:12px;margin-top:4px; }
+    .totals-row.grand span:first-child { font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal);font-weight:500; }
+    .totals-row.grand span:last-child { font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--charcoal); }
+
+    .action-btns { display:flex;flex-direction:column;gap:12px;animation:fadeUp 0.5s 0.4s both; }
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      background: #25D366;
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
     }
+    .wa-btn:hover { background: #128C7E; }
 
-    #confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-    }
-
+    /* CONFETTI */
+    #confetti-canvas { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999; }
   </style>
-
 </head>
-
 <body>
 
-<div class="container">
-  <div class="success-animation">
-    <div class="checkmark-circle">
-      <div class="checkmark"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<header class="confirm-header">
+  <a href="index.html">OUTFITITORY</a>
+</header>
+
+<div class="confirm-body">
+
+  <div class="success-ring">
+    <i class="fas fa-check"></i>
+  </div>
+
+  <h1 class="confirm-title">Order Confirmed!</h1>
+  <p class="confirm-subtitle">Thank you for your order. We'll confirm via WhatsApp shortly. <strong id="orderNumDisplay"></strong></p>
+
+  <div class="order-card" id="customerCard" style="display:none;">
+    <p class="order-card-title">Customer Details</p>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">Name</div>
+        <div class="info-value" id="custName">—</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Phone</div>
+        <div class="info-value" id="custPhone">—</div>
+      </div>
+      <div class="info-item" style="grid-column:1/-1;">
+        <div class="info-label">Delivery Address</div>
+        <div class="info-value" id="custAddress">—</div>
+      </div>
     </div>
   </div>
 
-  <h1>Order Confirmed</h1>
+  <div class="order-card" id="itemsCard" style="display:none;">
+    <p class="order-card-title">Items Ordered</p>
+    <div id="itemsList"></div>
+    <div style="margin-top:16px;">
+      <div class="totals-row"><span>Subtotal</span><span id="confSubtotal">—</span></div>
+      <div class="totals-row"><span>Shipping</span><span id="confShipping">—</span></div>
+      <div class="totals-row grand"><span>Total</span><span id="confTotal">—</span></div>
+    </div>
+  </div>
 
-  <p id="orderInfo"></p>
+  <div class="action-btns">
+    <button class="wa-btn" id="waBtn"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Confirm on WhatsApp</button>
+    <a href="index.html" class="btn-outline" style="text-align:center;">Continue Shopping</a>
+  </div>
 
-  <div class="order-box" id="orderSummary"></div>
-
-  <button class="home-btn" onclick="goHome()">Back to Home</button>
-
-  <!-- WhatsApp Button -->
-  <button class="whatsapp-btn" id="whatsappBtn">Confirm Order on WhatsApp</button>
 </div>
 
-<canvas id="confetti"></canvas>
-
+<script src="shared.js"></script>
 <script>
-const deliveryCharge = 250; // Rs 150 delivery
+const order = JSON.parse(localStorage.getItem('outfititory_lastOrder'));
 
-let order = JSON.parse(localStorage.getItem("lastOrder"));
-if (!order) {
-    document.body.innerHTML = "<h2>No order found.</h2>";
+if (order) {
+  document.getElementById('orderNumDisplay').textContent = `Order #${order.orderNumber}`;
+
+  // Customer card
+  document.getElementById('custName').textContent = order.customer.name || '—';
+  document.getElementById('custPhone').textContent = order.customer.phone || '—';
+  document.getElementById('custAddress').textContent = order.customer.address || '—';
+  document.getElementById('customerCard').style.display = 'block';
+
+  // Items card
+  const itemsList = document.getElementById('itemsList');
+  itemsList.innerHTML = (order.items || []).map(item => `
+    <div class="order-item-row">
+      <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+      <div class="name">${item.name}</div>
+      <div class="qty">× ${item.quantity}</div>
+      <div class="price">Rs ${(item.price * item.quantity).toLocaleString()}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('confSubtotal').textContent = `Rs ${order.subtotal.toLocaleString()}`;
+  document.getElementById('confShipping').textContent = order.shipping === 0 ? 'Free' : `Rs ${order.shipping}`;
+  document.getElementById('confTotal').textContent = `Rs ${order.total.toLocaleString()}`;
+  document.getElementById('itemsCard').style.display = 'block';
+
+  // WhatsApp button
+  document.getElementById('waBtn').onclick = () => {
+    let msg = `🛍️ *ORDER CONFIRMATION — OUTFITITORY*\n\n`;
+    msg += `Order No: ${order.orderNumber}\n`;
+    msg += `Date: ${order.date}\n\n`;
+    msg += `👤 *Customer*\n`;
+    msg += `Name: ${order.customer.name}\n`;
+    msg += `Phone: ${order.customer.phone}\n`;
+    msg += `Address: ${order.customer.address}\n\n`;
+    msg += `🛒 *Items*\n`;
+    (order.items || []).forEach(item => {
+      msg += `• ${item.name} × ${item.quantity} — Rs ${(item.price * item.quantity).toLocaleString()}\n`;
+    });
+    msg += `\nShipping: Rs ${order.shipping}\n`;
+    msg += `*TOTAL: Rs ${order.total.toLocaleString()}*\n`;
+    msg += `Payment: Cash on Delivery`;
+    window.open(`https://wa.me/923425324001?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 } else {
-   const totalWithDelivery = Number(order.total); // already includes shipping
-
-
-    document.getElementById("orderInfo").innerHTML =
-        `Order Number: <strong>${order.orderNumber}</strong><br>` +
-        `Date: ${order.date}`;
-
-    let summaryHTML = "";
-    order.items.forEach(item => {
-        const quantity = item.quantity || 1;
-        const total = Number(item.price) * quantity; // <-- make sure item.price is number
-        summaryHTML += `
-            <div class="product">
-                <span>${item.name} (x${quantity})</span>
-                <span>Rs ${total}</span>
-            </div>
-        `;
-    });
-
-    summaryHTML += `
-        <div class="product">
-            <span>Delivery Charges</span>
-            <span>Rs ${deliveryCharge}</span>
-        </div>
-    `;
-
-    summaryHTML += `
-        <div class="total">
-            Total: Rs ${totalWithDelivery}
-        </div>
-    `;
-    document.getElementById("orderSummary").innerHTML = summaryHTML;
-
-
-    // WhatsApp button
-    document.getElementById('whatsappBtn').onclick = () => {
-
-    let message = `🛍️ *NEW ORDER - OUTFITITORY* \n\n`;
-
-    message += `Order Number: ${order.orderNumber}\n`;
-    message += `Date: ${order.date}\n\n`;
-
-    message += `👤 *Customer Details*\n`;
-    message += `Name: ${order.customer?.name || "Not Provided"}\n`;
-    message += `Phone: ${order.customer?.phone || "Not Provided"}\n`;
-    message += `Address: ${order.customer?.address || "Not Provided"}\n`;
-    message += `City: ${order.customer?.city || "Not Provided"}\n\n`;
-
-    message += `🛒 *Order Items*\n`;
-
-    order.items.forEach(item => {
-        const quantity = item.quantity || 1;
-        const subtotal = item.price * quantity;
-        message += `• ${item.name} (x${quantity}) - Rs ${subtotal}\n`;
-    });
-
-    message += `\n🚚 Delivery Charges: Rs ${deliveryCharge}\n`;
-    message += `💰 *TOTAL: Rs ${order.total}*\n\n`;
-
-    message += `Payment Method: Cash on Delivery`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/923425324001?text=${encodedMessage}`;
-
-    window.open(whatsappURL, '_blank');
-
-    // Clear cart after sending
-    localStorage.removeItem("cart");
-};
-
-
-    document.querySelector(".home-btn").onclick = () => {
-        window.location.href = "index.html";
-    };
+  document.querySelector('.confirm-subtitle').textContent = 'Thank you for shopping with OUTFITITORY!';
 }
+
+// Simple confetti
+(function() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#b8965a','#d4b47a','#2a2520','#f0e4cc','#e8e2d8'];
+  const pieces = Array.from({length:80}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -canvas.height,
+    w: Math.random() * 8 + 4,
+    h: Math.random() * 14 + 6,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: Math.random() * 2 + 1,
+    angle: Math.random() * 360,
+    spin: (Math.random() - 0.5) * 4,
+    opacity: 1,
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.y += p.speed;
+      p.angle += p.spin;
+      p.opacity -= 0.004;
+      if (p.opacity <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 200) requestAnimationFrame(draw);
+    else { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  }
+  draw();
+})();
 </script>
-
-
 </body>
 </html>

@@ -1,258 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart - OUTFITITORY</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .page-banner {
+      background: var(--off-white);
+      padding: 60px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .page-banner .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px; }
+    .page-banner h1 { font-size:48px;font-weight:300;color:var(--charcoal); }
+    .page-banner h1::after { content:'';display:block;width:60px;height:2px;background:var(--gold);margin:16px auto 0; }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, sans-serif;
-}
+    .cart-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: start;
+    }
 
-body{
-  background:#000;
-  color:#fff;
-}
+    /* CART ITEMS */
+    .cart-items-header {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
 
-/* HEADER */
+    .cart-item {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-light);
+      animation: fadeIn 0.3s ease;
+    }
 
-.site-header{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  padding:24px 40px;
-  border-bottom:1px solid #222;
-}
-.cart-title{
-  margin-top:8px;
-  font-size:50px;
-  font-weight:700;
-  letter-spacing:3px;
-  color:#fff;
-  text-align:center;
-  opacity:0.9;
-}
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-.logo a{
-  color:white;
-  text-decoration:none;
-  font-size:24px;
-  font-weight:bold;
-  letter-spacing:4px;
-}
+    .cart-item-product { display:flex;gap:20px;align-items:center; }
+    .cart-item-product img { width:90px;height:110px;object-fit:cover;border-radius:var(--radius);background:var(--off-white);flex-shrink:0; }
+    .cart-item-name { font-size:14px;color:var(--charcoal);margin-bottom:4px; }
+    .cart-item-sub { font-size:12px;color:var(--text-muted); }
 
-/* CART PAGE */
+    .cart-item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: var(--charcoal);
+    }
 
-.cart-container{
-  max-width:1100px;
-  margin:60px auto;
-  padding:20px;
-}
+    .qty-ctrl { display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius);width:fit-content;overflow:hidden; }
+    .qty-ctrl button { width:36px;height:36px;background:none;border:none;font-size:16px;color:var(--charcoal);cursor:pointer;transition:var(--transition); }
+    .qty-ctrl button:hover { background:var(--off-white); }
+    .qty-ctrl span { min-width:36px;text-align:center;font-size:14px;border-left:1px solid var(--border-light);border-right:1px solid var(--border-light);height:36px;display:flex;align-items:center;justify-content:center; }
 
-.cart-item{
-  display:flex;
-  align-items:center;
-  gap:24px;
-  padding:24px 0;
-  border-bottom:1px solid #222;
-}
+    .cart-item-total { font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:500; }
 
-.cart-item img{
-  width:120px;
-  height:150px;
-  object-fit:cover;
-  border-radius:10px;
-}
+    .remove-btn { display:block;margin-top:8px;font-size:11px;letter-spacing:1px;color:var(--text-light);cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;padding:0;transition:var(--transition); }
+    .remove-btn:hover { color:#c0392b; }
 
-.item-info{
-  flex:1;
-}
+    /* EMPTY CART */
+    .empty-cart { text-align:center;padding:80px 0; }
+    .empty-cart .empty-icon { font-size:64px;margin-bottom:24px;opacity:0.3; }
+    .empty-cart h2 { font-size:32px;font-weight:300;color:var(--charcoal);margin-bottom:12px; }
+    .empty-cart p { font-size:14px;color:var(--text-muted);margin-bottom:32px; }
 
-.item-info h3{
-  font-size:18px;
-  margin-bottom:8px;
-}
+    /* SUMMARY */
+    .cart-summary {
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      position: sticky;
+      top: 90px;
+      border: 1px solid var(--border-light);
+    }
 
-.cart-qty{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:12px 0;
-}
+    .summary-title { font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:28px; }
 
-.cart-qty button{
-  width:32px;
-  height:32px;
-  border:none;
-  background:#d4af37;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
-  border-radius:6px;
-}
+    .summary-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:14px;color:var(--dark-gray); }
+    .summary-row.total { border-top:1px solid var(--border);padding-top:16px;margin-top:8px; }
+    .summary-row.total span:first-child { font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal);font-weight:500; }
+    .summary-row.total span:last-child { font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--charcoal); }
 
-.cart-qty span{
-  min-width:24px;
-  text-align:center;
-}
+    .summary-shipping { font-size:12px;color:var(--text-muted);margin-bottom:24px;background:var(--white);padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border-light); }
 
-.item-info p{
-  font-size:14px;
-  color:#ccc;
-  margin:4px 0;
-}
+    .checkout-cta { display:block;width:100%;padding:16px;text-align:center;background:var(--charcoal);color:var(--white);border:none;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:var(--transition);margin-bottom:12px;text-decoration:none; }
+    .checkout-cta:hover { background:var(--gold); }
 
-.remove-btn{
-  display:inline-block;
-  margin-top:10px;
-  color:#ff5c5c;
-  font-size:13px;
-  cursor:pointer;
-}
+    .continue-link { display:block;text-align:center;font-size:12px;color:var(--text-muted);text-decoration:underline;cursor:pointer;transition:var(--transition); }
+    .continue-link:hover { color:var(--gold); }
 
-/* SUMMARY */
+    /* CONFIRM MODAL */
+    .modal-overlay { position:fixed;inset:0;background:rgba(15,13,11,0.5);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal-box { background:var(--white);border-radius:var(--radius-lg);padding:40px;max-width:400px;width:100%;text-align:center;animation:fadeIn 0.3s ease; }
+    .modal-box h3 { font-size:24px;font-weight:300;color:var(--charcoal);margin-bottom:10px; }
+    .modal-box p { font-size:14px;color:var(--text-muted);margin-bottom:28px; }
+    .modal-btns { display:flex;gap:12px; }
+    .modal-btns button { flex:1;padding:13px;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:var(--transition);border:1.5px solid; }
+    .btn-cancel { background:none;border-color:var(--border);color:var(--text-muted); }
+    .btn-cancel:hover { border-color:var(--charcoal);color:var(--charcoal); }
+    .btn-confirm { background:var(--charcoal);border-color:var(--charcoal);color:var(--white); }
+    .btn-confirm:hover { background:var(--gold);border-color:var(--gold); }
 
-.summary{
-  margin-top:50px;
-  padding:30px;
-  border:1px solid #222;
-  border-radius:14px;
-  background:#0b0b0b;
-  max-width:360px;
-  margin-left:auto;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-.summary h2{
-  font-size:22px;
-  font-weight:normal;
-  border-bottom:1px solid #222;
-  padding-bottom:16px;
-}
-
-.checkout-btn{
-  width:100%;
-  padding:16px 0;
-  background:#d4af37;
-  border:none;
-  font-weight:bold;
-  letter-spacing:1px;
-  cursor:pointer;
-  transition:all 0.3s ease;
-}
-
-.checkout-btn:hover{
-  background:#c19c2d;
-  transform:translateY(-2px);
-}
-/* EMPTY CART */
-
-.empty-cart{
-  text-align:center;
-  margin-top:120px;
-  font-size:22px;
-  color:#aaa;
-}
-</style>
+    @media (max-width: 900px) {
+      .cart-layout { grid-template-columns:1fr; }
+      .cart-summary { position:static; }
+      .cart-items-header { display:none; }
+      .cart-item { grid-template-columns:1fr;gap:12px; }
+      .cart-item-product { grid-column:1; }
+      .cart-layout { padding:40px 20px 80px; }
+    }
+  </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div></div>
-  <div class="logo">
-    <a href="index.html">OUTFITITORY</a>
-    
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a></div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
   </div>
-  <div></div>
-</header>
-<div class="cart-title">YOUR CART</div>
+  <div class="mobile-nav" id="mobile-nav"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+</nav>
 
+<!-- BANNER -->
+<div class="page-banner">
+  <p class="eyebrow">Review</p>
+  <h1>Your Cart</h1>
+</div>
 
-<div class="cart-container" id="cartContainer"></div>
+<!-- CART LAYOUT -->
+<div class="cart-layout">
+  <div>
+    <div class="cart-items-header">
+      <span>Product</span><span>Price</span><span>Quantity</span><span>Total</span>
+    </div>
+    <div id="cartItemsContainer"></div>
+  </div>
 
+  <div class="cart-summary" id="cartSummary" style="display:none;">
+    <p class="summary-title">Order Summary</p>
+    <div class="summary-row"><span>Subtotal</span><span id="summarySubtotal">Rs 0</span></div>
+    <div class="summary-row"><span>Shipping</span><span id="summaryShipping">Rs 250</span></div>
+    <div class="summary-row total"><span>Total</span><span id="summaryTotal">Rs 0</span></div>
+    <p class="summary-shipping">🚚 Free shipping on orders over Rs 3,000</p>
+    <a href="checkout.html" class="checkout-cta">Proceed to Checkout</a>
+    <a href="plp.html" class="continue-link">Continue Shopping</a>
+  </div>
+</div>
+
+<!-- CONFIRM REMOVE MODAL -->
+<div class="modal-overlay" id="removeModal">
+  <div class="modal-box">
+    <h3>Remove Item?</h3>
+    <p>Are you sure you want to remove this item from your cart?</p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-confirm" onclick="confirmRemove()">Remove</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header"><h3>Your Cart</h3><button class="drawer-close" onclick="closeCartDrawer()">×</button></div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;">
+    <div class="drawer-total-row"><span>Subtotal</span><span id="drawer-total">Rs 0</span></div>
+    <p class="drawer-shipping">Shipping: Rs 250</p>
+    <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo-text">OUTFITITORY</span><p>Fine jewelry crafted to make you feel confident and special.</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plp.html">Jewelry Sets</a></li><li><a href="bracelets.html">Bracelets</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Return Policy</a></li><li><a href="#">Shipping Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 OUTFITITORY. All rights reserved.</p><p>Cash on Delivery · Pakistan Nationwide</p></div>
+</footer>
+
+<script src="shared.js"></script>
 <script>
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30); });
 
-function loadCart(){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let container = document.getElementById("cartContainer");
-    let total = 0;
+let pendingRemoveId = null;
 
-    container.innerHTML = "";
+function renderCartPage() {
+  const cart = getCart();
+  const container = document.getElementById('cartItemsContainer');
+  const summary = document.getElementById('cartSummary');
 
-    if(cart.length === 0){
-        container.innerHTML = "<div class='empty-cart'>Your cart is empty 🛒</div>";
-        return;
-    }
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-icon">🛍️</div>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything yet.</p>
+        <a href="plp.html" class="btn-primary" style="display:inline-flex;">Shop Now</a>
+      </div>`;
+    summary.style.display = 'none';
+    return;
+  }
 
-    cart.forEach((item, index) => {
-        total += item.price * item.quantity;
+  summary.style.display = 'block';
+  let subtotal = 0;
 
-        container.innerHTML += `
-            <div class="cart-item">
-                <img src="${item.image}">
-                <div class="item-info">
-                    <h3>${item.name}</h3>
-
-                    <div class="cart-qty">
-                        <button onclick="changeQty(${index}, -1)">−</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="changeQty(${index}, 1)">+</button>
-                    </div>
-
-                    <p>Price: Rs ${item.price}</p>
-                    <p><strong>Subtotal: Rs ${item.price * item.quantity}</strong></p>
-
-                    <span class="remove-btn" onclick="removeItem(${index})">
-                        Remove
-                    </span>
-                </div>
-            </div>
-        `;
-    });
-
-    container.innerHTML += `
-        <div class="summary">
-            <h2>Total: Rs ${total}</h2>
-            <button class="checkout-btn" onclick="goToCheckout()">
-                PROCEED TO CHECKOUT
-            </button>
+  container.innerHTML = cart.map(item => {
+    const total = item.price * item.quantity;
+    subtotal += total;
+    return `
+      <div class="cart-item" data-id="${item.id}">
+        <div class="cart-item-product">
+          <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+          <div>
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-sub">Jewelry Set</div>
+            <button class="remove-btn" onclick="askRemove('${item.id}')">Remove</button>
+          </div>
         </div>
-    `;
+        <div class="cart-item-price">Rs ${item.price.toLocaleString()}</div>
+        <div class="qty-ctrl">
+          <button onclick="changePageQty('${item.id}',-1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changePageQty('${item.id}',1)">+</button>
+        </div>
+        <div class="cart-item-total">Rs ${total.toLocaleString()}</div>
+      </div>`;
+  }).join('');
+
+  const shipping = subtotal >= 3000 ? 0 : 250;
+  document.getElementById('summarySubtotal').textContent = `Rs ${subtotal.toLocaleString()}`;
+  document.getElementById('summaryShipping').textContent = shipping === 0 ? 'Free' : `Rs ${shipping}`;
+  document.getElementById('summaryTotal').textContent = `Rs ${(subtotal + shipping).toLocaleString()}`;
 }
 
-function changeQty(index, change){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    cart[index].quantity += change;
-
-    if(cart[index].quantity <= 0){
-        cart.splice(index,1);
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
+function changePageQty(id, change) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.quantity += change;
+  if (item.quantity <= 0) { askRemove(id); return; }
+  saveCart(cart);
+  renderCartPage();
 }
 
-function removeItem(index){
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index,1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
+function askRemove(id) {
+  pendingRemoveId = id;
+  document.getElementById('removeModal').classList.add('open');
 }
 
-function goToCheckout(){
-    window.location.href = "checkout.html";
+function closeModal() {
+  document.getElementById('removeModal').classList.remove('open');
+  pendingRemoveId = null;
 }
 
-loadCart();
+function confirmRemove() {
+  if (pendingRemoveId) {
+    removeFromCart(pendingRemoveId);
+    renderCartPage();
+  }
+  closeModal();
+}
 
+document.getElementById('removeModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('removeModal')) closeModal();
+});
+
+renderCartPage();
 </script>
-
 </body>
 </html>

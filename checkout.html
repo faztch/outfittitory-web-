@@ -1,352 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Checkout</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .checkout-header {
+      padding: 24px 40px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .checkout-logo { font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;letter-spacing:8px;color:var(--charcoal); }
+    .secure-badge { font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:6px; }
+    .secure-badge i { color:var(--gold); }
 
-<style>
-* { 
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif; 
-}
-body { 
-    margin: 0; 
-    background: radial-gradient(circle at top right, #1a1a1a, #000 60%); 
-    color: white; 
-}
+    .checkout-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: start;
+    }
 
+    /* FORM SIDE */
+    .form-section { margin-bottom: 36px; }
+    .form-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-section-title i { color: var(--gold); font-size: 16px; }
 
-/* LOGO */
-.logo {
-    text-align: center;
-    padding: 20px 0;
-}
-.logo{
-    height: 60px;
-    letter-spacing: 3px;
-    text-decoration: none;
-    color: inherit;
-}
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px; }
 
-.checkout { 
-    display: grid; 
-    grid-template-columns: 1.2fr 1fr; 
-    min-height: 100vh; 
-    gap: 20px; 
-    padding: 20px; 
-    overflow-x: hidden;
-}
+    .form-input, .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      transition: var(--transition);
+      outline: none;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,150,90,0.1); }
+    .form-input.error { border-color: #e74c3c; }
 
-.checkout-form { 
-    padding: 40px 80px;
-}
+    .form-select-wrap { position:relative; }
+    .form-select-wrap::after { content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none; }
 
-.checkout-form h2 { 
-    margin-top: 30px; 
-    margin-bottom: 20px; 
-    font-family: 'Playfair Display', serif; 
-    letter-spacing: 2px; color: #d4af37; 
-}
+    /* ORDER SIDE */
+    .order-panel {
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      position: sticky;
+      top: 80px;
+      border: 1px solid var(--border-light);
+    }
 
-.two-cols { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px; 
-}
+    .order-title { font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px; }
 
-.checkout-form input, .checkout-form select {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 18px;
-    border: 1px solid #333;
-    background: #111;
-    color: white;
-    border-radius: 6px;
-}
+    .order-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .order-item-img-wrap { position:relative;flex-shrink:0; }
+    .order-item-img-wrap img { width:64px;height:80px;object-fit:cover;border-radius:var(--radius);background:var(--light); }
+    .order-item-qty { position:absolute;top:-6px;right:-6px;background:var(--mid-gray);color:var(--white);width:20px;height:20px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif; }
+    .order-item-name { font-size:13px;color:var(--charcoal);flex:1; }
+    .order-item-price { font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--charcoal); }
 
-.checkout-summary hr {
-    border: none;
-    height: 1px;
-    background: #222;
-    margin: 20px 0;
-}
+    .order-totals { margin-top: 20px; }
+    .order-row { display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px;color:var(--dark-gray); }
+    .order-row.grand { border-top:1px solid var(--border);padding-top:14px;margin-top:4px; }
+    .order-row.grand span:first-child { font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--charcoal);font-weight:500; }
+    .order-row.grand span:last-child { font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--charcoal); }
 
-.product {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    gap: 15px; 
-    align-items: center;
-    margin-bottom: 25px;
-    padding: 18px; 
-    background: #111;
-    border-radius: 12px; 
-}
+    .cod-badge {
+      margin-top: 20px;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--dark-gray);
+    }
+    .cod-badge i { color: var(--gold); }
 
-.product img { 
-    width: 60px;
-    border-radius: 8px; 
-}
+    .place-order-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 17px;
+      background: var(--charcoal);
+      color: var(--white);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .place-order-btn:hover { background: var(--gold); }
+    .place-order-btn:disabled { background: var(--mid-gray); cursor: not-allowed; }
 
-.price-row { 
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px; 
- }
+    .error-msg { font-size: 12px; color: #e74c3c; margin-top: 4px; display: none; }
+    .error-msg.show { display: block; }
 
-.total { 
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px; margin-top: 10px; 
-}
-
-.place-order button {
-    width: 100%;
-    padding: 16px;
-    font-size: 18px;
-    background: linear-gradient(90deg, #d4af37, #f5d97a, #d4af37);
-    color: black;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-}
-/* ===================== */
-/* MOBILE RESPONSIVENESS */
-/* ===================== */
-
-@media (max-width: 900px) {
-
-  .checkout {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 15px;
-  }
-
-  .checkout-form {
-    padding: 20px;
-  }
-
-  .checkout-summary {
-    padding: 0 20px 40px;
-  }
-
-}
-
-/* Small devices (phones) */
-@media (max-width: 600px) {
-
-  body {
-    font-size: 14px;
-  }
-
-  .logo {
-    padding: 15px 0;
-    font-size: 18px;
-  }
-
-  .checkout-form h2 {
-    font-size: 18px;
-    margin-top: 25px;
-  }
-
-  .two-cols {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .checkout-form input,
-  .checkout-form select {
-    padding: 12px;
-    font-size: 14px;
-  }
-
-  .product {
-    grid-template-columns: 50px 1fr;
-    gap: 12px;
-  }
-
-  .product img {
-    width: 50px;
-  }
-
-  .product span {
-    grid-column: 1 / -1;
-    text-align: right;
-    font-weight: bold;
-  }
-
-  .price-row,
-  .total {
-    font-size: 16px;
-  }
-
-  .place-order {
-    position: sticky;
-    bottom: 0;
-    background: #000;
-    padding: 15px 0;
-  }
-
-  .place-order button {
-    font-size: 16px;
-    padding: 14px;
-    border-radius: 10px;
-  }
-}
-</style>
+    @media (max-width: 900px) {
+      .checkout-body { grid-template-columns:1fr; gap:40px; padding:30px 20px 80px; }
+      .order-panel { position:static; }
+      .form-row { grid-template-columns:1fr; }
+      .checkout-header { padding:20px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="logo">
-    <!-- Replace logo.png with your actual logo file -->
-    <a href="index.html" class="logo"> OUTFITITORY</a>
-</div>
+<!-- SIMPLE HEADER -->
+<header class="checkout-header">
+  <a href="index.html" class="checkout-logo">OUTFITITORY</a>
+  <div class="secure-badge"><i class="fas fa-lock"></i> Secure Checkout</div>
+</header>
 
-<form id="checkoutForm">
-<div class="checkout">
+<div class="checkout-body">
 
-<div class="checkout-form">
-
-<h2>Contact</h2>
-<input type="email" id="email" placeholder="Email" required>
-<input type="tel" id="phone" placeholder="Phone Number" required>
-
-<h2>Delivery</h2>
-
-<div class="two-cols">
-<input type="text" id="firstName" placeholder="First name" required>
-<input type="text" id="lastName" placeholder="Last name" required>
-</div>
-
-<input type="text" id="address" placeholder="Address" required>
-
-<div class="two-cols">
-<input type="text" id="city" placeholder="City" required>
-<input type="text" id="postalCode" placeholder="Postal code (optional)">
-<select id="country">
-<option>Pakistan</option>
-</select>
-</div>
-
-</div>
-
-<div class="checkout-summary">
-<div id="checkoutProducts"></div>
-
-<div class="price-row">
-<span>Subtotal</span>
-<span>Rs <span id="subtotal">0</span></span>
-</div>
-
-<div class="price-row">
-<span>Shipping</span>
-<span>Rs <span id="shipping">250</span></span>
-</div>
-
-<hr>
-
-<div class="total">
-<strong>Total</strong>
-<strong>Rs <span id="total">0</span></strong>
-</div>
-
-<div class="place-order">
-<button type="submit">Place Order</button>
-</div>
-
-</div>
-</div>
-</form>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-const container = document.getElementById("checkoutProducts");
-const subtotalEl = document.getElementById("subtotal");
-const totalEl = document.getElementById("total");
-const shippingEl = document.getElementById("shipping");
-
-const shipping = 250;
-shippingEl.textContent = shipping;
-
-let subtotal = 0;
-
-cart.forEach(item => {
-    const quantity = Number(item.quantity) || 1;
-    const price = Number(item.price);
-    const productTotal = price * quantity;
-    subtotal += productTotal;
-
-    container.innerHTML += `
-        <div class="product">
-            <img src="${item.image}">
-            <div>
-                <p>${item.name}</p>
-                <small>Qty: ${quantity}</small>
-            </div>
-            <span>Rs ${productTotal}</span>
+  <!-- FORM -->
+  <div>
+    <!-- CONTACT -->
+    <div class="form-section">
+      <h2 class="form-section-title"><i class="fas fa-user"></i> Contact Information</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input class="form-input" id="firstName" type="text" placeholder="Ayesha">
+          <p class="error-msg" id="firstNameError">Please enter your first name</p>
         </div>
-    `;
-});
+        <div class="form-group">
+          <label class="form-label">Last Name *</label>
+          <input class="form-input" id="lastName" type="text" placeholder="Khan">
+          <p class="error-msg" id="lastNameError">Please enter your last name</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <input class="form-input" id="email" type="email" placeholder="ayesha@email.com">
+        <p class="error-msg" id="emailError">Please enter a valid email</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number *</label>
+        <input class="form-input" id="phone" type="tel" placeholder="+92 3XX XXXXXXX">
+        <p class="error-msg" id="phoneError">Please enter your phone number</p>
+      </div>
+    </div>
 
-subtotalEl.textContent = subtotal;
-totalEl.textContent = subtotal + shipping;
+    <!-- DELIVERY -->
+    <div class="form-section">
+      <h2 class="form-section-title"><i class="fas fa-map-marker-alt"></i> Delivery Address</h2>
+      <div class="form-group">
+        <label class="form-label">Street Address *</label>
+        <input class="form-input" id="address" type="text" placeholder="House #, Street, Area">
+        <p class="error-msg" id="addressError">Please enter your address</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input class="form-input" id="city" type="text" placeholder="Lahore">
+          <p class="error-msg" id="cityError">Please enter your city</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Postal Code</label>
+          <input class="form-input" id="postal" type="text" placeholder="54000 (optional)">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Country</label>
+        <div class="form-select-wrap">
+          <select class="form-select" id="country">
+            <option value="Pakistan">Pakistan</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-document.getElementById("checkoutForm").addEventListener("submit", function(e){
-e.preventDefault();
+    <!-- ORDER NOTES -->
+    <div class="form-section">
+      <h2 class="form-section-title"><i class="fas fa-sticky-note"></i> Order Notes</h2>
+      <div class="form-group">
+        <label class="form-label">Special Instructions (Optional)</label>
+        <textarea class="form-input" id="notes" rows="3" placeholder="Any special requests or delivery instructions..." style="resize:vertical;"></textarea>
+      </div>
+    </div>
+  </div>
 
-const email = document.getElementById("email").value.trim();
-const phone = document.getElementById("phone").value.trim();
-const firstName = document.getElementById("firstName").value.trim();
-const lastName = document.getElementById("lastName").value.trim();
-const address = document.getElementById("address").value.trim();
-const city = document.getElementById("city").value.trim();
-const postalCode = document.getElementById("postalCode").value.trim();
-const country = document.getElementById("country").value;
+  <!-- ORDER PANEL -->
+  <div class="order-panel">
+    <p class="order-title">Your Order</p>
+    <div id="orderItems"></div>
+    <div class="order-totals">
+      <div class="order-row"><span>Subtotal</span><span id="orderSubtotal">Rs 0</span></div>
+      <div class="order-row"><span>Shipping</span><span id="orderShipping">Rs 250</span></div>
+      <div class="order-row grand"><span>Total</span><span id="orderTotal">Rs 0</span></div>
+    </div>
+    <div class="cod-badge"><i class="fas fa-money-bill-wave"></i> Cash on Delivery</div>
+    <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">
+      Place Order via WhatsApp
+    </button>
+    <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:12px;line-height:1.6;">
+      Your order will be confirmed via WhatsApp. We'll contact you to confirm delivery.
+    </p>
+  </div>
+</div>
 
-if(!email || !phone || !firstName || !lastName || !address || !city){
-alert("Please fill all required fields");
-return;
+<script src="shared.js"></script>
+<script>
+function renderOrder() {
+  const cart = getCart();
+  const container = document.getElementById('orderItems');
+  if (cart.length === 0) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Your cart is empty</p>';
+    return;
+  }
+  let subtotal = 0;
+  container.innerHTML = cart.map(item => {
+    const t = item.price * item.quantity;
+    subtotal += t;
+    return `
+      <div class="order-item">
+        <div class="order-item-img-wrap">
+          <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">
+          <span class="order-item-qty">${item.quantity}</span>
+        </div>
+        <span class="order-item-name">${item.name}</span>
+        <span class="order-item-price">Rs ${t.toLocaleString()}</span>
+      </div>`;
+  }).join('');
+  const shipping = subtotal >= 3000 ? 0 : 250;
+  document.getElementById('orderSubtotal').textContent = `Rs ${subtotal.toLocaleString()}`;
+  document.getElementById('orderShipping').textContent = shipping === 0 ? 'Free' : `Rs ${shipping}`;
+  document.getElementById('orderTotal').textContent = `Rs ${(subtotal + shipping).toLocaleString()}`;
 }
 
-const orderNumber = "OT" + Math.floor(Math.random() * 1000000);
+function validate() {
+  const fields = [
+    { id: 'firstName', err: 'firstNameError' },
+    { id: 'lastName', err: 'lastNameError' },
+    { id: 'email', err: 'emailError' },
+    { id: 'phone', err: 'phoneError' },
+    { id: 'address', err: 'addressError' },
+    { id: 'city', err: 'cityError' },
+  ];
+  let valid = true;
+  fields.forEach(f => {
+    const input = document.getElementById(f.id);
+    const err = document.getElementById(f.err);
+    const empty = !input.value.trim();
+    input.classList.toggle('error', empty);
+    err.classList.toggle('show', empty);
+    if (empty) valid = false;
+  });
+  return valid;
+}
 
-let message = `🛍️ *NEW ORDER*\n\n`;
-message += `Order No: ${orderNumber}\n\n`;
+async function placeOrder() {
+  if (!validate()) return;
+  const cart = getCart();
+  if (cart.length === 0) { alert('Your cart is empty!'); return; }
 
-message += `👤 *Customer Details*\n`;
-message += `Name: ${firstName} ${lastName}\n`;
-message += `Phone: ${phone}\n`;
-message += `Email: ${email}\n`;
-message += `Address: ${address}\n`;
-message += `City: ${city}\n`;
-message += `Country: ${country}\n\n`;
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const address   = document.getElementById('address').value.trim();
+  const city      = document.getElementById('city').value.trim();
+  const postal    = document.getElementById('postal').value.trim();
+  const notes     = document.getElementById('notes').value.trim();
 
-message += `🛒 *Ordered Items Include*\n`;
+  let subtotal = 0;
+  cart.forEach(i => subtotal += i.price * i.quantity);
+  const shipping = subtotal >= 3000 ? 0 : 250;
+  const total    = subtotal + shipping;
 
-cart.forEach(item=>{
-const quantity = Number(item.quantity) || 1;
-const price = Number(item.price);
-message += `• ${item.name} (x${quantity}) - Rs ${price * quantity}\n`;
+  const orderNumber = 'OT' + Math.floor(Math.random() * 900000 + 100000);
+  const orderDate   = new Date().toLocaleDateString('en-PK', { year:'numeric', month:'long', day:'numeric' });
+
+  // ── Build items summary string for Formspree ──────────────────
+  const itemsSummary = cart.map(item =>
+    `${item.name} x${item.quantity} = Rs ${(item.price * item.quantity).toLocaleString()}`
+  ).join(' | ');
+
+  // ── 1. Send to Formspree (silent, background) ─────────────────
+  try {
+    await fetch('https://formspree.io/f/xbdwygna', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        // These become the column headers in your Formspree dashboard
+        'Order Number'    : orderNumber,
+        'Order Date'      : orderDate,
+        'Customer Name'   : `${firstName} ${lastName}`,
+        'Email'           : email,
+        'Phone'           : phone,
+        'Address'         : `${address}, ${city}${postal ? ', ' + postal : ''}`,
+        'City'            : city,
+        'Items Ordered'   : itemsSummary,
+        'Subtotal (Rs)'   : subtotal,
+        'Shipping (Rs)'   : shipping,
+        'Total (Rs)'      : total,
+        'Payment Method'  : 'Cash on Delivery',
+        'Notes'           : notes || 'None',
+      })
+    });
+  } catch (err) {
+    // Formspree failure is silent — WhatsApp order still goes through
+    console.warn('Formspree submission failed:', err);
+  }
+
+  // ── 2. Build WhatsApp message ─────────────────────────────────
+  let msg  = `🛍️ *NEW ORDER — OUTFITITORY*\n\n`;
+  msg += `📋 Order No: ${orderNumber}\n\n`;
+  msg += `👤 *Customer Details*\n`;
+  msg += `Name: ${firstName} ${lastName}\n`;
+  msg += `Phone: ${phone}\n`;
+  msg += `Email: ${email}\n`;
+  msg += `Address: ${address}, ${city}${postal ? ', ' + postal : ''}\n\n`;
+  msg += `🛒 *Ordered Items*\n`;
+  cart.forEach(item => {
+    msg += `• ${item.name} (x${item.quantity}) — Rs ${(item.price * item.quantity).toLocaleString()}\n`;
+  });
+  msg += `\n🚚 Shipping: Rs ${shipping}\n`;
+  msg += `💰 *TOTAL: Rs ${total.toLocaleString()}*\n`;
+  msg += `💳 Payment: Cash on Delivery\n`;
+  if (notes) msg += `\n📝 Notes: ${notes}`;
+
+  // ── 3. Save for confirmation page ────────────────────────────
+  const orderData = {
+    orderNumber,
+    date: orderDate,
+    customer: { name:`${firstName} ${lastName}`, phone, email, address:`${address}, ${city}`, city },
+    items: cart,
+    subtotal,
+    shipping,
+    total,
+  };
+  localStorage.setItem('outfititory_lastOrder', JSON.stringify(orderData));
+  localStorage.removeItem('outfititory_cart');
+
+  // ── 4. Open WhatsApp + redirect ───────────────────────────────
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true;
+  btn.textContent = 'Opening WhatsApp...';
+
+  window.open(`https://wa.me/923425324001?text=${encodeURIComponent(msg)}`, '_blank');
+
+  setTimeout(() => { window.location.href = 'order-confirmation.html'; }, 1000);
+}
+
+// Clear errors on input
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', () => {
+    input.classList.remove('error');
+    const errId = input.id + 'Error';
+    const err = document.getElementById(errId);
+    if (err) err.classList.remove('show');
+  });
 });
 
-message += `\nSubtotal: Rs ${subtotal}`;
-message += `\nShipping: Rs ${shipping}`;
-message += `\nTotal: Rs ${subtotal + shipping}`;
-
-const phoneNumber = "923425324001"; // CHANGE TO YOUR NUMBER
-
-const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-localStorage.removeItem("cart");
-
-window.open(url, "_blank");
-
-});
-
-});
+renderOrder();
 </script>
-
 </body>
 </html>

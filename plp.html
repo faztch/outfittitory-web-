@@ -1,462 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jewelry Collection</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jewelry Collection — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .page-banner {
+      background: var(--off-white);
+      padding: 60px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', sans-serif;
-}
+    .page-banner .eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
 
-body{
-  background:#000;
-  color:white;
-}
+    .page-banner h1 {
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--charcoal);
+    }
 
-/* NAVBAR */
-.navbar{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(6px);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 18px 40px;
-  border-bottom: 1px solid #222;
-}
+    .page-banner h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 16px auto 0;
+    }
 
-.nav-logo a{
-  color: #d4af37;
-  text-decoration: none;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  font-family: 'Playfair Display', serif;
-}
+    .collection-layout {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
 
-.nav-cart{
-  justify-self: end;
-  position: relative;
-}
+    .collection-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-light);
+    }
 
-.nav-cart a{
-  font-size: 22px;
-  color: white;
-  text-decoration: none;
-}
+    .collection-count {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
 
-.cart-count{
-  position:absolute;
-  top:-8px;
-  right:-10px;
-  background:#d4af37;
-  color:black;
-  font-size:11px;
-  font-weight:600;
-  padding:2px 6px;
-  border-radius:50%;
-}
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+    }
 
-/* POPUP CART */
-.cart-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:999;
-}
+    .filter-tab {
+      padding: 8px 20px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--text-muted);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Jost', sans-serif;
+    }
 
-.cart-overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
+    .filter-tab.active,
+    .filter-tab:hover {
+      background: var(--charcoal);
+      color: var(--white);
+      border-color: var(--charcoal);
+    }
 
-.popup-cart{
-  position:fixed;
-  top:0;
-  right:-380px;
-  width:360px;
-  height:100vh;
-  background:#000;
-  padding:24px;
-  transition:.3s;
-  z-index:1000;
-  display:flex;
-  flex-direction:column;
-}
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
 
-.popup-cart.active{
-  right:0;
-}
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      border: 1px solid var(--border-light);
+    }
 
-.popup-item{
-  display:flex;
-  gap:12px;
-  margin-bottom:16px;
-}
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: transparent;
+    }
 
-.popup-item img{
-  width:60px;
-  height:80px;
-  object-fit:cover;
-  border-radius:6px;
-}
+    .product-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--off-white);
+      aspect-ratio: 3/4;
+    }
 
-.popup-item-info{
-  flex:1;
-  font-size:14px;
-}
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
 
-.qty-controls{
-  display:flex;
-  gap:8px;
-  margin-top:6px;
-}
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.06);
+    }
 
-.qty-controls button{
-  width:26px;
-  height:26px;
-  border:none;
-  background:#d4af37;
-  font-weight:bold;
-  cursor:pointer;
-}
+    .product-actions {
+      position: absolute;
+      bottom: -60px;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      display: flex;
+      gap: 8px;
+      transition: var(--transition);
+      background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent);
+      padding-top: 40px;
+    }
 
-.popup-footer{
-  margin-top:auto;
-  border-top:1px solid #222;
-  padding-top:16px;
-}
+    .product-card:hover .product-actions {
+      bottom: 0;
+    }
 
-.popup-total{
-  display:flex;
-  justify-content:space-between;
-  font-size:18px;
-  margin-bottom:12px;
-}
+    .quick-view-btn {
+      flex: 1;
+      padding: 10px;
+      background: var(--white);
+      border: 1.5px solid var(--charcoal);
+      color: var(--charcoal);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      transition: var(--transition);
+    }
 
-.checkout-btn{
-  display:block;
-  width:100%;
-  text-align:center;
-  padding:14px;
-  background:#d4af37;
-  color:black;
-  font-weight:600;
-  text-decoration:none;
-}
-/* ========================= */
-/* PRODUCT GRID & CARD SIZING */
-/* ========================= */
+    .quick-view-btn:hover {
+      background: var(--charcoal);
+      color: var(--white);
+    }
 
-.product-grid{
-  max-width:1200px;
-  margin:0 auto 80px;
-  padding:20px;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:40px;
-}
+    .atc-btn {
+      flex: 1;
+      padding: 10px;
+      background: var(--charcoal);
+      border: 1.5px solid var(--charcoal);
+      color: var(--white);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      transition: var(--transition);
+    }
 
-.card{
-  background:#111;
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid rgba(212,175,55,0.15);
-  transition:0.4s ease;
-}
+    .atc-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
 
-.card:hover{
-  transform:translateY(-10px);
-  border-color:#d4af37;
-  box-shadow:0 25px 50px rgba(212,175,55,0.12);
-}
+    .product-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      z-index: 2;
+    }
 
-.card img{
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  transition:0.6s ease;
-}
+    .product-info {
+      padding: 18px 16px 20px;
+    }
 
-.card:hover img{
-  transform:scale(1.06);
-}
+    .product-name {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+    }
 
-.card-content{
-  padding:22px;
-  text-align:center;
-}
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
 
-.card-content h4{
-  font-size:18px;
-  font-weight:500;
-  margin-bottom:10px;
-  letter-spacing:1px;
-}
+    /* QUICK VIEW */
+    .qv-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,13,11,0.6);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-.price{
-  font-size:18px;
-  font-weight:600;
-  color:#d4af37;
-}
+    .qv-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-/* Tablet */
-@media (max-width:1024px){
-  .product-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
+    .qv-modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      transform: scale(0.94) translateY(20px);
+      transition: transform 0.35s ease;
+      max-height: 90vh;
+    }
 
-/* Mobile */
-@media (max-width:600px){
-  .product-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-  }
+    .qv-overlay.open .qv-modal {
+      transform: scale(1) translateY(0);
+    }
 
-  .card img{
-    height:200px;
-  }
+    .qv-images {
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+    }
 
-  .card-content{
-    padding:14px;
-  }
+    .qv-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-  .card-content h4,
-  .price{
-    font-size:14px;
-  }
-}
-/* REMOVE LINK UNDERLINE & FORCE WHITE TEXT */
-.card a{
-  text-decoration: none;
-  color: white;
-}
+    .qv-body {
+      padding: 48px 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
 
-.card a:hover{
-  text-decoration: none;
-  color: white;
-}
-</style>
+    .qv-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      background: var(--white);
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: var(--transition);
+    }
+
+    .qv-close:hover {
+      background: var(--charcoal);
+      color: var(--white);
+      transform: rotate(90deg);
+    }
+
+    .qv-badge-inline {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+
+    .qv-body h2 {
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+
+    .qv-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .qv-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .qv-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .qv-actions .btn-primary,
+    .qv-actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .collection-layout { padding: 24px 16px 60px; }
+      .page-banner { padding: 40px 20px; }
+      .page-banner h1 { font-size: 36px; }
+      .filter-tabs { display: none; }
+      .qv-modal { grid-template-columns: 1fr; }
+      .qv-images { height: 260px; min-height: unset; }
+      .qv-body { padding: 28px 20px; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="navbar">
-  <div></div>
-  <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
-  <div class="nav-cart">
-    <a href="javascript:void(0)" onclick="openCart()">🛒
-      <span class="cart-count" id="cartCount">0</span>
-    </a>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left">
+      <a href="plp.html">Jewelry Sets</a>
+      <a href="bracelets.html">Bracelets</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
   </div>
-</header>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="plp.html">Jewelry Sets</a>
+    <a href="bracelets.html">Bracelets</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<h1 style="text-align:center;margin:60px 0;color:#d4af37">Our Jewelry Collection</h1>
+<!-- PAGE BANNER -->
+<div class="page-banner">
+  <p class="eyebrow">Our Collection</p>
+  <h1>Jewelry Sets</h1>
+</div>
 
-<!-- PRODUCT GRID UNCHANGED -->
-<div class="product-grid">
-
-<div class="card">
-  <a href="jewlproduct.html">
-    <img src="blackfront.png" alt="Black Set">
-    <div class="card-content">
-      <h4>Black Luxury Marble Set</h4>
-      <p class="price">Rs 2,000.00</p>
+<!-- COLLECTION -->
+<div class="collection-layout">
+  <div class="collection-toolbar">
+    <p class="collection-count">9 Products</p>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="marble">Marble</button>
+      <button class="filter-tab" data-filter="crystal">Crystal</button>
+      <button class="filter-tab" data-filter="pearl">Pearl</button>
     </div>
-  </a>
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
 </div>
 
-<div class="card">
-  <a href="jewlproduct2.html">
-    <img src="redwhitefront.png" alt="Red White Set">
-    <div class="card-content">
-      <h4>Red White Luxury Marble Set</h4>
-      <p class="price">Rs 2,000.00</p>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo-text">OUTFITITORY</span>
+      <p>Fine jewelry crafted to make you feel confident and special.</p>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a>
+      </div>
     </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct3.html">
-    <img src="bluefront.png" alt="Blue Set">
-    <div class="card-content">
-      <h4>Blue Luxury Crystal Set</h4>
-      <p class="price">Rs 2,000.00</p>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="plp.html">Jewelry Sets</a></li>
+        <li><a href="bracelets.html">Bracelets</a></li>
+      </ul>
     </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct4.html">
-    <img src="img4a.png" alt="Violet Set">
-    <div class="card-content">
-      <h4>Violet Luxury Crystal Set</h4>
-      <p class="price">Rs 2,000.00</p>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct5.html">
-    <img src="img2c.png" alt="White Set">
-    <div class="card-content">
-      <h4>White Luxury Pearl Set</h4>
-      <p class="price">Rs 2,000.00</p>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="cart.html">Your Cart</a></li>
+        <li><a href="#">Return Policy</a></li>
+      </ul>
     </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct6.html">
-    <img src="pinkfront.png" alt="Pink Set">
-    <div class="card-content">
-      <h4>Pink Luxury Crystal Set</h4>
-      <p class="price">Rs 2,000.00</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct7.html">
-    <img src="img6a.png" alt="White Set">
-    <div class="card-content">
-      <h4>Midnight Green Luxury Marble Set</h4>
-      <p class="price">Rs 2,000.00</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct8.html">
-    <img src="img5a.png" alt="White Set">
-    <div class="card-content">
-      <h4>Dark Pink Luxury Marble Set</h4>
-      <p class="price">Rs 2,000.00</p>
-    </div>
-  </a>
-</div>
-
-<div class="card">
-  <a href="jewlproduct9.html">
-    <img src="img7a.png" alt="White Set">
-    <div class="card-content">
-      <h4>Turquoise Blue Luxury Marble Set</h4>
-      <p class="price">Rs 2,000.00</p>
-    </div>
-  </a>
-</div>
-
-</div>
-<footer>
-  <p>© 2026 Outfititory. All Rights Reserved.</p>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 OUTFITITORY. All rights reserved.</p>
+    <p>Cash on Delivery · Pakistan Nationwide</p>
+  </div>
 </footer>
 
-<script>
-function getCart(){
-  return JSON.parse(localStorage.getItem("cart")) || [];
-}
-
-function saveCart(cart){
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-function updateCartCount(){
-  const cart = getCart();
-  let count = 0;
-  cart.forEach(item => count += item.quantity);
-  const el = document.getElementById("cartCount");
-  el.textContent = count;
-  el.style.display = count > 0 ? "inline-block" : "none";
-}
-
-function openCart(){
-  document.getElementById("cartOverlay").classList.add("active");
-  document.getElementById("popupCart").classList.add("active");
-  renderPopupCart();
-}
-
-function closeCart(){
-  document.getElementById("cartOverlay").classList.remove("active");
-  document.getElementById("popupCart").classList.remove("active");
-}
-
-function changeQty(index, change){
-  const cart = getCart();
-  cart[index].quantity += change;
-
-  if(cart[index].quantity <= 0){
-    cart.splice(index,1);
-  }
-
-  saveCart(cart);
-  updateCartCount();
-  renderPopupCart();
-}
-
-function renderPopupCart(){
-  const cart = getCart();
-  const container = document.getElementById("popupCartItems");
-  const totalEl = document.getElementById("popupTotal");
-
-  let total = 0;
-  container.innerHTML = "";
-
-  if(cart.length === 0){
-    container.innerHTML = "<p style='color:#aaa'>Your cart is empty</p>";
-    totalEl.textContent = "Rs 0";
-    return;
-  }
-
-  cart.forEach((item,index)=>{
-    total += item.price * item.quantity;
-
-    container.innerHTML += `
-      <div class="popup-item">
-        <img src="${item.image}">
-        <div class="popup-item-info">
-          <div>${item.name}</div>
-          <div>Rs ${item.price * item.quantity}</div>
-          <div class="qty-controls">
-            <button onclick="changeQty(${index},-1)">−</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQty(${index},1)">+</button>
-          </div>
-        </div>
-      </div>
-    `;
-  });
-
-  totalEl.textContent = "Rs " + total;
-}
-
-updateCartCount();
-</script>
-
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-
-<div class="popup-cart" id="popupCart">
-  <h3>Your Cart</h3>
-  <div id="popupCartItems"></div>
-
-  <div class="popup-footer">
-    <div class="popup-total">
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header">
+    <h3>Your Cart</h3>
+    <button class="drawer-close" onclick="closeCartDrawer()">×</button>
+  </div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;">
+    <div class="drawer-total-row">
       <span>Subtotal</span>
-      <strong id="popupTotal">Rs 0</strong>
+      <span id="drawer-total">Rs 0</span>
     </div>
-    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+    <p class="drawer-shipping">Shipping: Rs 250</p>
+    <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
   </div>
 </div>
 
+<!-- QUICK VIEW MODAL -->
+<div class="qv-overlay" id="qv-overlay">
+  <div class="qv-modal">
+    <div class="qv-images">
+      <button class="qv-close" onclick="closeQuickView()">×</button>
+      <img id="qv-img" src="" alt="">
+    </div>
+    <div class="qv-body">
+      <span class="qv-badge-inline" id="qv-badge" style="display:none;"></span>
+      <h2 id="qv-name"></h2>
+      <div class="qv-price" id="qv-price"></div>
+      <p class="qv-desc" id="qv-desc"></p>
+      <div class="qv-actions">
+        <button class="btn-primary" id="qv-atc-btn">Add to Cart</button>
+        <a href="#" class="btn-outline" id="qv-full-link">View Full Details</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const products = [
+  { id:'p1', name:'Black Luxury Marble Set', price:2000, image:'blackfront.png', href:'jewlproduct.html', badge:'Bestseller', tag:'marble', desc:'Sophisticated black marble design with elegant gold accents. Includes necklace, earrings, and ring.' },
+  { id:'p2', name:'Red White Marble Set', price:2000, image:'redwhitefront.png', href:'jewlproduct2.html', badge:'', tag:'marble', desc:'Striking red and white marble with modern crystal detailing for bold occasions.' },
+  { id:'p3', name:'Blue Crystal Set', price:2000, image:'bluefront.png', href:'jewlproduct3.html', badge:'New', tag:'crystal', desc:'Brilliant blue crystals set in fine silver-toned metal. Perfect for evening wear.' },
+  { id:'p4', name:'Violet Crystal Set', price:2000, image:'img4a.png', href:'jewlproduct4.html', badge:'', tag:'crystal', desc:'Deep violet crystals exuding luxury and sophistication at an accessible price.' },
+  { id:'p5', name:'White Pearl Set', price:2000, image:'img2c.png', href:'jewlproduct5.html', badge:'', tag:'pearl', desc:'Classic white pearls reimagined in a contemporary setting for timeless elegance.' },
+  { id:'p6', name:'Pink Crystal Set', price:2000, image:'pinkfront.png', href:'jewlproduct6.html', badge:'', tag:'crystal', desc:'Romantic pink crystals for a soft, feminine look perfect for any occasion.' },
+  { id:'p7', name:'Midnight Green Marble Set', price:2000, image:'img6a.png', href:'jewlproduct7.html', badge:'New', tag:'marble', desc:'Rich midnight green marble for a daring, luxurious statement.' },
+  { id:'p8', name:'Dark Pink Marble Set', price:2000, image:'img5a.png', href:'jewlproduct8.html', badge:'', tag:'marble', desc:'Deep rose hues in a unique marble texture for modern elegance.' },
+  { id:'p9', name:'Turquoise Blue Marble Set', price:2000, image:'img7a.png', href:'jewlproduct9.html', badge:'', tag:'marble', desc:'Vibrant turquoise marble capturing the allure of summer waters.' },
+];
+
+let activeFilter = 'all';
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = activeFilter === 'all' ? products : products.filter(p => p.tag === activeFilter);
+  document.querySelector('.collection-count').textContent = `${filtered.length} Product${filtered.length !== 1 ? 's' : ''}`;
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+        <div class="product-actions">
+          <button class="quick-view-btn" onclick="openQuickView('${p.id}')">Quick View</button>
+          <button class="atc-btn" onclick="event.preventDefault();addToCart({id:'${p.id}',name:'${p.name}',price:${p.price},image:'${p.image}'})">Add to Cart</button>
+        </div>
+      </div>
+      <a href="${p.href}">
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">Rs ${p.price.toLocaleString()}</div>
+        </div>
+      </a>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeFilter = tab.dataset.filter;
+    renderProducts();
+  });
+});
+
+function openQuickView(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('qv-img').src = p.image;
+  document.getElementById('qv-name').textContent = p.name;
+  document.getElementById('qv-price').textContent = `Rs ${p.price.toLocaleString()}`;
+  document.getElementById('qv-desc').textContent = p.desc;
+  const badge = document.getElementById('qv-badge');
+  if (p.badge) { badge.textContent = p.badge; badge.style.display = 'inline-block'; }
+  else badge.style.display = 'none';
+  document.getElementById('qv-atc-btn').onclick = () => {
+    addToCart({id:p.id,name:p.name,price:p.price,image:p.image});
+    closeQuickView();
+  };
+  document.getElementById('qv-full-link').href = p.href;
+  document.getElementById('qv-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuickView() {
+  document.getElementById('qv-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('qv-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('qv-overlay')) closeQuickView();
+});
+
+renderProducts();
+</script>
 </body>
 </html>

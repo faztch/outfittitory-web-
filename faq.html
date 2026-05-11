@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — OUTFITITORY</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .page-banner { background:var(--off-white);padding:80px 40px;text-align:center;border-bottom:1px solid var(--border-light); }
+    .page-banner .eyebrow { font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px; }
+    .page-banner h1 { font-size:52px;font-weight:300;color:var(--charcoal); }
+    .page-banner h1::after { content:'';display:block;width:60px;height:2px;background:var(--gold);margin:16px auto 0; }
+    .page-banner p { font-size:15px;color:var(--text-muted);margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto; }
+
+    .faq-layout { max-width:800px;margin:0 auto;padding:80px 40px 100px; }
+
+    .faq-category { margin-bottom: 56px; }
+    .category-title {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .category-title::after { content:'';flex:1;height:1px;background:var(--border-light); }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--charcoal);
+      text-align: left;
+      gap: 16px;
+      transition: var(--transition);
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-question .icon {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+      color: var(--gold);
+      transition: all 0.3s ease;
+    }
+    .faq-item.open .faq-question .icon {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+      color: var(--white);
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+    }
+    .faq-answer-inner {
+      padding: 0 0 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    /* CONTACT STRIP */
+    .contact-strip {
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      text-align: center;
+      border: 1px solid var(--border-light);
+      margin-top: 40px;
+    }
+    .contact-strip h3 { font-size:28px;font-weight:300;color:var(--charcoal);margin-bottom:8px; }
+    .contact-strip p { font-size:14px;color:var(--text-muted);margin-bottom:24px; }
+    .contact-strip .wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      background: #25D366;
+      color: var(--white);
+      border-radius: var(--radius);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      transition: var(--transition);
+    }
+    .contact-strip .wa-link:hover { background: #128C7E; }
+
+    @media(max-width:768px) { .faq-layout { padding:60px 20px 80px; } .page-banner { padding:60px 20px; } .page-banner h1 { font-size:38px; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="nav-left"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a></div>
+    <div class="nav-logo"><a href="index.html">OUTFITITORY</a></div>
+    <div class="nav-right">
+      <a href="faq.html" style="color:var(--gold);">FAQ</a><a href="contact.html">Contact</a>
+      <button class="cart-btn" onclick="openCartDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav"><a href="plp.html">Jewelry Sets</a><a href="bracelets.html">Bracelets</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <p class="eyebrow">Help Centre</p>
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you need to know about our jewelry, orders, and delivery.</p>
+</div>
+
+<!-- FAQ -->
+<div class="faq-layout">
+
+  <div class="faq-category">
+    <p class="category-title">Products</p>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What is your jewelry made of?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Our jewelry is crafted from zinc alloy and copper bases with gold or silver plating, adorned with high-quality synthetic stones and pearls. We carefully select materials that balance durability, appearance, and affordability.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Is your jewelry safe for sensitive skin?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Most of our pieces are suitable for everyday wear. However, if you have very sensitive skin or a nickel allergy, we recommend checking the material description before purchase and opting for pieces labeled nickel-free.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Will the jewelry tarnish over time?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Over time, plated jewelry may show wear depending on exposure to moisture, perfumes, and chemicals. To preserve your jewelry, avoid contact with water, sweat, and cosmetics. Store pieces in a dry pouch when not in use.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What's included in a jewelry set?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Each set includes a statement necklace, a matching pair of earrings, and a coordinating ring — all beautifully presented in a signature OUTFITITORY gift pouch.</div></div>
+    </div>
+  </div>
+
+  <div class="faq-category">
+    <p class="category-title">Orders & Shipping</p>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        How do I place an order?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Browse our collection, add your favourite pieces to the cart, then proceed to checkout. Fill in your delivery details and click "Place Order via WhatsApp" — you'll be redirected to WhatsApp where you can confirm your order with us directly.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Do you offer Cash on Delivery?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Yes! We offer Cash on Delivery (COD) across Pakistan. You pay when your order arrives at your doorstep — no advance payment required.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        How long does delivery take?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">We deliver nationwide across Pakistan within 3 to 5 business days. Major cities like Lahore, Karachi, and Islamabad typically receive orders faster.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What is the shipping charge?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Standard shipping is Rs 250. Orders over Rs 3,000 qualify for free shipping. The shipping cost is calculated at checkout before you confirm.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Can I track my order?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Once your order is dispatched, we'll send you a tracking number via WhatsApp so you can follow your package's journey in real time.</div></div>
+    </div>
+  </div>
+
+  <div class="faq-category">
+    <p class="category-title">Returns & Care</p>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What is your return policy?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">We accept returns within 7 days of delivery, provided the item is unused, unworn, and in its original packaging. Please contact us via WhatsApp to initiate a return. Items showing signs of use or damage may not be eligible.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        How do I care for my jewelry?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">Keep jewelry away from water, perfumes, lotions, and harsh chemicals. Clean gently with a soft dry cloth. Store each piece separately in the provided pouch to prevent scratching and tarnishing.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What if I receive a damaged item?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">We're so sorry if that happens! Please take a photo of the damaged item and contact us on WhatsApp within 48 hours of receiving your order. We'll arrange a replacement or full refund right away.</div></div>
+    </div>
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <h3>Still have questions?</h3>
+    <p>Our team is available on WhatsApp — we're happy to help.</p>
+    <a href="https://wa.me/923425324001" class="wa-link" target="_blank">
+      <i class="fab fa-whatsapp" style="font-size:16px;"></i> Chat on WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo-text">OUTFITITORY</span><p>Fine jewelry crafted to make you feel confident and special.</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/923425324001"><i class="fab fa-whatsapp"></i></a></div></div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plp.html">Jewelry Sets</a></li><li><a href="bracelets.html">Bracelets</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="cart.html">Your Cart</a></li><li><a href="#">Return Policy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 OUTFITITORY. All rights reserved.</p><p>Cash on Delivery · Pakistan Nationwide</p></div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header"><h3>Your Cart</h3><button class="drawer-close" onclick="closeCartDrawer()">×</button></div>
+  <div id="cart-drawer-body"></div>
+  <div id="cart-drawer-footer" style="display:none;">
+    <div class="drawer-total-row"><span>Subtotal</span><span id="drawer-total">Rs 0</span></div>
+    <p class="drawer-shipping">Shipping: Rs 250</p>
+    <a href="checkout.html" class="btn-checkout">Proceed to Checkout</a>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30); });
+
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
