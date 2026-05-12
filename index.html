@@ -32,7 +32,7 @@
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 24px;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
       font-weight: 400;
       opacity: 0;
       animation: fadeUp 0.8s 0.2s forwards;
@@ -180,7 +180,7 @@
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 12px;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
     }
 
     .section-title {
@@ -348,7 +348,7 @@
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
       transition: var(--transition);
     }
 
@@ -366,7 +366,7 @@
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
       transition: var(--transition);
     }
 
@@ -386,7 +386,7 @@
       text-transform: uppercase;
       padding: 4px 10px;
       border-radius: 2px;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
     }
 
     .product-info {
@@ -542,7 +542,7 @@
       padding: 16px 20px;
       border: none;
       outline: none;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Jost', serif;
       font-size: 13px;
       background: transparent;
       color: var(--text);
@@ -950,11 +950,7 @@
   <h2 class="section-title">Join Our Community</h2>
   <p>Be the first to know about new arrivals and exclusive offers.</p>
   <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletter(event)">
-    <input type="email" id="newsletterEmail" name="EMAIL" placeholder="Enter your email address" required>
-    <!-- Mailchimp hidden bot protection field - do not remove -->
-    <div style="position:absolute;left:-5000px;" aria-hidden="true">
-      <input type="text" name="b_7bf14c3ac057a2a56b6661733_80a749d732" tabindex="-1" value="">
-    </div>
+    <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
     <button type="submit" id="newsletterBtn">Subscribe</button>
   </form>
   <p id="newsletterMsg" style="margin-top:14px;font-size:13px;display:none;"></p>
@@ -1108,13 +1104,45 @@ document.getElementById('qv-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('qv-overlay')) closeQuickView();
 });
 
-function handleNewsletter(e) {
+// ── REPLACE with your deployed Apps Script URL ──────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrNF3OMvjiOuShIJ7Lkq0sLaUo3cvYFbDS9yXLX2jkvW9T69cQIHPS9D8nqLvP71Zl/exec';
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function handleNewsletter(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.textContent = '✓ Subscribed!';
-  btn.style.background = 'var(--gold)';
-  setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
-  e.target.reset();
+  const btn = document.getElementById('newsletterBtn');
+  const msg = document.getElementById('newsletterMsg');
+  const email = document.getElementById('newsletterEmail').value.trim();
+
+  btn.textContent = 'Subscribing...';
+  btn.disabled = true;
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'newsletter', email, date: new Date().toLocaleString('en-PK') })
+    });
+    btn.textContent = 'Subscribed!';
+    btn.style.background = 'var(--gold)';
+    msg.style.display = 'block';
+    msg.style.color = '#2ecc71';
+    msg.textContent = "You're on the list! Thank you for subscribing.";
+    e.target.reset();
+    setTimeout(() => {
+      btn.textContent = 'Subscribe';
+      btn.style.background = '';
+      btn.disabled = false;
+      msg.style.display = 'none';
+    }, 4000);
+  } catch(err) {
+    btn.textContent = 'Subscribe';
+    btn.disabled = false;
+    msg.style.display = 'block';
+    msg.style.color = '#e74c3c';
+    msg.textContent = 'Something went wrong. Please try again.';
+  }
 }
 
 renderFeatured();

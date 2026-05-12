@@ -310,36 +310,39 @@ async function placeOrder() {
   const orderNumber = 'OT' + Math.floor(Math.random() * 900000 + 100000);
   const orderDate   = new Date().toLocaleDateString('en-PK', { year:'numeric', month:'long', day:'numeric' });
 
-  // ── Build items summary string for Formspree ──────────────────
+  // ── Build items summary string ─────────────────────────────────
   const itemsSummary = cart.map(item =>
     `${item.name} x${item.quantity} = Rs ${(item.price * item.quantity).toLocaleString()}`
   ).join(' | ');
 
-  // ── 1. Send to Formspree (silent, background) ─────────────────
+  // ── 1. Send to Google Sheets (silent, background) ─────────────
+  // REPLACE with your deployed Apps Script URL (same one as newsletter)
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrNF3OMvjiOuShIJ7Lkq0sLaUo3cvYFbDS9yXLX2jkvW9T69cQIHPS9D8nqLvP71Zl/exec';
   try {
-    await fetch('https://formspree.io/f/xbdwygna', {
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        // These become the column headers in your Formspree dashboard
-        'Order Number'    : orderNumber,
-        'Order Date'      : orderDate,
-        'Customer Name'   : `${firstName} ${lastName}`,
-        'Email'           : email,
-        'Phone'           : phone,
-        'Address'         : `${address}, ${city}${postal ? ', ' + postal : ''}`,
-        'City'            : city,
-        'Items Ordered'   : itemsSummary,
-        'Subtotal (Rs)'   : subtotal,
-        'Shipping (Rs)'   : shipping,
-        'Total (Rs)'      : total,
-        'Payment Method'  : 'Cash on Delivery',
-        'Notes'           : notes || 'None',
+        type            : 'order',
+        orderNumber,
+        orderDate,
+        customerName    : `${firstName} ${lastName}`,
+        email,
+        phone,
+        address         : `${address}, ${city}${postal ? ', ' + postal : ''}`,
+        city,
+        itemsSummary,
+        subtotal,
+        shipping,
+        total,
+        paymentMethod   : 'Cash on Delivery',
+        notes           : notes || 'None',
       })
     });
   } catch (err) {
-    // Formspree failure is silent — WhatsApp order still goes through
-    console.warn('Formspree submission failed:', err);
+    // Sheet failure is silent — WhatsApp order still goes through
+    console.warn('Google Sheets submission failed:', err);
   }
 
   // ── 2. Build WhatsApp message ─────────────────────────────────
